@@ -35,25 +35,27 @@ const ButtonsWrapper = styled.div`
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
-    gap: 3rem;
+    gap: 2rem;
   }
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
     flex-basis: 0;
     flex-grow: 1;
-    gap: 2rem;
   }
 `;
+
+
 
 
 const AppTitle = styled.div`
   /* Mobile */
   h1 {
     font-size: 2.5rem;
-    font-weight: 300;
     margin: 0;
     padding-top: 0;
+    font-family: "Rubik Variable","Rubik", sans-serif;
+    font-weight: 300;
 
     span {
       font-weight: 500;
@@ -62,7 +64,7 @@ const AppTitle = styled.div`
 
   p {
     margin-top: 1rem;
-    font-style: italic;
+    font-family: "Rubik Italic", "Rubik", sans-serif;
     color: ${({ theme }) => theme.lightMode.miniText};
     font-size: 1rem;
   }
@@ -83,8 +85,8 @@ const AppTitle = styled.div`
       font-size: 4rem;
     }
 
-    p{
-        margin-top:4rem;
+    p {
+      margin-top: 4rem;
     }
   }
 `;

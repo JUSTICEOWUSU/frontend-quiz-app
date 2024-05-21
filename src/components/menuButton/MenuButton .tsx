@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Button = styled.button<{background:string}>`
+const Button = styled.button<{ background: string }>`
   /* Mobile */
 
   width: 100%;
@@ -29,8 +29,8 @@ const Button = styled.button<{background:string}>`
   }
 
   p {
-    font-style: normal;
-    font-weight: bold;
+    font-family: "Rubik Variable", "Rubik", sans-serif;
+    font-weight: 500;
     font-size: 1rem;
   }
 
