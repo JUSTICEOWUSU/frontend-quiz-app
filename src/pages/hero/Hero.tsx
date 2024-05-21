@@ -100,10 +100,26 @@ function Hero() {
         <p>Pick a subject to get started.</p>
       </AppTitle>
       <ButtonsWrapper>
-        <MenuButton />
-        <MenuButton />
-        <MenuButton />
-        <MenuButton />
+        <MenuButton
+          icon={"/images/icon-html.svg"}
+          background={"#FFF1E9"}
+          subject={"HTML"}
+        />
+        <MenuButton
+          icon={"/images/icon-css.svg"}
+          background={"#E0FDEF"}
+          subject={"CSS"}
+        />
+        <MenuButton
+          icon={"/images/icon-js.svg"}
+          background={"#EBF0FF"}
+          subject={"Javascript"}
+        />
+        <MenuButton
+          icon={"/images/icon-accessibility.svg"}
+          background={"#F6E7FF"}
+          subject={"Accessibility"}
+        />
       </ButtonsWrapper>
     </Wrapper>
   );

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Button = styled.button`
+const Button = styled.button<{background:string}>`
   /* Mobile */
 
   width: 100%;
@@ -19,7 +19,7 @@ const Button = styled.button`
     width: 2.5rem;
     height: 2.5rem;
     padding: 0.3125rem;
-    background: #fff1e9;
+    background: ${({ background }) => background};
     border-radius: 0.5rem;
 
     img {
@@ -50,16 +50,16 @@ const Button = styled.button`
 `;
 
 
-function MenuButton () {
+function MenuButton({ icon, background, subject }: { icon: string; background: string; subject: string; }) {
   return (
-    <Button>
+    <Button background = {background}>
       <span>
         <img
-          src="\public\images\icon-html.svg"
+          src={icon}
           alt=""
         />
      </span>
-          <p>HTML</p>
+      <p>{ subject }</p>
     </Button>
   );
 }
