@@ -4,7 +4,7 @@ const Button = styled.button<{ background: string }>`
   /* Mobile */
 
   width: 100%;
-  height: 4.5rem;
+  height: 4rem;
   padding: 1.25rem;
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@ const Button = styled.button<{ background: string }>`
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
-    height: 5.5rem;
+    height: 5rem;
 
     span {
       width: 2.8125rem;

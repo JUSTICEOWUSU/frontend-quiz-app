@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import MenuButton from "../../components/menuButton/MenuButton ";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   /* Mobile */
   width: 100%;
   margin: 0;
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const ButtonsWrapper = styled.div`
+export const ButtonsWrapper = styled.div`
   /* Mobile */
   width: 100%;
   gap: 1rem;
