@@ -1,5 +1,8 @@
 interface ColorMade {
-        [key:string] : string
+        button: string,
+        background: string,
+        text:string,
+        miniText:string
 }
 
 interface Theme {
@@ -13,7 +16,7 @@ interface Theme {
  const theme: Theme = {
     lightMode: {
         button: '#FFFFFF',
-        background: "F4F6FA",
+        background: "#F4F6FA",
         text:"#313E51",
         miniText:"#626C7F"
     },

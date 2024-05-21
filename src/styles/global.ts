@@ -1,6 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+
+* {
+  box-sizing: border-box;
+}
+
   /* Static font definitions */
   @font-face {
     font-family: 'Rubik';
@@ -26,6 +31,8 @@ const GlobalStyle = createGlobalStyle`
   /* Fallback font family */
   body {
     font-family: 'Rubik', sans-serif;
+    padding:0;
+    margin:0;
   }
 
   /* Variable fonts if supported */
