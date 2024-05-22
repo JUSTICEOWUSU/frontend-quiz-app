@@ -11,13 +11,15 @@ function RouteConfig() {
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-          <Router>
-            <Routes>
-              <Route element={<Layout />}>
-                <Route index element={<Result/>}></Route>
-              </Route>
-            </Routes>
-          </Router>
+        <Router>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<Hero />} />
+              <Route path="/:subject" element={<Subject />} />
+              <Route path="/result" element={<Result />} />
+            </Route>
+          </Routes>
+        </Router>
       </ThemeProvider>
     );
 }
