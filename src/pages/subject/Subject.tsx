@@ -4,6 +4,7 @@ import OptionsButton from "../../components/optionsButton/OptionsButton";
 import { ButtonsWrapper } from "../hero/Hero"
 import SubmitButton from "../../components/submitButton/SubmitButton";
 
+
 export const Wrapper = styled.div`
   /* Mobile */
   width: 100%;
@@ -29,7 +30,7 @@ export const Wrapper = styled.div`
 
 
 const QuestionWrapper = styled.div`
-padding:0;
+  padding:0;
   .question-number {
     font-size: 0.875rem;
     margin-top: 0;
@@ -112,7 +113,6 @@ function Subject() {
         <OptionsButton option={"A"} answer={"Hyper Text Markup Language"} />
         <OptionsButton option={"A"} answer={"Hyper Text Markup Language"} />
         <OptionsButton option={"A"} answer={"Hyper Text Markup Language"} />
-
         <SubmitButton />
       </ButtonsWrapper>
     </Wrapper>

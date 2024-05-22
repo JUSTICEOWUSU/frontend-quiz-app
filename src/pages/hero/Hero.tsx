@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import MenuButton from "../../components/menuButton/MenuButton ";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   /* Mobile */
   width: 100%;
   margin: 0;
@@ -48,7 +48,7 @@ export const ButtonsWrapper = styled.div`
 
 
 
-const AppTitle = styled.div`
+export const AppTitle = styled.div`
   /* Mobile */
   h1 {
     font-size: 2.5rem;
