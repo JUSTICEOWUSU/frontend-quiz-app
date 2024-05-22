@@ -20,7 +20,6 @@ export const Wrapper = styled.div`
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
     flex-direction: row;
-    padding-left: 2rem;
   }
 `;
 
@@ -42,6 +41,7 @@ export const ButtonsWrapper = styled.div`
   @media (min-width: 1025px) {
     flex-basis: 0;
     flex-grow: 1;
+    gap:1.5rem;
   }
 `;
 
@@ -66,13 +66,17 @@ const AppTitle = styled.div`
     margin-top: 1rem;
     font-family: "Rubik Italic", "Rubik", sans-serif;
     color: ${({ theme }) => theme.lightMode.miniText};
-    font-size: 1rem;
+    font-size: 0.875rem;
   }
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
     h1 {
       font-size: 3.5rem;
+    }
+
+    p{
+      font-size: 1rem;
     }
   }
 

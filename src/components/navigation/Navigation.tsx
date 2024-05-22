@@ -11,11 +11,11 @@ const ModeBar = styled.div`
 
 const ToggleWrapper = styled.div`
   /* Mobile */
-  width: 128px;
-  height: 24px;
+  width: 80px;
+  height: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
 
   img {
     width: 100%;
@@ -30,8 +30,8 @@ const ToggleWrapper = styled.div`
 
 
 const Span = styled.span`
-    width:24px;
-    height:24px;
+    width:16px;
+    height:16px;
     display:block;
 `
 

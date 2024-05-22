@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
-    padding: 4rem 6rem;
+    padding: 4rem 8.75rem;
     background-image: url("/images/pattern-background-desktop-light.svg");
   }
 `;

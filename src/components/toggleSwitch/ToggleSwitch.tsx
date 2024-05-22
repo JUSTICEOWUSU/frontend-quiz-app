@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 const Label = styled.label`
   position: relative;
-  display: inline-block;
-  width: 48px;
-  height: 28px;
+  display: block;
+  width: 32px;
+  height: 20px;
 
   input {
     opacity: 0;
@@ -13,9 +13,9 @@ const Label = styled.label`
   }
 
   input:checked + span:before {
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
+    -webkit-transform: translateX(12px);
+    -ms-transform: translateX(12px);
+    transform: translateX(12px);
   }
 `;
 
@@ -34,8 +34,8 @@ const Span = styled.span`
   &:before {
     position: absolute;
     content: "";
-    height: 20px;
-    width: 20px;
+    height: 12px;
+    width: 12px;
     left: 4px;
     bottom: 4px;
     background-color: #fff;
