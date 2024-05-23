@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { Wrapper } from "../Subject";
-import { ButtonsWrapper } from "../../hero/Hero";
-import { AppTitle } from "../../hero/Hero";
-import SubmitButton from "../../../components/submitButton/SubmitButton";
+import { Wrapper } from "../subject/Subject";
+import { ButtonsWrapper } from "../hero/Hero";
+import { AppTitle } from "../hero/Hero";
+import SubmitButton from "../../components/submitButton/SubmitButton";
 
 const ResultsCard = styled.div`
   width: 100%;

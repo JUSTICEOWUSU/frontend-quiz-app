@@ -6,20 +6,21 @@ const Wrapper = styled.div`
   width: 100%;
   margin: 0;
   gap: 2rem;
-  margin-top: 3.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
-    margin-top: 4rem;
-    gap: 3rem;
+    height: 39.875rem;
   }
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
+    gap: 3rem;
+    height: auto;
     flex-direction: row;
+    justify-content: space-between;
   }
 `;
 
@@ -41,7 +42,6 @@ export const ButtonsWrapper = styled.div`
   @media (min-width: 1025px) {
     flex-basis: 0;
     flex-grow: 1;
-    gap:1.5rem;
   }
 `;
 
@@ -101,7 +101,7 @@ function Hero() {
     <Wrapper>
       <AppTitle>
         <h1>
-          Welcom to the <br /> <span>Frontend Quiz!</span>{" "}
+          Welcome to the <br /> <span>Frontend Quiz!</span>{" "}
         </h1>
         <p>Pick a subject to get started.</p>
       </AppTitle>

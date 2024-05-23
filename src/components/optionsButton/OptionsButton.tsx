@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Button = styled.button`
   width: 100%;
-  height: 4rem;
   padding: 0.7rem;
   display: flex;
   align-items: center;
@@ -47,7 +46,6 @@ const Button = styled.button`
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
-    height: 5rem;
 
     span {
       width: 3.5rem;
@@ -64,8 +62,8 @@ const Button = styled.button`
   }
 
   @media (min-width: 1050px) {
-    height: 5rem;
-    padding: 1.125rem 1.25rem;
+    padding: 0 1rem;
+    min-height: 4.5rem;
   }
 
   &:hover {

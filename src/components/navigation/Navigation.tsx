@@ -6,12 +6,26 @@ const ModeBar = styled.div`
   height: auto;
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
   justify-content: space-between;
+
+  /* Tablet */
+  @media (min-width: 640px) {
+    margin-bottom: 3.0625rem;
+  }
+
+  /* Desktop (1025px ->) */
+  @media (min-width: 1052px) {
+    margin-right: 24px;
+    margin-bottom: 4.5rem;
+  }
 `;
 
 const ToggleWrapper = styled.div`
   /* Mobile */
   width: 80px;
+  margin: 0;
+  padding:1rem 0;
   height: 20px;
   display: flex;
   justify-content: space-between;

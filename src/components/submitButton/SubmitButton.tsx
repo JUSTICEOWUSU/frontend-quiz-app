@@ -1,6 +1,4 @@
-import React from 'react'
 import styled from 'styled-components'
-
 
 const Button = styled.button`
   width: 100%;
@@ -22,9 +20,13 @@ const Button = styled.button`
   /* Tablets (640px->) */
   @media (min-width: 640px) {
    font-size: 1.75rem;
-   height: 5.75rem;
+   height: 5rem;
    border-radius: 1.5rem;
   }
+
+    @media (min-width: 640px) {
+
+    }
 
 `;
 

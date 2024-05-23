@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import Layout from "./components/layout/Layout";
 import Hero from "./pages/hero/Hero";
-import Result from "./pages/subject/result/Result";
+import Result from "./pages/result/Result";
 import Subject from "./pages/subject/Subject";
 
 function RouteConfig() {

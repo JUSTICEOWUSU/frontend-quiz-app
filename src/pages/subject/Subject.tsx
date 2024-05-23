@@ -10,27 +10,26 @@ export const Wrapper = styled.div`
   width: 100%;
   margin: 0;
   gap: 2rem;
-  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
-    margin-top: 3.0625rem;
     gap: 4rem;
   }
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
     flex-direction: row;
-    gap:8.1rem;
+    gap: 8rem;
   }
 `;
 
 
 const QuestionWrapper = styled.div`
   padding:0;
+  /* width:462px; */
   .question-number {
     font-size: 0.875rem;
     margin-top: 0;
