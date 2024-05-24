@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { Wrapper } from "../subject/Subject";
-import { ButtonsWrapper } from "../hero/Hero";
-import { AppTitle } from "../hero/Hero";
+import { ButtonsWrapper, TitleWrapper, ContentWrapper } from "../../components/layout/SharedLayouts";
 import SubmitButton from "../../components/submitButton/SubmitButton";
 
 const ResultsCard = styled.div`
@@ -84,14 +82,15 @@ const ResultsCard = styled.div`
   }
 `;
 
+
 function Result() {
   return (
-    <Wrapper>
-      <AppTitle>
+    <ContentWrapper>
+      <TitleWrapper>
         <h1>
           Quiz completed <br></br><span>You scored...</span>
         </h1>
-      </AppTitle>
+      </TitleWrapper>
 
       <ButtonsWrapper>
         <ResultsCard>
@@ -106,7 +105,7 @@ function Result() {
               </ResultsCard>
               <SubmitButton/>
       </ButtonsWrapper>
-    </Wrapper>
+    </ContentWrapper>
   );
 }
 

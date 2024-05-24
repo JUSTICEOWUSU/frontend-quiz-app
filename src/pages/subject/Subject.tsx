@@ -1,30 +1,7 @@
 import styled from "styled-components"
 import OptionsButton from "../../components/optionsButton/OptionsButton";
-
-import { ButtonsWrapper } from "../hero/Hero"
+import { ButtonsWrapper, ContentWrapper } from "../../components/layout/SharedLayouts"; 
 import SubmitButton from "../../components/submitButton/SubmitButton";
-
-
-export const Wrapper = styled.div`
-  /* Mobile */
-  width: 100%;
-  margin: 0;
-  gap: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  /* Tablets (640px->) */
-  @media (min-width: 640px) {
-    gap: 4rem;
-  }
-
-  /* Desktop (1025px ->) */
-  @media (min-width: 1025px) {
-    flex-direction: row;
-    gap: 8rem;
-  }
-`;
 
 
 const QuestionWrapper = styled.div`
@@ -62,7 +39,6 @@ const QuestionWrapper = styled.div`
   @media (min-width: 1050px) {
     flex-basis: 0;
     flex-grow: 1;
-
   }
 `;
 
@@ -93,10 +69,9 @@ const ProgressBar = styled.span`
 
 `;
 
-
 function Subject() {
   return (
-    <Wrapper>
+    <ContentWrapper>
       <QuestionWrapper>
         <p className="question-number">5 0ut of 10</p>
         <span className="question">
@@ -114,7 +89,7 @@ function Subject() {
         <OptionsButton option={"A"} answer={"Hyper Text Markup Language"} />
         <SubmitButton />
       </ButtonsWrapper>
-    </Wrapper>
+    </ContentWrapper>
   );
 }
 
