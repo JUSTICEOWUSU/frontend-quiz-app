@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import Navigation from "../navigation/Navigation";
-import { Outlet,useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
+import { createContext,useState } from "react";
 
 const Wrapper = styled.div <{subject?:string}>`
   /* Mobile */
@@ -34,15 +35,18 @@ const Wrapper = styled.div <{subject?:string}>`
 
 function Layout() {
   const { subject } = useParams();
-  console.log(subject);
-  
+
+  const [colorMode, setColoMoede] = useState("")
+  const LightDarkModeContext = createContext(colorMode);
 
 
   return (
+    <LightDarkModeContext.Provider value={colorMode}>
       <Wrapper subject={subject}>
-          <Navigation/>
-          <Outlet/>
-    </Wrapper>
+        <Navigation />
+        <Outlet />
+      </Wrapper>
+    </LightDarkModeContext.Provider >
   );
 }
 
