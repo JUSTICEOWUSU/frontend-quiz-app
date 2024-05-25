@@ -10,7 +10,8 @@ interface Theme {
     darkMode:ColorMade
     primaryBlue: string
     secondaryGreen: string;
-    tertiaryRed:string
+    tertiaryRed: string;
+    mode?: string;
 }
 
  const theme: Theme = {

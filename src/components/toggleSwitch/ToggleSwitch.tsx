@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { useContext } from 'react';
+import { ModeContext } from '../../App';
 
 const Label = styled.label`
   position: relative;
@@ -47,9 +49,14 @@ const Span = styled.span`
 
 
 function ToggleSwitch() {
+  const { colorMode, setColorMode } = useContext(ModeContext);
+function listenToOnchange() {
+    return setColorMode(colorMode == "light"? "dark": "light")
+  }
+
   return (
       <Label>
-          <input type="checkbox"></input>
+          <input type="checkbox" onChange={listenToOnchange} checked={colorMode === "dark"}></input>
           <Span/>
       </Label>
   )

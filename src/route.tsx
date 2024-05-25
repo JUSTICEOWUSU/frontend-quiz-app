@@ -1,16 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import GlobalStyle from "./styles/global";
-import { ThemeProvider } from "styled-components";
-import theme from "./styles/theme";
 import Layout from "./components/layout/Layout";
 import Hero from "./pages/hero/Hero";
 import Result from "./pages/result/Result";
 import Subject from "./pages/subject/Subject";
 
+
 function RouteConfig() {
-    return (
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
+
+  return (
+
         <Router>
           <Routes>
             <Route element={<Layout />}>
@@ -20,7 +18,7 @@ function RouteConfig() {
             </Route>
           </Routes>
         </Router>
-      </ThemeProvider>
+
     );
 }
 

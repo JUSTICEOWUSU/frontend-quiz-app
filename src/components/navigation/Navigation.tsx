@@ -58,7 +58,7 @@ function Navigation() {
           <img src="images/icon-sun-dark.svg" />
         </Span>
               
-        <ToggleSwitch/>
+        <ToggleSwitch />
 
         <Span>
           <img src="images/icon-moon-dark.svg" />

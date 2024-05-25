@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import MenuButton from "../../components/menuButton/MenuButton ";
-import { ButtonsWrapper,TitleWrapper } from "../../components/layout/SharedLayouts"; 
+import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts"; 
+// import { ModeContext } from "../../components/layout/Layout";
+import { useContext } from "react";
 
 
 const Wrapper = styled.div`
@@ -11,6 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: all 300ms ease-out;
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
@@ -29,6 +32,7 @@ const Wrapper = styled.div`
 
 
 function Hero() {
+  // const {colorMode} = useContext(ModeContext)
   return (
     <Wrapper>
       <TitleWrapper>
