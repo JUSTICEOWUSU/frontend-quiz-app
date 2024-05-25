@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import ToggleSwitch from "../toggleSwitch/ToggleSwitch"
+import { useContext } from "react";
+import { ModeContext } from "../../App";
 
 const ModeBar = styled.div`
   width: 100%;
@@ -26,44 +28,65 @@ const ToggleWrapper = styled.div`
   /* Mobile */
   width: 80px;
   margin: 0;
-  padding:1rem 0;
+  padding: 1rem 0;
   height: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
 
-  img {
-    width: 100%;
-    height: 100%;
+  .imageContainer {
+    width: 1rem;
+    height: 1rem;
+    display: block;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
-  /* Desktop (1025px ->) */
-  @media (min-width: 1052px) {
+
+  /* Tablet (1025px ->) */
+  @media (min-width: 640px) {
     margin-right: 24px;
+    width: 8rem;
+
+    .imageContainer {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
   }
 `;
 
 
-const Span = styled.span`
-    width:16px;
-    height:16px;
-    display:block;
-`
-
 function Navigation() {
+  const { colorMode } = useContext(ModeContext)
+  
   return (
     <ModeBar>
       <div></div>
       <ToggleWrapper>
-        <Span>
-          <img src="images/icon-sun-dark.svg" />
-        </Span>
-              
+        <span className="imageContainer">
+          <img
+            src={`${
+              colorMode == "dark"
+                ? "images/icon-sun-light.svg"
+                : "images/icon-sun-dark.svg"
+            }`}
+          />
+        </span>
+
         <ToggleSwitch />
 
-        <Span>
-          <img src="images/icon-moon-dark.svg" />
-        </Span>
+        <span className="imageContainer">
+          <img
+            src={`${
+              colorMode == "dark"
+                ? "images/icon-moon-light.svg"
+                : "images/icon-moon-dark.svg"
+            }`}
+          />
+        </span>
       </ToggleWrapper>
     </ModeBar>
   );

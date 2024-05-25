@@ -5,8 +5,8 @@ import { ModeContext } from '../../App';
 const Label = styled.label`
   position: relative;
   display: block;
-  width: 32px;
-  height: 20px;
+  width: 2rem;
+  height: 1.25rem;
 
   input {
     opacity: 0;
@@ -18,6 +18,18 @@ const Label = styled.label`
     -webkit-transform: translateX(12px);
     -ms-transform: translateX(12px);
     transform: translateX(12px);
+  }
+
+  /* Tablet (640px) */
+  @media (min-width: 640px) {
+    width: 3rem;
+    height: 1.75rem;
+
+    input:checked + span:before {
+      -webkit-transform: translateX(1.25rem);
+      -ms-transform: translateX(1.25rem);
+      transform: translateX(1.25rem);
+    }
   }
 `;
 
@@ -44,12 +56,20 @@ const Span = styled.span`
     -webkit-transition: 0.4s;
     transition: 0.4s;
     border-radius: 50%;
-  } 
+  }
+
+    @media (min-width: 640px) {
+      &:before{
+        width:1.25rem;
+        height:1.25rem;
+      }
+    }
 `;
 
 
 function ToggleSwitch() {
   const { colorMode, setColorMode } = useContext(ModeContext);
+  
 function listenToOnchange() {
     return setColorMode(colorMode == "light"? "dark": "light")
   }

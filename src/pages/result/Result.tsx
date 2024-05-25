@@ -4,8 +4,12 @@ import SubmitButton from "../../components/submitButton/SubmitButton";
 
 const ResultsCard = styled.div`
   width: 100%;
-  background-color: ${({ theme }) => theme.lightMode.button};
-  box-shadow: 0px 16px 40px rgba(143, 160, 193, 0.14);
+  background-color: ${({ theme }) =>
+    (theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button)};
+  box-shadow: ${({ theme }) =>
+    (theme.mode == "dark"
+      ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
+      : "0 1rem 2.5rem rgba(143, 160, 193, 0.14)")};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -35,7 +39,6 @@ const ResultsCard = styled.div`
 
     h4 {
       font-family: "Rubik Variable", "Rubik", sans-serif;
-      color: ${({ theme }) => theme.lightMode.text};
       font-weight: 500;
       font-size: 1.125rem;
     }
@@ -52,8 +55,9 @@ const ResultsCard = styled.div`
   span {
     font-size: 1.125rem;
     font-family: "Rubik Variable", "Rubik", sans-serif;
-    color:${({theme}) => theme.lightMode.text};
-    font-weight:400;
+    font-weight: 400;
+    color: ${({ theme }) =>
+      (theme.mode == "dark" ? theme.darkMode.miniText : theme.lightMode.miniText)};
   }
 
   @media (min-width: 640px) {
@@ -76,8 +80,8 @@ const ResultsCard = styled.div`
       font-size: 9rem;
     }
 
-    span{
-        font-size: 1.5rem;
+    span {
+      font-size: 1.5rem;
     }
   }
 `;
