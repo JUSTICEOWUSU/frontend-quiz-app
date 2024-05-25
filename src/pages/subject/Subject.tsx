@@ -5,12 +5,12 @@ import SubmitButton from "../../components/submitButton/SubmitButton";
 
 
 const QuestionWrapper = styled.div`
-  padding:0;
-  /* width:462px; */
+  padding: 0;
   .question-number {
     font-size: 0.875rem;
     margin-top: 0;
-    color: ${({ theme }) => theme.lightMode.miniText};
+    color: ${({ theme }) =>
+      theme.mode == "dark" ? theme.darkMode.miniText : theme.lightMode.miniText};
     font-family: "Rubik Variable Italic", "Rubik Italic", sans-serif;
   }
 
@@ -47,7 +47,8 @@ const ProgressBar = styled.span`
   width: 100%;
   height: 0.6rem;
   padding: 0.25rem;
-  background-color: ${({ theme }) => theme.lightMode.button};
+  background-color: ${({ theme }) =>
+    theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button};
   border-radius: 62rem;
 
   span {
@@ -63,10 +64,9 @@ const ProgressBar = styled.span`
     height: 1rem;
   }
 
-    @media (min-width: 1050px) {
-        margin-top:7.6875rem;
-    }
-
+  @media (min-width: 1050px) {
+    margin-top: 7.6875rem;
+  }
 `;
 
 function Subject() {

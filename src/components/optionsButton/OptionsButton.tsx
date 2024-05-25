@@ -10,15 +10,23 @@ const Button = styled.button`
   gap: 0.6875rem;
   flex-grow: 0;
   border-radius: 1.25rem;
-  background-color: ${({ theme }) => theme.lightMode.button};
-  box-shadow: 0 1rem 2.5rem rgba(143, 160, 193, 0.14);
+  color: ${({ theme }) =>
+    theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
+
+  background-color: ${({ theme }) =>
+    theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button};
+
+  box-shadow: ${({ theme }) =>
+    theme.mode == "dark"
+      ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
+      : "0 1rem 2.5rem rgba(143, 160, 193, 0.14)"};
 
   .answer {
     font-family: "Rubik Variable ", "Rubik", sans-serif;
     font-weight: 500;
     padding: 0;
-    margin:0;
-    color: ${({ theme }) => theme.lightMode.text};
+    margin: 0;
+    /* color: ${({ theme }) => theme.lightMode.text}; */
     font-size: 1.125rem;
     text-align: left;
     text-transform: capitalize;
@@ -46,7 +54,6 @@ const Button = styled.button`
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
-
     span {
       width: 3.5rem;
       height: 3.5rem;
@@ -64,6 +71,15 @@ const Button = styled.button`
   @media (min-width: 1050px) {
     padding: 0 1rem;
     min-height: 4.5rem;
+
+    span {
+      width: 2.8rem;
+      height: 2.8rem;
+
+      p {
+        font-size: 1.5rem;
+      }
+    }
   }
 
   &:hover {

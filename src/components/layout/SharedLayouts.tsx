@@ -84,7 +84,6 @@ export const ContentWrapper = styled.div`
   gap: 2rem;
   display: flex;
   flex-direction: column;
-  border:1px solid red;
   justify-content: space-between;
 
   /* Tablets (640px->) */

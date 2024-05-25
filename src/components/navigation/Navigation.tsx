@@ -9,6 +9,7 @@ const ModeBar = styled.div`
   margin-bottom: 2rem;
   justify-content: space-between;
 
+  
   /* Tablet */
   @media (min-width: 640px) {
     margin-bottom: 3.0625rem;
