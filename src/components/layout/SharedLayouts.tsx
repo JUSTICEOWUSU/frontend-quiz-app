@@ -9,7 +9,6 @@ export const ButtonsWrapper = styled.div`
   padding: 0;
   justify-content: space-between;
   flex-direction: column;
-  transition: all 300ms ease-out;
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
@@ -27,7 +26,6 @@ export const ButtonsWrapper = styled.div`
 // Title container or wrapper for the title or headings in the Hero and Result page;
 export const TitleWrapper = styled.div`
   /* Mobile */
-  transition: all 300ms ease-out;
 
   h1 {
     font-size: 2.5rem;
@@ -35,7 +33,6 @@ export const TitleWrapper = styled.div`
     padding-top: 0;
     font-family: "Rubik Variable", "Rubik", sans-serif;
     font-weight: 300;
-    transition: all 3s ease-out;
 
     span {
       font-weight: 500;
@@ -45,7 +42,10 @@ export const TitleWrapper = styled.div`
   p {
     margin-top: 1rem;
     font-family: "Rubik Italic", "Rubik", sans-serif;
-    color: ${({ theme }) => theme.lightMode.miniText};
+    color: ${({ theme }) =>
+      theme.mode == "dark"
+        ? theme.darkMode.miniText
+        : theme.lightMode.miniText};
     font-size: 0.875rem;
   }
 

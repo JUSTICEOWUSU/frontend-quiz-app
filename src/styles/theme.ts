@@ -23,15 +23,15 @@ interface Theme {
     },
 
     darkMode: {
-        button:"3B4D66",
+        button:"#3B4D66",
         background: '#313E51',
         text:"#FFFFFF",
-        miniText:"ABC1E1"
+        miniText:"#ABC1E1"
     },
 
     primaryBlue: '#A729F5',
-    secondaryGreen: "26D782",
-    tertiaryRed: "EE5454"
+    secondaryGreen: "#26D782",
+    tertiaryRed: "#EE5454"
  
 }
 

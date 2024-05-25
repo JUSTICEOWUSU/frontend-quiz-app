@@ -1,8 +1,6 @@
 import styled from "styled-components"
 import MenuButton from "../../components/menuButton/MenuButton ";
 import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts"; 
-// import { ModeContext } from "../../components/layout/Layout";
-import { useContext } from "react";
 
 
 const Wrapper = styled.div`
@@ -28,7 +26,6 @@ const Wrapper = styled.div`
     justify-content: space-between;
   }
 `;
-
 
 
 function Hero() {

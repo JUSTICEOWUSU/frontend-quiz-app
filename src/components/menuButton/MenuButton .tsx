@@ -12,9 +12,12 @@ const Button = styled.button<{ background: string }>`
   gap: 1.875rem;
   flex-grow: 0;
   border-radius: 1.25rem;
-  background-color: ${({ theme }) => theme.lightMode.button};
-  box-shadow: 0 1rem 2.5rem rgba(143, 160, 193, 0.14);
-
+  color: ${({ theme }) => (theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text)};
+  background-color: ${({ theme }) => ( theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button)};
+  box-shadow: ${({ theme }) =>
+  (theme.mode == "dark"
+      ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
+      : "0 1rem 2.5rem rgba(143, 160, 193, 0.14)")};
   span {
     width: 2.5rem;
     height: 2.5rem;
