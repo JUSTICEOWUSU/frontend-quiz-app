@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom';
 
 const Button = styled.button<{ background: string }>`
   /* Mobile */
@@ -37,6 +38,10 @@ const Button = styled.button<{ background: string }>`
     font-size: 1rem;
   }
 
+  &:hover{
+    cursor:pointer;
+  }
+
   /* Tablets (640px->) */
   @media (min-width: 640px) {
     height: 5rem;
@@ -54,8 +59,13 @@ const Button = styled.button<{ background: string }>`
 
 
 function MenuButton({ icon, background, subject }: { icon: string; background: string; subject: string; }) {
+  const naviagate = useNavigate()
+
+  const respondToClick = () => {
+   return naviagate(`/${subject}`)
+ }
   return (
-    <Button background = {background}>
+    <Button background = {background} onClick={respondToClick}>
       <span>
         <img
           src={icon}

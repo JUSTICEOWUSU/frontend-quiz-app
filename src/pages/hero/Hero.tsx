@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import MenuButton from "../../components/menuButton/MenuButton ";
 import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts"; 
-
+import data from '../../../public/data.json' 
 
 const Wrapper = styled.div`
   /* Mobile */
@@ -28,6 +28,8 @@ const Wrapper = styled.div`
 `;
 
 
+
+
 function Hero() {
   // const {colorMode} = useContext(ModeContext)
   return (
@@ -38,13 +40,31 @@ function Hero() {
         </h1>
         <p>Pick a subject to get started.</p>
       </TitleWrapper>
-      <ButtonsWrapper>
-        <MenuButton
-          icon={"/images/icon-html.svg"}
-          background={"#FFF1E9"}
-          subject={"HTML"}
-        />
-        <MenuButton
+
+            <ButtonsWrapper>
+
+      {
+        data.quizzes.map(( item,index ) => {
+          return (
+            <MenuButton
+              key={index}
+              icon={item.icon}
+              background={`${
+                item.title == "HTML"
+                  ? "#FFF1E9"
+                  : item.title == "CSS"
+                  ? "#E0FDEF"
+                  : item.title == "JavaScript"
+                  ? "#EBF0FF"
+                  : "#F6E7FF"
+              }`}
+              subject={item.title}
+            />
+          );
+        })
+      }
+        
+        {/* <MenuButton
           icon={"/images/icon-css.svg"}
           background={"#E0FDEF"}
           subject={"CSS"}
@@ -58,7 +78,7 @@ function Hero() {
           icon={"/images/icon-accessibility.svg"}
           background={"#F6E7FF"}
           subject={"Accessibility"}
-        />
+        /> */}
       </ButtonsWrapper>
     </Wrapper>
   );
