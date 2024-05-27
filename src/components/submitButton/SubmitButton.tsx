@@ -29,9 +29,14 @@ const Button = styled.button`
   }
 `;
 
-function SubmitButton() {
+interface SubmitButtonTypes {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  content: string;
+}
+
+function SubmitButton({onClick,content}:SubmitButtonTypes) {
   return (
-    <Button>submit</Button>
+    <Button onClick={onClick}>{content}</Button>
   )
 }
 

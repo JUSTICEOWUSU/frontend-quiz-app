@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import ToggleSwitch from "../toggleSwitch/ToggleSwitch"
+import styled from "styled-components";
+import ToggleSwitch from "../toggleSwitch/ToggleSwitch";
 import { useContext } from "react";
 import { ModeContext } from "../../App";
 
@@ -11,7 +11,6 @@ const ModeBar = styled.div`
   margin-bottom: 2rem;
   justify-content: space-between;
 
-  
   /* Tablet */
   @media (min-width: 640px) {
     margin-bottom: 3.0625rem;
@@ -23,6 +22,7 @@ const ModeBar = styled.div`
     margin-bottom: 4.5rem;
   }
 `;
+
 
 const ToggleWrapper = styled.div`
   /* Mobile */
