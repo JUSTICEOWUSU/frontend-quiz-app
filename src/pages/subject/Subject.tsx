@@ -57,7 +57,7 @@ const ProgressBar = styled.span`
 
   span {
     display: block;
-    width: 60%;
+    transition: all 600ms ease-in-out;
     height: 100%;
     border-radius: 6.5rem;
     background-color: ${({ theme }) => theme.primaryBlue};
@@ -92,13 +92,24 @@ interface QuestionStateTypes{
 }
 
 function Subject() {
- 
+  // --> CUSTOM STATES/VARAIBLES FOR THE SUBJECT PAGE AND QUESTINING LOGIC <--//
+
+  // Obtaining the subject/topic from the url parameter
   const { subject } = useParams();
+
+  // Obtaining the data of the topic/subject
   const data = currentSubjectData(subject)[0].questions;
+
+  // A state that controls eitrher to move to next question or not
   const [goToNext, setGoToNext] = useState<boolean>(false);
+
+  // A state tracker for the current question
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+
+  // A state that controls the text content of the submit button e.g "submit answer","next question" and "see result"
   const [submitButtonContent, setSubmitButtonContent] = useState("submit answer");
 
+  // Question answer states (chosen answer, correct answer,etc.)
   const [questinonState, setQuestinonState] = useState<QuestionStateTypes>({
     answer: correctAnswer(
       data[currentQuestion].options,
@@ -108,40 +119,44 @@ function Subject() {
     disabled: false,
   });
 
-  
+  // states for the option buttons
   const [optionsState, setOptionsState] = useState<OptionTypes>({
-    a: {answer: "",   icon:""},
-    b: {answer: "",   icon:""},
-    c: {answer: "",   icon:""},
-    d: {answer: "",   icon:""},
+    a: { answer: "", icon: "" },
+    b: { answer: "", icon: "" },
+    c: { answer: "", icon: "" },
+    d: { answer: "", icon: "" },
   });
 
+  // Submit button onclick event listeenr
   function respondToSubmit() {
+    // checking if an answer has been selected
     if (!goToNext && questinonState.chosenAnswer) {
-        setQuestinonState((prev) => ({ ...prev, disabled: true }));
-       setGoToNext(true)
-       setSubmitButtonContent("next question");
+      setQuestinonState((prev) => ({ ...prev, disabled: true }));
+      setGoToNext(true);
+      setSubmitButtonContent("next question");
 
-      
+      // Checking if the selected answer is correct and goToNext(question) is false;
       if (questinonState.chosenAnswer == questinonState.answer) {
         return setOptionsState((prev) => ({
           ...prev,
-          [questinonState.chosenAnswer]: { answer: "correct", icon: "showIcon" },
+          [questinonState.chosenAnswer]: {
+            answer: "correct",
+            icon: "showIcon",
+          },
         }));
-      };
+      }
 
-      return  setOptionsState(( prev ) => ({
+      return setOptionsState((prev) => ({
         ...prev,
         [questinonState.chosenAnswer]: { answer: "wrong", icon: "showIcon" },
         [questinonState.answer]: {
           answer: "correction",
           icon: "showIcon",
         },
-       }));  
-      
+      }));
     }
-    
-    
+
+    // When goToNext state is true
     if (goToNext && questinonState.chosenAnswer) {
       setCurrentQuestion((prev) => prev + 1);
       setOptionsState({
@@ -152,49 +167,86 @@ function Subject() {
       });
       setSubmitButtonContent("submit answer");
       setGoToNext(false);
-    setQuestinonState((prev) => ({ ...prev, chosenAnswer: "a", disabled:false }));
+      setQuestinonState((prev) => ({
+        ...prev,
+        chosenAnswer: "a",
+        disabled: false,
+      }));
     }
- 
   }
 
+  // Option A event listerner
   function RespondToOptionA() {
-    setQuestinonState(prev=>({...prev,chosenAnswer:"a"}))
+    setQuestinonState((prev) => ({ ...prev, chosenAnswer: "a" }));
   }
 
-
+  // Option B event listerner
   function RespondToOptionB() {
-        setQuestinonState((prev) => ({ ...prev, chosenAnswer: "b" }));
+    setQuestinonState((prev) => ({ ...prev, chosenAnswer: "b" }));
   }
 
-
+  // Option C event listerner
   function RespondToOptionC() {
-        setQuestinonState((prev) => ({ ...prev, chosenAnswer: "c" }));
+    setQuestinonState((prev) => ({ ...prev, chosenAnswer: "c" }));
   }
 
-  
+  // Option D event listerner
   function RespondToOptionD() {
-        setQuestinonState((prev) => ({ ...prev, chosenAnswer: "d" }));
+    setQuestinonState((prev) => ({ ...prev, chosenAnswer: "d" }));
   }
+
 
   return (
     <ContentWrapper>
       <QuestionWrapper>
-        <p className="question-number">{ currentQuestion + 1} out of {data.length }</p>
-        <span className="question">
-          {
-            data[currentQuestion].question
-          }
-        </span>
+
+        {/* current question number */}
+        <p className="question-number">
+          {currentQuestion + 1} out of {data.length}
+        </p>
+
+        {/* Question */}
+        <span className="question">{data[currentQuestion].question}</span>
+
+        {/* Progress Bar */}
         <ProgressBar>
-          <span></span>
+          <span
+            style={{ width: `${((currentQuestion + 1) / data.length) * 100}%` }}
+          ></span>
         </ProgressBar>
+
       </QuestionWrapper>
 
+      {/* options  with the submit button*/}
       <ButtonsWrapper>
-        <OptionsButton option={"a"} content={data[currentQuestion].options[0]} answerState={optionsState.a} onClick={RespondToOptionA} disabled={questinonState.disabled} />
-        <OptionsButton option={"b"} content={data[currentQuestion].options[1]} answerState={optionsState.b} onClick={RespondToOptionB} disabled={questinonState.disabled} />
-        <OptionsButton option={"c"} content={data[currentQuestion].options[2]} answerState={optionsState.c} onClick={RespondToOptionC} disabled={questinonState.disabled} />
-        <OptionsButton option={"d"} content={data[currentQuestion].options[3]} answerState={optionsState.d} onClick={RespondToOptionD} disabled={questinonState.disabled} />
+        <OptionsButton
+          option={"a"}
+          content={data[currentQuestion].options[0]}
+          answerState={optionsState.a}
+          onClick={RespondToOptionA}
+          disabled={questinonState.disabled}
+        />
+        <OptionsButton
+          option={"b"}
+          content={data[currentQuestion].options[1]}
+          answerState={optionsState.b}
+          onClick={RespondToOptionB}
+          disabled={questinonState.disabled}
+        />
+        <OptionsButton
+          option={"c"}
+          content={data[currentQuestion].options[2]}
+          answerState={optionsState.c}
+          onClick={RespondToOptionC}
+          disabled={questinonState.disabled}
+        />
+        <OptionsButton
+          option={"d"}
+          content={data[currentQuestion].options[3]}
+          answerState={optionsState.d}
+          onClick={RespondToOptionD}
+          disabled={questinonState.disabled}
+        />
         <SubmitButton onClick={respondToSubmit} content={submitButtonContent} />
       </ButtonsWrapper>
     </ContentWrapper>

@@ -3,14 +3,14 @@ import { Outlet, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 
-const Wrapper = styled.div<{ subject?: string; }>`
+const Wrapper = styled.div<{ subject?: string }>`
   /* Mobile */
 
   margin: 0;
   width: 100vw;
-  min-height: 100vh;
-  overflow: hidden;
   padding: 1.5rem;
+  overflow: hidden;
+  min-height: 100vh;
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
@@ -29,12 +29,11 @@ const Wrapper = styled.div<{ subject?: string; }>`
 function Layout() {
   const { subject } = useParams();
 
-
   return (
     <Wrapper subject={subject} >
-        <Navigation>
-        </Navigation>
+        <Navigation/>
 
+      {/* child route elements(Hero, subject and result) get renedered here */}
         <Outlet />
       </Wrapper>
   );

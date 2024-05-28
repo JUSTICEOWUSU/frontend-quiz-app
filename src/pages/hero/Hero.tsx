@@ -28,22 +28,21 @@ const Wrapper = styled.div`
 `;
 
 
-
-
 function Hero() {
-  // const {colorMode} = useContext(ModeContext)
+
   return (
     <Wrapper>
       <TitleWrapper>
         <h1>
-          Welcome to the <br /> <span>Frontend Quiz!</span>{" "}
+          Welcome to the <br /> <span>Frontend Quiz!</span>
         </h1>
         <p>Pick a subject to get started.</p>
       </TitleWrapper>
 
-            <ButtonsWrapper>
-
-      {
+      
+      <ButtonsWrapper>
+        {
+          // displayed topics/subject from data 
         data.quizzes.map(( item,index ) => {
           return (
             <MenuButton
@@ -63,35 +62,9 @@ function Hero() {
           );
         })
       }
-        
-        {/* <MenuButton
-          icon={"/images/icon-css.svg"}
-          background={"#E0FDEF"}
-          subject={"CSS"}
-        />
-        <MenuButton
-          icon={"/images/icon-js.svg"}
-          background={"#EBF0FF"}
-          subject={"Javascript"}
-        />
-        <MenuButton
-          icon={"/images/icon-accessibility.svg"}
-          background={"#F6E7FF"}
-          subject={"Accessibility"}
-        /> */}
       </ButtonsWrapper>
     </Wrapper>
   );
 }
 
 export default Hero
-
-
-
-
-
-
-
-
-
-

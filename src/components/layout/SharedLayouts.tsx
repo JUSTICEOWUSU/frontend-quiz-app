@@ -1,12 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+
+// THESE ARE LAYOUTS THAT HAS BEEN USED IN MORE THAN ONE COMPONENT OR PAGE
 
 // Buttons container or wrapper for the buttons in the Hero and Subjects page
 export const ButtonsWrapper = styled.div`
   /* Mobile */
-  width: 100%;
   gap: 1rem;
-  display: flex;
   padding: 0;
+  width: 100%;
+  display: flex;
   justify-content: space-between;
   flex-direction: column;
 
@@ -26,13 +28,12 @@ export const ButtonsWrapper = styled.div`
 // Title container or wrapper for the title or headings in the Hero and Result page;
 export const TitleWrapper = styled.div`
   /* Mobile */
-
   h1 {
-    font-size: 2.5rem;
     margin: 0;
     padding-top: 0;
-    font-family: "Rubik Variable", "Rubik", sans-serif;
     font-weight: 300;
+    font-size: 2.5rem;
+    font-family: "Rubik Variable", "Rubik", sans-serif;
 
     span {
       font-weight: 500;
@@ -41,12 +42,12 @@ export const TitleWrapper = styled.div`
 
   p {
     margin-top: 1rem;
+    font-size: 0.875rem;
     font-family: "Rubik Italic", "Rubik", sans-serif;
     color: ${({ theme }) =>
       theme.mode == "dark"
         ? theme.darkMode.miniText
         : theme.lightMode.miniText};
-    font-size: 0.875rem;
   }
 
   /* Tablets (640px->) */
@@ -62,8 +63,8 @@ export const TitleWrapper = styled.div`
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
-    flex-basis: 0;
     flex-grow: 1;
+    flex-basis: 0;
 
     h1 {
       font-size: 4rem;
@@ -79,9 +80,9 @@ export const TitleWrapper = styled.div`
 // Title container or wrapper for the title or headings in the Hero and Result page;
 export const ContentWrapper = styled.div`
   /* Mobile */
-  width: 100%;
   margin: 0;
   gap: 2rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -93,7 +94,7 @@ export const ContentWrapper = styled.div`
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
-    flex-direction: row;
     gap: 8rem;
+    flex-direction: row;
   }
 `;

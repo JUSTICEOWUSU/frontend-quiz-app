@@ -8,7 +8,6 @@ import Subject from "./pages/subject/Subject";
 function RouteConfig() {
 
   return (
-
         <Router>
           <Routes>
             <Route element={<Layout />}>

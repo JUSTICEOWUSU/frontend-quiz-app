@@ -1,34 +1,36 @@
 import styled from "styled-components";
-import { ButtonsWrapper, TitleWrapper, ContentWrapper } from "../../components/layout/SharedLayouts";
 import SubmitButton from "../../components/submitButton/SubmitButton";
+
+// Importing layouts from the SharedLayout compenent
+import { ButtonsWrapper, TitleWrapper, ContentWrapper } from "../../components/layout/SharedLayouts";
 
 const ResultsCard = styled.div`
   width: 100%;
-  background-color: ${({ theme }) =>
-    (theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button)};
-  box-shadow: ${({ theme }) =>
-    (theme.mode == "dark"
-      ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
-      : "0 1rem 2.5rem rgba(143, 160, 193, 0.14)")};
   display: flex;
+  padding: 2rem;
+  height: 15.125rem;
+  align-items: center;
+  border-radius: 0.75rem;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  border-radius: 0.75rem;
-  height: 15.125rem;
+  background-color: ${({ theme }) =>
+    theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button};
+  box-shadow: ${({ theme }) =>
+    theme.mode == "dark"
+      ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
+      : "0 1rem 2.5rem rgba(143, 160, 193, 0.14)"};
 
   .subject {
-    display: flex;
     gap: 1rem;
-    align-items: center;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
 
     span {
       width: 2.5rem;
-      height: 2.5rem;
       display: block;
+      height: 2.5rem;
       background: #f6e7ff;
 
       img {
@@ -38,31 +40,33 @@ const ResultsCard = styled.div`
     }
 
     h4 {
-      font-family: "Rubik Variable", "Rubik", sans-serif;
       font-weight: 500;
       font-size: 1.125rem;
+      font-family: "Rubik Variable", "Rubik", sans-serif;
     }
   }
 
   .score {
-    font-family: "Rubik Variable", "Rubik", sans-serif;
-    font-size: 5.5rem;
-    font-weight: 500;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 5.5rem;
+    font-family: "Rubik Variable", "Rubik", sans-serif;
   }
 
   span {
+    font-weight: 400;
     font-size: 1.125rem;
     font-family: "Rubik Variable", "Rubik", sans-serif;
-    font-weight: 400;
     color: ${({ theme }) =>
-      (theme.mode == "dark" ? theme.darkMode.miniText : theme.lightMode.miniText)};
+      theme.mode == "dark"
+        ? theme.darkMode.miniText
+        : theme.lightMode.miniText};
   }
 
   @media (min-width: 640px) {
-    height: 24.25rem;
     padding: 3rem;
+    height: 24.25rem;
     border-radius: 1.5rem;
 
     .subject {
