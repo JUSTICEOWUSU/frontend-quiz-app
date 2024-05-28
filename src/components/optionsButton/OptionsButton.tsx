@@ -21,7 +21,6 @@ const Button = styled.span`
         ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
         : "0 1rem 2.5rem rgba(143, 160, 193, 0.14)"};
 
-    
     .content {
       font-family: "Rubik Variable ", "Rubik", sans-serif;
       font-weight: 500;
@@ -30,6 +29,7 @@ const Button = styled.span`
       font-size: 1.125rem;
       text-align: left;
       text-transform: capitalize;
+      flex-grow: 8;
     }
 
     span {
@@ -41,6 +41,7 @@ const Button = styled.span`
       border-radius: 0.5rem;
       display: flex;
       align-items: center;
+      flex-grow: 1;
 
       p {
         font-size: 1.125rem;
@@ -50,6 +51,22 @@ const Button = styled.span`
         color: ${({ theme }) => theme.lightMode.text};
         font-family: "Rubik Variable", "Rubik", sans-serif;
       }
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      flex-grow: 0;
+      display: none;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .showIcon {
+      display: block;
     }
 
     /* Tablets (640px->) */
@@ -107,6 +124,7 @@ const Button = styled.span`
 
   .correct {
     border: 1px solid green;
+    background:yelllow;
   }
 
   .wrong {
@@ -114,16 +132,31 @@ const Button = styled.span`
   }
 `;
 
-function OptionsButton({ option, content, onClick, customClass, disabled }: { disabled: boolean; option: string; content: string; customClass: string; onClick?:React.MouseEventHandler<HTMLButtonElement> }) {
+function OptionsButton({ option, content, onClick, answerState, disabled }: {  disabled: boolean; option: string; content: string; answerState: { answer: string;   icon:string}; onClick?:React.MouseEventHandler<HTMLButtonElement> }) {
   
 
   return (
-    <Button >
-      <button onClick={onClick} disabled={disabled} className={`${customClass}`}>
-        <span>
+    <Button>
+      <button
+        onClick={onClick}
+        disabled={disabled}
+        className={`${answerState.answer}`}
+      >
+        <span className="optionCharacter">
           <p>{option}</p>
         </span>
         <p className="content">{content}</p>
+
+        <span className={`icon ${answerState.icon}`}>
+          <img
+            src={`${
+              answerState.answer == "correction" || answerState.answer == "correct"
+                ? "images/icon-correct.svg"
+                : "images/icon-incorrect.svg"
+            }`}
+            alt=""
+          />
+        </span>
       </button>
     </Button>
   );
