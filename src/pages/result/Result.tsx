@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SubmitButton from "../../components/submitButton/SubmitButton";
+import { useNavigate } from "react-router-dom";
 
 // Importing layouts from the SharedLayout compenent
 import { ButtonsWrapper, TitleWrapper, ContentWrapper } from "../../components/layout/SharedLayouts";
@@ -92,6 +93,12 @@ const ResultsCard = styled.div`
 
 
 function Result() {
+  const navigate = useNavigate()
+
+  function respondToButtonClick() {
+    return navigate("/")
+  }
+
   return (
     <ContentWrapper>
       <TitleWrapper>
@@ -111,7 +118,7 @@ function Result() {
 
           <span>out of 10</span>
               </ResultsCard>
-              <SubmitButton/>
+              <SubmitButton onClick={respondToButtonClick} content="play again"/>
       </ButtonsWrapper>
     </ContentWrapper>
   );

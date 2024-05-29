@@ -13,7 +13,7 @@ function RouteConfig() {
             <Route element={<Layout />}>
               <Route index element={<Hero />} />
               <Route path="/:subject" element={<Subject />} />
-              <Route path="/result" element={<Result />} />
+              <Route path="/:subject/result" element={<Result />} />
             </Route>
           </Routes>
         </Router>

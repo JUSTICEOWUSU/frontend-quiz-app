@@ -35,7 +35,6 @@ const Button = styled.span`
     span {
       flex-grow: 0;
       display: flex;
-      display: block;
       width: 2.5rem;
       height: 2.5rem;
       padding: 0.3125rem;
