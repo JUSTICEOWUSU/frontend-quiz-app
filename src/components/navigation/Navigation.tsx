@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ToggleSwitch from "../toggleSwitch/ToggleSwitch";
 import { useContext } from "react";
+// import { ModeContext } from "../../contexts";
 import { ModeContext } from "../../App";
 import { useParams } from "react-router-dom";
 
@@ -43,20 +44,22 @@ const ModeBar = styled.div`
     margin-bottom: 3.0625rem;
 
     .subject {
-    gap: 1.5rem;
+      gap: 1.5rem;
 
-    p {
-      font-size: 1.75rem;
-    }
-    span {
-      width: 3rem;
-      height: 3rem;
+      p {
+        font-size: 1.75rem;
+      }
+      span {
+        width: 3rem;
+        height: 3rem;
+      }
     }
   }
-}
 
   /* Desktop (1025px ->) */
   @media (min-width: 1052px) {
+    margin-bottom: 3rem;
+
     margin-right: 24px;
     margin-bottom: 4.5rem;
   }

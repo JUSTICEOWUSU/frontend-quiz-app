@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { useContext } from 'react';
 import { ModeContext } from '../../App';
-
 const Label = styled.label`
   position: relative;
   display: block;

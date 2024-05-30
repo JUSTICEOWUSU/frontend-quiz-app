@@ -57,6 +57,7 @@ const Button = styled.span`
       height: 40px;
       flex-grow: 0;
       display: none;
+      background: transparent;
 
       img {
         width: 100%;
@@ -113,6 +114,7 @@ const Button = styled.span`
 
       span {
         width: 2.8rem;
+        flex-shrink: 0;
         height: 2.8rem;
 
         p {
@@ -124,18 +126,18 @@ const Button = styled.span`
 
   /* custom class that controls the border color of the button(either red or green) */
   .correct {
-    border: 1px solid green;
+    border: 3px solid #26d782;
 
     .optionCharacter {
-      background-color: green;
+      background-color: #26d782;
     }
   }
 
   .wrong {
-    border: 1px solid red;
+    border: 3px solid #ee5454;
 
     .optionCharacter {
-      background-color: red;
+      background-color: #ee5454;
     }
   }
 `;

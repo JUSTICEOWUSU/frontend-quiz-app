@@ -8,17 +8,16 @@ import Subject from "./pages/subject/Subject";
 function RouteConfig() {
 
   return (
-        <Router>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route index element={<Hero />} />
+    <Router>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Hero />} />
               <Route path="/:subject" element={<Subject />} />
               <Route path="/:subject/result" element={<Result />} />
-            </Route>
-          </Routes>
-        </Router>
-
-    );
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
 
 export default RouteConfig

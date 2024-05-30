@@ -9,8 +9,14 @@ export const ButtonsWrapper = styled.div`
   padding: 0;
   width: 100%;
   display: flex;
+  position: relative;
   justify-content: space-between;
   flex-direction: column;
+
+  .hideSelectAnswer {
+    /* display: none; */
+    visibility:hidden;
+  }
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {

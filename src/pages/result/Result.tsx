@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import SubmitButton from "../../components/submitButton/SubmitButton";
 import { useNavigate } from "react-router-dom";
+import { resultContext } from "../../context/contexts";
+import { useContext } from "react";
 
 // Importing layouts from the SharedLayout compenent
 import { ButtonsWrapper, TitleWrapper, ContentWrapper } from "../../components/layout/SharedLayouts";
@@ -95,8 +97,12 @@ const ResultsCard = styled.div`
 function Result() {
   const navigate = useNavigate()
 
+  const { resultData, setResultData } = useContext(resultContext);
+
+
   function respondToButtonClick() {
-    return navigate("/")
+    setResultData({ numberOfPasssedQuestions: 0, numberOfQuetsions: 0 });
+    return navigate("/");
   }
 
   return (
@@ -114,9 +120,9 @@ function Result() {
             <h4>Aceesibility</h4>
           </div>
 
-         <p className="score">8</p>
+          <p className="score">{resultData.numberOfPasssedQuestions}</p>
 
-          <span>out of 10</span>
+          <span>out of { resultData.numberOfQuetsions}</span>
               </ResultsCard>
               <SubmitButton onClick={respondToButtonClick} content="play again"/>
       </ButtonsWrapper>

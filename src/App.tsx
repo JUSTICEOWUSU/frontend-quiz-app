@@ -3,6 +3,8 @@ import { ThemeProvider } from "styled-components";
 import theme  from "./styles/theme";
 import { useState,createContext } from "react";
 import GlobalStyle from "./styles/global";
+import ResultsContextProvider from "./context/contexts";
+
 
 interface MyContextType {
   colorMode: string;
@@ -24,12 +26,13 @@ function App() {
   // Updated theme with a mode property(key)
      const updatedTheme = {...theme, mode:colorMode}
 
-
   return (
     <ThemeProvider theme={updatedTheme}>
       <GlobalStyle />
       <ModeContext.Provider value={{ colorMode, setColorMode }}>
-        <RouteConfig />
+        <ResultsContextProvider>
+          <RouteConfig />
+        </ResultsContextProvider>
       </ModeContext.Provider>
     </ThemeProvider>
   );
