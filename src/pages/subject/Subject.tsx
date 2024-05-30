@@ -273,28 +273,11 @@ function Subject() {
     }
   }
 
-  // Option A event listerner
-  function RespondToOptionA() {
-    hideAnswerQuestion()
-    return setQuestinonState((prev) => ({ ...prev, chosenAnswer: "a" }));
-  }
 
-  // Option B event listerner
-  function RespondToOptionB() {
-    hideAnswerQuestion();
-    return setQuestinonState((prev) => ({ ...prev, chosenAnswer: "b" }));
-  }
-
-  // Option C event listerner
-  function RespondToOptionC() {
-    hideAnswerQuestion();
-    return setQuestinonState((prev) => ({ ...prev, chosenAnswer: "c" }));
-  }
-
-  // Option D event listerner
-  function RespondToOptionD() {
-    hideAnswerQuestion();
-    return setQuestinonState((prev) => ({ ...prev, chosenAnswer: "d" }));
+  // Options event listerner
+  function handleOptionClick(option: string) {
+        hideAnswerQuestion();
+        return setQuestinonState((prev) => ({ ...prev, chosenAnswer: `${option}` }));
   }
 
 
@@ -323,28 +306,28 @@ function Subject() {
           option={"a"}
           content={data[currentQuestion].options[0]}
           answerState={optionsState.a}
-          onClick={RespondToOptionA}
+          onClick={() => handleOptionClick("a")}
           disabled={questinonState.disabled}
         />
         <OptionsButton
           option={"b"}
           content={data[currentQuestion].options[1]}
           answerState={optionsState.b}
-          onClick={RespondToOptionB}
+          onClick={() => handleOptionClick("b")}
           disabled={questinonState.disabled}
         />
         <OptionsButton
           option={"c"}
           content={data[currentQuestion].options[2]}
           answerState={optionsState.c}
-          onClick={RespondToOptionC}
+          onClick={() => handleOptionClick("c")}
           disabled={questinonState.disabled}
         />
         <OptionsButton
           option={"d"}
           content={data[currentQuestion].options[3]}
           answerState={optionsState.d}
-          onClick={RespondToOptionD}
+          onClick={() => handleOptionClick("d")}
           disabled={questinonState.disabled}
         />
         <SubmitButton onClick={respondToSubmit} content={submitButtonContent} />
