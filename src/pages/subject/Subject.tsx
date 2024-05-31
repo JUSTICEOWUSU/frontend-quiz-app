@@ -30,7 +30,7 @@ const QuestionWrapper = styled.div`
     font-weight: 500;
     font-size: 1.25rem;
     margin: 0.75rem 0 1.5rem;
-    font-family: ${({theme})=>theme.fontFamily};
+    font-family: ${({ theme }) => theme.fontFamily};
   }
 
   /* Tablets (640px->) */
@@ -50,6 +50,11 @@ const QuestionWrapper = styled.div`
   @media (min-width: 1050px) {
     flex-basis: 0;
     flex-grow: 1;
+
+    .question {
+      min-height: 15rem;
+      margin-bottom:0;
+    }
   }
 `;
 
@@ -76,7 +81,7 @@ const ProgressBar = styled.span`
   }
 
   @media (min-width: 1050px) {
-    margin-top: 7.6875rem;
+    margin-top: 0rem;
   }
 `;
 

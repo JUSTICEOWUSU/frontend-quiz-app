@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useContext } from 'react';
 import { ModeContext } from '../../App';
+
 const Label = styled.label`
   position: relative;
   display: block;
@@ -69,8 +70,12 @@ const Span = styled.span`
 function ToggleSwitch() {
   const { colorMode, setColorMode } = useContext(ModeContext);
   
-function listenToOnchange() {
-    return setColorMode(colorMode == "light"? "dark": "light")
+  function listenToOnchange() {
+  window.localStorage.setItem(
+    "mode",
+    `${colorMode == "light" ? "dark" : "light"}`
+  );
+  setColorMode(colorMode == "light" ? "dark" : "light")
   }
 
   return (

@@ -1,10 +1,9 @@
 import RouteConfig from "./route";
-import { ThemeProvider } from "styled-components";
-import theme  from "./styles/theme";
-import { useState,createContext } from "react";
+import theme from "./styles/theme";
 import GlobalStyle from "./styles/global";
+import { ThemeProvider } from "styled-components";
 import ResultsContextProvider from "./context/contexts";
-
+import { useState, createContext, useEffect } from "react";
 
 interface MyContextType {
   colorMode: string;
@@ -22,10 +21,18 @@ export const ModeContext = createContext(defaultValue);
 
 function App() {
   const [colorMode, setColorMode] = useState<string>("light");
+  const [mountedComponent,setMountedComponent] = useState<boolean>(false)
+
+  useEffect(() => {
+    const mode = window.localStorage.getItem("mode");
+    mode? setColorMode(mode) : "";
+    setMountedComponent(true)
+  }, []);
   
   // Updated theme with a mode property(key)
      const updatedTheme = {...theme, mode:colorMode}
 
+  if (!mountedComponent) return <div/>
   return (
     <ThemeProvider theme={updatedTheme}>
       <GlobalStyle />

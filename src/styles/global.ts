@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-
 * {
   box-sizing: border-box;
 }
@@ -33,15 +32,21 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Rubik', sans-serif;
     padding:0;
     margin:0;
-    background-image: url(${({ theme }) => (theme.mode === "dark" ? "/images/pattern-background-mobile-dark.svg" : "/images/pattern-background-mobile-light.svg")});
     background-size: cover;
    background-repeat: no-repeat;
   background-position: center;
-  transition:all 30ms ease-in-out;
+   transition: all 0.50s linear;
+   transition-property:color,background-image,background-color;
   color: ${({ theme }) => theme.mode === "dark"  ? theme.darkMode.text : theme.lightMode.text};
   background-color: ${({ theme }) =>
    ( theme.mode === "dark"  ? theme.darkMode.background : theme.lightMode.background)};
+    background-image: url(${({ theme }) =>(`"/images/pattern-background-mobile-${theme.mode}.svg"`)});
 
+    h1{
+      font-weight: lighter;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    }
   }
 
 
@@ -64,21 +69,20 @@ const GlobalStyle = createGlobalStyle`
 
     body {
       font-family: 'Rubik Variable', sans-serif;
-
     }
   }
 
       /* Tablets (640px->) */
   @media (min-width: 640px) {
     body{
-    background-image: url(${({ theme }) =>( theme.mode === "dark" ? "/images/pattern-background-tablet-dark.svg": "/images/pattern-background-tablet-light.svg")});
+    background-image: url(${({ theme }) =>(`"/images/pattern-background-tablet-${theme.mode}.svg"`)});
     }
   }
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
     body{
-    background-image: url(${({ theme }) =>( theme.mode === "dark" ? "/images/pattern-background-desktop-dark.svg": "/images/pattern-background-desktop-light.svg")});
+    background-image: url(${({ theme }) =>(`"/images/pattern-background-desktop-${theme.mode}.svg"`)});
 
     }
   }

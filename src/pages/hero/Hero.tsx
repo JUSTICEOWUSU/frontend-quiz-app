@@ -5,13 +5,12 @@ import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayo
 
 const Wrapper = styled.div`
   /* Mobile */
-  width: 100%;
   margin: 0;
   gap: 2rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 300ms ease-out;
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
@@ -34,34 +33,34 @@ function Hero() {
     <Wrapper>
       <TitleWrapper>
         <h1>
-          Welcome to the <br /> <span>Frontend Quiz!</span>
+          Welcome to the
+          <br /> <span>Frontend Quiz!</span>
         </h1>
         <p>Pick a subject to get started.</p>
       </TitleWrapper>
 
-      
       <ButtonsWrapper>
         {
-          // displayed topics/subject from data 
-        data.quizzes.map(( item,index ) => {
-          return (
-            <MenuButton
-              key={index}
-              icon={item.icon}
-              background={`${
-                item.title == "HTML"
-                  ? "#FFF1E9"
-                  : item.title == "CSS"
-                  ? "#E0FDEF"
-                  : item.title == "JavaScript"
-                  ? "#EBF0FF"
-                  : "#F6E7FF"
-              }`}
-              subject={item.title}
-            />
-          );
-        })
-      }
+          // displayed topics/subject from data
+          data.quizzes.map((item, index) => {
+            return (
+              <MenuButton
+                key={index}
+                icon={item.icon}
+                background={`${
+                  item.title == "HTML"
+                    ? "#FFF1E9"
+                    : item.title == "CSS"
+                    ? "#E0FDEF"
+                    : item.title == "JavaScript"
+                    ? "#EBF0FF"
+                    : "#F6E7FF"
+                }`}
+                subject={item.title}
+              />
+            );
+          })
+        }
       </ButtonsWrapper>
     </Wrapper>
   );

@@ -37,19 +37,22 @@ export const TitleWrapper = styled.div`
   h1 {
     margin: 0;
     padding-top: 0;
-    font-weight: 300;
     font-size: 2.5rem;
-    font-family: "Rubik Variable", "Rubik", sans-serif;
+    /* font-weight:100; */
+    font-family: ${({ theme }) => theme.fontFamily};
 
     span {
-      font-weight: 500;
+      display:block;
+      font-family: ${({ theme }) => theme.fontFamily};
+      font-weight: bold ;
     }
+
   }
 
   p {
     margin-top: 1rem;
     font-size: 0.875rem;
-    font-family: "Rubik Italic", "Rubik", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily};
     color: ${({ theme }) =>
       theme.mode == "dark"
         ? theme.darkMode.miniText
