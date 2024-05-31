@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import styled from "styled-components";
-// importing the ModeContext(light/dark mode context) from the App.tsx file
 import { ModeContext } from "../../App";
 import { useParams } from "react-router-dom";
 import ToggleSwitch from "../toggleSwitch/ToggleSwitch";
@@ -20,6 +19,8 @@ const ModeBar = styled.div`
     padding: 0;
     display: flex;
     align-items: center;
+    color: ${({ theme }) =>
+      theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
 
     p {
       font-size: 1.125rem;

@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-family: ${({ theme }) => theme.fontFamily};
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
@@ -32,11 +33,13 @@ function Hero() {
   return (
     <Wrapper>
       <TitleWrapper>
-        <h1>
-          Welcome to the
-          <br /> <span>Frontend Quiz!</span>
-        </h1>
-        <p>Pick a subject to get started.</p>
+        <div>
+          <h1>
+            Welcome to the
+            <br /> <span>Frontend Quiz!</span>
+          </h1>
+          <p>Pick a subject to get started.</p>
+        </div>
       </TitleWrapper>
 
       <ButtonsWrapper>
@@ -47,15 +50,7 @@ function Hero() {
               <MenuButton
                 key={index}
                 icon={item.icon}
-                background={`${
-                  item.title == "HTML"
-                    ? "#FFF1E9"
-                    : item.title == "CSS"
-                    ? "#E0FDEF"
-                    : item.title == "JavaScript"
-                    ? "#EBF0FF"
-                    : "#F6E7FF"
-                }`}
+                background={`${item.title}`}
                 subject={item.title}
               />
             );

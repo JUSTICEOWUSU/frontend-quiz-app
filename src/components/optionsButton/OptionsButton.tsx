@@ -10,6 +10,7 @@ const Button = styled.span`
     padding: 0.7rem;
     align-items: center;
     border-radius: 1.25rem;
+    transition: background-color 0.5s linear;
     color: ${({ theme }) =>
       theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
     background-color: ${({ theme }) =>

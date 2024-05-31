@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom';
 
-const Button = styled.button<{ background: string }>`
+const Button = styled.button<{ $background: string }>`
   /* Mobile */
 
   width: 100%;
@@ -13,6 +13,8 @@ const Button = styled.button<{ background: string }>`
   padding: 1.25rem;
   align-items: center;
   border-radius: 1.25rem;
+  transition: background-color 0.5s linear;
+
   color: ${({ theme }) =>
     theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
   background-color: ${({ theme }) =>
@@ -27,8 +29,16 @@ const Button = styled.button<{ background: string }>`
     height: 2.5rem;
     padding: 0.3125rem;
     border-radius: 0.5rem;
-    background: ${({ background }) => background};
+    background: ${({ $background }) =>
+      $background == "HTML"
+        ? "#FFF1E9"
+        : $background == "CSS"
+        ? "#E0FDEF"
+        : $background == "JavaScript"
+        ? "#EBF0FF"
+        : "#F6E7FF"};
 
+    /*  */
     img {
       width: 100%;
       height: 100%;
@@ -39,6 +49,8 @@ const Button = styled.button<{ background: string }>`
     font-size: 1rem;
     font-weight: 500;
     font-family: ${({ theme }) => theme.fontFamily};
+    color: ${({ theme }) =>
+      theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
   }
 
   &:hover {
@@ -74,7 +86,7 @@ function MenuButton({ icon, background, subject }: MenuButtonTypes) {
   const respondToMenuButtonClick = () => naviagate(`/${subject}`)
   
   return (
-    <Button background = {background} onClick={respondToMenuButtonClick}>
+    <Button $background={background} onClick={respondToMenuButtonClick}>
       <span>
         <img
           src={icon}

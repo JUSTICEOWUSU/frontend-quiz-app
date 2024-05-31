@@ -29,26 +29,19 @@ const GlobalStyle = createGlobalStyle`
 
   /* Fallback font family */
   body {
-    font-family: 'Rubik', sans-serif;
-    padding:0;
     margin:0;
+    padding:0;
     background-size: cover;
-   background-repeat: no-repeat;
-  background-position: center;
-   transition: all 0.50s linear;
-   transition-property:color,background-image,background-color;
-  color: ${({ theme }) => theme.mode === "dark"  ? theme.darkMode.text : theme.lightMode.text};
-  background-color: ${({ theme }) =>
-   ( theme.mode === "dark"  ? theme.darkMode.background : theme.lightMode.background)};
-    background-image: url(${({ theme }) =>(`"/images/pattern-background-mobile-${theme.mode}.svg"`)});
-
-    h1{
-      font-weight: lighter;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-    }
+    background-position: center;
+    transition: all 0.50s linear;
+    background-repeat: no-repeat;
+    font-family: 'Rubik', sans-serif;
+    transition-property:color,background-image,background-color;
+    color: ${({ theme }) => theme.mode === "dark"  ? theme.darkMode.text : theme.lightMode.text};
+    background-color: ${({ theme }) =>
+    ( theme.mode === "dark"  ? theme.darkMode.background : theme.lightMode.background)};
+      background-image: url(${({ theme }) =>(`"/images/pattern-background-mobile-${theme.mode}.svg"`)});
   }
-
 
 
   /* Variable fonts if supported */

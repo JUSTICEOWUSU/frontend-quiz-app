@@ -22,7 +22,7 @@ const QuestionWrapper = styled.div`
       theme.mode == "dark"
         ? theme.darkMode.miniText
         : theme.lightMode.miniText};
-    font-family: "Rubik Variable Italic", "Rubik Italic", sans-serif;
+       font-family: "Rubik Variable Italic", "Rubik Italic", sans-serif;
   }
 
   .question {
@@ -31,6 +31,7 @@ const QuestionWrapper = styled.div`
     font-size: 1.25rem;
     margin: 0.75rem 0 1.5rem;
     font-family: ${({ theme }) => theme.fontFamily};
+    color: ${({ theme }) => theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
   }
 
   /* Tablets (640px->) */
@@ -53,7 +54,7 @@ const QuestionWrapper = styled.div`
 
     .question {
       min-height: 15rem;
-      margin-bottom:0;
+      margin-bottom: 0;
     }
   }
 `;

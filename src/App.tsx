@@ -21,9 +21,11 @@ export const ModeContext = createContext(defaultValue);
 
 function App() {
   const [colorMode, setColorMode] = useState<string>("light");
+  // A state for determining if the app component is ready to mount
   const [mountedComponent,setMountedComponent] = useState<boolean>(false)
-
+  
   useEffect(() => {
+    // getting previous app theme mode from local storage
     const mode = window.localStorage.getItem("mode");
     mode? setColorMode(mode) : "";
     setMountedComponent(true)

@@ -21,6 +21,7 @@ const ResultsCard = styled.div<{ subject: string }>`
   border-radius: 0.75rem;
   flex-direction: column;
   justify-content: space-between;
+  transition: background-color 0.5s linear;
   background-color: ${({ theme }) =>
     theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button};
   box-shadow: ${({ theme }) =>
@@ -121,7 +122,7 @@ function Result() {
   useEffect(() => {
     const subjectData = currentSubjectData(subject);
     if (!subjectData || subjectData.length === 0) {
-      navigate("/");
+      navigate("/Error");
     }
   });
 

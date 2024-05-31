@@ -38,15 +38,18 @@ export const TitleWrapper = styled.div`
     margin: 0;
     padding-top: 0;
     font-size: 2.5rem;
-    /* font-weight:100; */
+    font-weight:100;
     font-family: ${({ theme }) => theme.fontFamily};
+    color: ${({ theme }) =>
+      theme.mode == "dark"
+        ? theme.darkMode.text
+        : theme.lightMode.text};
 
     span {
-      display:block;
+      display: block;
       font-family: ${({ theme }) => theme.fontFamily};
-      font-weight: bold ;
+      font-weight: bold;
     }
-
   }
 
   p {
