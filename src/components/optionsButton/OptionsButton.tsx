@@ -28,7 +28,7 @@ const Button = styled.span`
       text-align: left;
       font-weight: 500;
       font-size: 1.125rem;
-      font-family: "Rubik Variable ", "Rubik", sans-serif;
+      font-family: ${({ theme }) => theme.fontFamily};
     }
 
     /*Option character (A, B, C, D) container  */

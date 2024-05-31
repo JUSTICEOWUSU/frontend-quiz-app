@@ -1,9 +1,10 @@
-import styled from "styled-components";
-import ToggleSwitch from "../toggleSwitch/ToggleSwitch";
 import { useContext } from "react";
-// import { ModeContext } from "../../contexts";
+import styled from "styled-components";
+// importing the ModeContext(light/dark mode context) from the App.tsx file
 import { ModeContext } from "../../App";
 import { useParams } from "react-router-dom";
+import ToggleSwitch from "../toggleSwitch/ToggleSwitch";
+
 
 const ModeBar = styled.div`
   width: 100%;
@@ -64,7 +65,6 @@ const ModeBar = styled.div`
   }
 `;
 
-
 const ToggleWrapper = styled.div`
   /* Mobile */
   width: 80px;
@@ -86,7 +86,6 @@ const ToggleWrapper = styled.div`
     }
   }
 
-
   /* Tablet (1025px ->) */
   @media (min-width: 640px) {
     margin-right: 24px;
@@ -99,14 +98,13 @@ const ToggleWrapper = styled.div`
   }
 `;
 
-
 function Navigation() {
-  const { colorMode } = useContext(ModeContext)
-  const { subject } = useParams()
-  
+  const { colorMode } = useContext(ModeContext);
+  const { subject } = useParams();
+
   const constumSubjectIconstyle = {
     background: `${
-        subject == "HTML"
+      subject == "HTML"
         ? "#FFF1E9"
         : subject == "CSS"
         ? "#E0FDEF"
@@ -125,19 +123,20 @@ function Navigation() {
       ? "/images/icon-js.svg"
       : "/images/icon-accessibility.svg"
   }`;
-  
+
   return (
     <ModeBar>
       <div className="subject">
-        {
-          subject ? (<>
-          <span style={constumSubjectIconstyle}>
-          <img src={icon} alt={`${subject} icon`} />
-         </span>
+        {subject ? (
+          <>
+            <span style={constumSubjectIconstyle}>
+              <img src={icon} alt={`${subject} icon`} />
+            </span>
             <p>{subject}</p>
-          </>):""
-        }
-        
+          </>
+        ) : (
+          ""
+        )}
       </div>
 
       <ToggleWrapper>
@@ -167,4 +166,4 @@ function Navigation() {
   );
 }
 
-export default Navigation
+export default Navigation;

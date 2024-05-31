@@ -30,7 +30,7 @@ const QuestionWrapper = styled.div`
     font-weight: 500;
     font-size: 1.25rem;
     margin: 0.75rem 0 1.5rem;
-    font-family: "Rubik Variable ", "Rubik", sans-serif;
+    font-family: ${({theme})=>theme.fontFamily};
   }
 
   /* Tablets (640px->) */
@@ -95,7 +95,7 @@ const SelectQuestion = styled.div`
     padding: 0;
     font-weight: 400;
     font-size: 1.125rem;
-    font-family: "Rubik Variable ", "Rubik", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily};
   }
 
   span {

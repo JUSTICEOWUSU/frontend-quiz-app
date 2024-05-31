@@ -38,7 +38,7 @@ const Button = styled.button<{ background: string }>`
   p {
     font-size: 1rem;
     font-weight: 500;
-    font-family: "Rubik Variable", "Rubik", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily};
   }
 
   &:hover {

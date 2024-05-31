@@ -12,6 +12,7 @@ interface Theme {
     secondaryGreen: string;
     tertiaryRed: string;
     mode?: string;
+    fontFamily: string;
 }
 
  const theme: Theme = {
@@ -31,8 +32,8 @@ interface Theme {
 
     primaryBlue: '#A729F5',
     secondaryGreen: "#26D782",
-    tertiaryRed: "#EE5454"
- 
+     tertiaryRed: "#EE5454",
+     fontFamily: `"Rubik Variable ", "Rubik", sans-serif`, 
 }
 
 export default theme
