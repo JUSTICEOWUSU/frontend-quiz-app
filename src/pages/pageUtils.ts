@@ -1,4 +1,4 @@
-import data from '../../../public/data.json' 
+import data from '../../public/data.json' 
 
 type OptionsType = string[]
 type AnswerTpe = string

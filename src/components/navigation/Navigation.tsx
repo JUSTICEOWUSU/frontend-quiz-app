@@ -59,7 +59,6 @@ const ModeBar = styled.div`
   /* Desktop (1025px ->) */
   @media (min-width: 1052px) {
     margin-bottom: 3rem;
-
     margin-right: 24px;
     margin-bottom: 4.5rem;
   }

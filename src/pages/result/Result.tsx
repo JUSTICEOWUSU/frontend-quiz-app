@@ -1,13 +1,18 @@
 import styled from "styled-components";
-import SubmitButton from "../../components/submitButton/SubmitButton";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { currentSubjectData } from "../pageUtils";
 import { resultContext } from "../../context/contexts";
-import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import SubmitButton from "../../components/submitButton/SubmitButton";
 
 // Importing layouts from the SharedLayout compenent
-import { ButtonsWrapper, TitleWrapper, ContentWrapper } from "../../components/layout/SharedLayouts";
+import {
+  ButtonsWrapper,
+  TitleWrapper,
+  ContentWrapper,
+} from "../../components/layout/SharedLayouts";
 
-const ResultsCard = styled.div`
+const ResultsCard = styled.div<{ subject: string }>`
   width: 100%;
   display: flex;
   padding: 2rem;
@@ -34,7 +39,15 @@ const ResultsCard = styled.div`
       width: 2.5rem;
       display: block;
       height: 2.5rem;
-      background: #f6e7ff;
+      border-radius: 0.5rem;
+      background: ${({ subject }) =>
+        subject == "HTML"
+          ? "#FFF1E9"
+          : subject == "CSS"
+          ? "#E0FDEF"
+          : subject == "JavaScript"
+          ? "#EBF0FF"
+          : "#F6E7FF"};
 
       img {
         width: 100%;
@@ -93,41 +106,51 @@ const ResultsCard = styled.div`
   }
 `;
 
-
 function Result() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { subject } = useParams();
 
   const { resultData, setResultData } = useContext(resultContext);
 
-
-  function respondToButtonClick() {
+  function handleButtonClick() {
     setResultData({ numberOfPasssedQuestions: 0, numberOfQuetsions: 0 });
     return navigate("/");
   }
+
+  // useEffect for handling subject/topics that are not currently part of our topics/data
+  useEffect(() => {
+    const subjectData = currentSubjectData(subject);
+    if (!subjectData || subjectData.length === 0) {
+      navigate("/");
+    }
+  });
 
   return (
     <ContentWrapper>
       <TitleWrapper>
         <h1>
-          Quiz completed <br></br><span>You scored...</span>
+          Quiz completed <br></br>
+          <span>You scored...</span>
         </h1>
       </TitleWrapper>
 
       <ButtonsWrapper>
-        <ResultsCard>
-            <div className="subject">
-            <span><img src="/images/icon-accessibility.svg" alt="" /></span>
-            <h4>Aceesibility</h4>
+        <ResultsCard subject={subject || ""}>
+          <div className="subject">
+            <span>
+              <img src={`/images/icon-${subject?.toLowerCase()}.svg`} alt="" />
+            </span>
+            <h4>{subject}</h4>
           </div>
 
           <p className="score">{resultData.numberOfPasssedQuestions}</p>
 
-          <span>out of { resultData.numberOfQuetsions}</span>
-              </ResultsCard>
-              <SubmitButton onClick={respondToButtonClick} content="play again"/>
+          <span>out of {resultData.numberOfQuetsions}</span>
+        </ResultsCard>
+        <SubmitButton onClick={handleButtonClick} content="play again" />
       </ButtonsWrapper>
     </ContentWrapper>
   );
 }
 
-export default Result
+export default Result;

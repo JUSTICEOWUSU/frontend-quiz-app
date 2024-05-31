@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 // import resultContext(context for managing scored questions and total number of attempted questions )
 import { resultContext } from "../../context/contexts";
 
 import { useParams, useNavigate } from "react-router-dom";
 // importing custom utils function that manages the app data
-import correctAnswer, { currentSubjectData } from "./utils";
+import correctAnswer, { currentSubjectData } from "../pageUtils";
 
 import SubmitButton from "../../components/submitButton/SubmitButton";
 import OptionsButton from "../../components/optionsButton/OptionsButton";
@@ -145,6 +145,7 @@ interface QuestionStateTypes{
   chosenAnswer: string;
   disabled: boolean;
 }
+
 // <--SUBJECT TYPES
 
 
@@ -156,8 +157,10 @@ function Subject() {
   // Obtaining the subject/topic from the url parameter
   const { subject } = useParams();
 
-  // Obtaining the data of the topic/subject
-  const data = currentSubjectData(subject)[0].questions;
+ 
+  const data = currentSubjectData(subject)[0]?.questions || [{question: "",
+  options: [""],
+  answer: ""}];
 
   // A state that controls eitrher to move to next question or not
   const [goToNext, setGoToNext] = useState<boolean>(false);
@@ -170,6 +173,7 @@ function Subject() {
 
 
   const [selectAnswer, setSelectAnswer] = useState<string>("hideSelectAnswer")
+
   // Question answer states (chosen answer, correct answer,etc.)
   const [questinonState, setQuestinonState] = useState<QuestionStateTypes>({
       answer: correctAnswer(
@@ -209,7 +213,7 @@ function Subject() {
     
   
   // Submit button onclick event listeenr
-  function respondToSubmit() {
+  function handleSubmit() {
     if (!questinonState.chosenAnswer) {
       return setSelectAnswer("")
     }
@@ -273,72 +277,80 @@ function Subject() {
     }
   }
 
-
   // Options event listerner
   function handleOptionClick(option: string) {
         hideAnswerQuestion();
         return setQuestinonState((prev) => ({ ...prev, chosenAnswer: `${option}` }));
   }
 
+// useEffect for handling subject/topics that are not currently part of our topics/data
+   useEffect(() => {
+     const subjectData = currentSubjectData(subject);
+     if (!subjectData || subjectData.length === 0) {
+       navigate("/");
+     }
+   });
 
   return (
-    <ContentWrapper>
-      <QuestionWrapper>
-        {/* current question number */}
-        <p className="questionNumber">
-          {currentQuestion + 1} out of {data.length}
-        </p>
+      <ContentWrapper>
+        <QuestionWrapper>
+          {/* current question number */}
+          <p className="questionNumber">
+            {currentQuestion + 1} out of {data.length}
+          </p>
 
-        {/* Question */}
-        <span className="question">{data[currentQuestion].question}</span>
+          {/* Question */}
+          <span className="question">{data[currentQuestion].question}</span>
 
-        {/* Progress Bar */}
-        <ProgressBar>
-          <span
-            style={{ width: `${((currentQuestion + 1) / data.length) * 100}%` }}
-          ></span>
-        </ProgressBar>
-      </QuestionWrapper>
+          {/* Progress Bar */}
+          <ProgressBar>
+            <span
+              style={{
+                width: `${((currentQuestion + 1) / data.length) * 100}%`,
+              }}
+            ></span>
+          </ProgressBar>
+        </QuestionWrapper>
 
-      {/* options  with the submit button*/}
-      <ButtonsWrapper>
-        <OptionsButton
-          option={"a"}
-          content={data[currentQuestion].options[0]}
-          answerState={optionsState.a}
-          onClick={() => handleOptionClick("a")}
-          disabled={questinonState.disabled}
-        />
-        <OptionsButton
-          option={"b"}
-          content={data[currentQuestion].options[1]}
-          answerState={optionsState.b}
-          onClick={() => handleOptionClick("b")}
-          disabled={questinonState.disabled}
-        />
-        <OptionsButton
-          option={"c"}
-          content={data[currentQuestion].options[2]}
-          answerState={optionsState.c}
-          onClick={() => handleOptionClick("c")}
-          disabled={questinonState.disabled}
-        />
-        <OptionsButton
-          option={"d"}
-          content={data[currentQuestion].options[3]}
-          answerState={optionsState.d}
-          onClick={() => handleOptionClick("d")}
-          disabled={questinonState.disabled}
-        />
-        <SubmitButton onClick={respondToSubmit} content={submitButtonContent} />
-        <SelectQuestion className={`${selectAnswer}`}>
-          <span>
-            <img src="/images/icon-incorrect.svg" alt="" />
-          </span>{" "}
-          <p>Please select an answer</p>{" "}
-        </SelectQuestion>
-      </ButtonsWrapper>
-    </ContentWrapper>
+        {/* options  with the submit button*/}
+        <ButtonsWrapper>
+          <OptionsButton
+            option={"a"}
+            content={data[currentQuestion].options[0]}
+            answerState={optionsState.a}
+            onClick={() => handleOptionClick("a")}
+            disabled={questinonState.disabled}
+          />
+          <OptionsButton
+            option={"b"}
+            content={data[currentQuestion].options[1]}
+            answerState={optionsState.b}
+            onClick={() => handleOptionClick("b")}
+            disabled={questinonState.disabled}
+          />
+          <OptionsButton
+            option={"c"}
+            content={data[currentQuestion].options[2]}
+            answerState={optionsState.c}
+            onClick={() => handleOptionClick("c")}
+            disabled={questinonState.disabled}
+          />
+          <OptionsButton
+            option={"d"}
+            content={data[currentQuestion].options[3]}
+            answerState={optionsState.d}
+            onClick={() => handleOptionClick("d")}
+            disabled={questinonState.disabled}
+          />
+          <SubmitButton onClick={handleSubmit} content={submitButtonContent} />
+          <SelectQuestion className={`${selectAnswer}`}>
+            <span>
+              <img src="/images/icon-incorrect.svg" alt="" />
+            </span>{" "}
+            <p>Please select an answer</p>{" "}
+          </SelectQuestion>
+        </ButtonsWrapper>
+      </ContentWrapper>
   );
 }
 

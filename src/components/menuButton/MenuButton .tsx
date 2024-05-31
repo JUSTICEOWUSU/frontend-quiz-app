@@ -80,7 +80,8 @@ function MenuButton({ icon, background, subject }: MenuButtonTypes) {
           src={icon}
           alt={`${subject} icon`}
         />
-     </span>
+      </span>
+      {/* subject/content(HTML, CSS,etc.) */}
       <p>{ subject }</p>
     </Button>
   );
