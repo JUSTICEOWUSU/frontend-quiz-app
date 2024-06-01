@@ -1,5 +1,5 @@
 // importing the appData
-import data from '../../public/data.json' 
+import data from  "../DATA/data.json" 
 
 type AnswerTpe = string;
 type OptionsType = string[];

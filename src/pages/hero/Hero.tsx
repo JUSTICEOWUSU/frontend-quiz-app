@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import data from "../../../public/data.json"; 
+import data from "../../DATA/data.json"; 
 import MenuButton from "../../components/menuButton/MenuButton ";
-import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts"; 
+import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts";
 
 const Wrapper = styled.div`
   /* Mobile */
