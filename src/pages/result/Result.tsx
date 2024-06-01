@@ -22,12 +22,13 @@ const ResultsCard = styled.div<{ subject: string }>`
   flex-direction: column;
   justify-content: space-between;
   transition: background-color 0.5s linear;
+  
   background-color: ${({ theme }) =>
     theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button};
   box-shadow: ${({ theme }) =>
     theme.mode == "dark"
-      ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
-      : "0 1rem 2.5rem rgba(143, 160, 193, 0.14)"};
+    ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
+    : "0 1rem 2.5rem rgba(143, 160, 193, 0.14)"};
 
   .subject {
     gap: 1rem;
@@ -38,8 +39,8 @@ const ResultsCard = styled.div<{ subject: string }>`
 
     span {
       width: 2.5rem;
-      display: block;
       height: 2.5rem;
+      display: block;
       border-radius: 0.5rem;
       background: ${({ subject }) =>
         subject == "HTML"
@@ -110,7 +111,6 @@ const ResultsCard = styled.div<{ subject: string }>`
 function Result() {
   const navigate = useNavigate();
   const { subject } = useParams();
-
   const { resultData, setResultData } = useContext(resultContext);
 
   function handleButtonClick() {
@@ -144,6 +144,7 @@ function Result() {
             <h4>{subject}</h4>
           </div>
 
+          {/* Result marks */}
           <p className="score">{resultData.numberOfPasssedQuestions}</p>
 
           <span>out of {resultData.numberOfQuetsions}</span>

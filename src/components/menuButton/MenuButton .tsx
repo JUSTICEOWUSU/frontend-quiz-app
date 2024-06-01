@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Button = styled.button<{ $background: string }>`
   /* Mobile */
-
   width: 100%;
   height: 4rem;
   border: none;
@@ -74,8 +73,8 @@ const Button = styled.button<{ $background: string }>`
 
 interface MenuButtonTypes {
   icon: string;
-  background: string;
   subject: string;
+  background: string;
 }
 
 
@@ -93,6 +92,7 @@ function MenuButton({ icon, background, subject }: MenuButtonTypes) {
           alt={`${subject} icon`}
         />
       </span>
+
       {/* subject/content(HTML, CSS,etc.) */}
       <p>{ subject }</p>
     </Button>

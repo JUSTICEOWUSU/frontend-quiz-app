@@ -3,10 +3,10 @@ import { useContext } from 'react';
 import { ModeContext } from '../../App';
 
 const Label = styled.label`
-  position: relative;
-  display: block;
   width: 2rem;
+  display: block;
   height: 1.25rem;
+  position: relative;
 
   input {
     opacity: 0;
@@ -34,36 +34,36 @@ const Label = styled.label`
 `;
 
 const Span = styled.span`
-  position: absolute;
-  cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${({ theme }) => theme.primaryBlue};
-  -webkit-transition: 0.4s;
+  cursor: pointer;
   transition: 0.4s;
+  position: absolute;
   border-radius: 34px;
+  -webkit-transition: 0.4s;
+  background-color: ${({ theme }) => theme.primaryBlue};
 
   &:before {
-    position: absolute;
-    content: "";
-    height: 12px;
-    width: 12px;
     left: 4px;
     bottom: 4px;
-    background-color: #fff;
-    -webkit-transition: 0.4s;
+    width: 12px;
+    content: "";
+    height: 12px;
     transition: 0.4s;
     border-radius: 50%;
+    position: absolute;
+    background-color: #fff;
+    -webkit-transition: 0.4s;
   }
 
-    @media (min-width: 640px) {
-      &:before{
-        width:1.25rem;
-        height:1.25rem;
-      }
+  @media (min-width: 640px) {
+    &:before {
+      width: 1.25rem;
+      height: 1.25rem;
     }
+  }
 `;
 
 

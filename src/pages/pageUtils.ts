@@ -1,8 +1,8 @@
 // importing the appData
 import data from '../../public/data.json' 
 
-type OptionsType = string[];
 type AnswerTpe = string;
+type OptionsType = string[];
 
 // This function takes in an optional choices of 4 and return the correct alphabet base on the provided answer
 function correctAnswer(options: OptionsType, answer: AnswerTpe):string {

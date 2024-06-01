@@ -37,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
     background-repeat: no-repeat;
     font-family: 'Rubik', sans-serif;
     transition-property:color,background-image,background-color;
+    
     color: ${({ theme }) => theme.mode === "dark"  ? theme.darkMode.text : theme.lightMode.text};
     background-color: ${({ theme }) =>
     ( theme.mode === "dark"  ? theme.darkMode.background : theme.lightMode.background)};
@@ -44,7 +45,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
 
-  /* Variable fonts if supported */
+  /* Variable fonts if supported(browser) */
   @supports (font-variation-settings: normal) {
     @font-face {
       font-family: 'Rubik Variable';

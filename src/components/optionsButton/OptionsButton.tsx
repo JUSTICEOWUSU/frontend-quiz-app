@@ -11,11 +11,11 @@ const Button = styled.span`
     align-items: center;
     border-radius: 1.25rem;
     transition: background-color 0.5s linear;
+
     color: ${({ theme }) =>
       theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
     background-color: ${({ theme }) =>
       theme.mode == "dark" ? theme.darkMode.button : theme.lightMode.button};
-
     box-shadow: ${({ theme }) =>
       theme.mode == "dark"
         ? "0px 16px 40px rgba(49, 62, 81, 0.14)"
@@ -144,11 +144,11 @@ const Button = styled.span`
 `;
 
 interface OptionButtonPropsTypes {
-  disabled: boolean;
   option: string;
   content: string;
+  disabled: boolean;
   answerState: { answer: string; icon: string };
-  onClick: React.MouseEventHandler<HTMLButtonElement>
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 function OptionsButton( { option, content, onClick, answerState, disabled }: OptionButtonPropsTypes ) {

@@ -23,9 +23,9 @@ const ModeBar = styled.div`
       theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
 
     p {
-      font-size: 1.125rem;
       margin: 0;
       font-weight: 500;
+      font-size: 1.125rem;
       font-family: "Rubik Variable", "Rubik", sans-serif;
     }
     span {
@@ -60,21 +60,21 @@ const ModeBar = styled.div`
 
   /* Desktop (1025px ->) */
   @media (min-width: 1052px) {
-    margin-bottom: 3rem;
     margin-right: 24px;
+    margin-bottom: 3rem;
     margin-bottom: 4.5rem;
   }
 `;
 
 const ToggleWrapper = styled.div`
   /* Mobile */
-  width: 80px;
   margin: 0;
-  padding: 1rem 0;
+  width: 80px;
   height: 20px;
   display: flex;
-  justify-content: space-between;
+  padding: 1rem 0;
   align-items: center;
+  justify-content: space-between;
 
   .imageContainer {
     width: 1rem;
@@ -89,8 +89,8 @@ const ToggleWrapper = styled.div`
 
   /* Tablet (1025px ->) */
   @media (min-width: 640px) {
-    margin-right: 24px;
     width: 8rem;
+    margin-right: 24px;
 
     .imageContainer {
       width: 1.5rem;
@@ -100,8 +100,8 @@ const ToggleWrapper = styled.div`
 `;
 
 function Navigation() {
-  const { colorMode } = useContext(ModeContext);
   const { subject } = useParams();
+  const { colorMode } = useContext(ModeContext);
 
   const constumSubjectIconstyle = {
     background: `${

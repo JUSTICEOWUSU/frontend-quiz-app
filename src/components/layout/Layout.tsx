@@ -1,11 +1,9 @@
+import styled from "styled-components";
 import Navigation from "../navigation/Navigation";
 import { Outlet, useParams } from "react-router-dom";
-import styled from "styled-components";
-
 
 const Wrapper = styled.div<{ subject?: string }>`
   /* Mobile */
-
   margin: 0;
   width: 100vw;
   padding: 1.5rem;
@@ -25,18 +23,17 @@ const Wrapper = styled.div<{ subject?: string }>`
   }
 `;
 
-
 function Layout() {
   const { subject } = useParams();
 
   return (
-    <Wrapper subject={subject} >
-        <Navigation/>
+    <Wrapper subject={subject}>
+      <Navigation />
 
-      {/* child route elements(Hero, subject and result) get renedered here */}
-        <Outlet />
-      </Wrapper>
+      {/* child route elements(Hero, subject, result,etc) get renedered here */}
+      <Outlet />
+    </Wrapper>
   );
 }
 
-export default Layout
+export default Layout;

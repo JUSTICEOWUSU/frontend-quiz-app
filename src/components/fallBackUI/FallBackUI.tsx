@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import SubmitButton from '../submitButton/SubmitButton'
 
-
 const FallBackContainer = styled.div`
   width: 100%;
   margin: auto;
@@ -13,6 +12,7 @@ const FallBackContainer = styled.div`
     margin-top:5rem;
     font-size: 1rem;
     font-weight: lighter;
+    
     font-family: ${({ theme }) => theme.fontFamily};
     color: ${({ theme }) =>
       theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
@@ -48,7 +48,7 @@ const FallBackContainer = styled.div`
 `;
 
 function FallBackUI() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     
   return (
       <FallBackContainer>

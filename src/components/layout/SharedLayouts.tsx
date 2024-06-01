@@ -14,7 +14,6 @@ export const ButtonsWrapper = styled.div`
   flex-direction: column;
 
   .hideSelectAnswer {
-    /* display: none; */
     visibility:hidden;
   }
 
@@ -39,6 +38,7 @@ export const TitleWrapper = styled.div`
     padding-top: 0;
     font-size: 2.5rem;
     font-weight:100;
+
     font-family: ${({ theme }) => theme.fontFamily};
     color: ${({ theme }) =>
       theme.mode == "dark"
@@ -55,6 +55,7 @@ export const TitleWrapper = styled.div`
   p {
     margin-top: 1rem;
     font-size: 0.875rem;
+    
     font-family: ${({ theme }) => theme.fontFamily};
     color: ${({ theme }) =>
       theme.mode == "dark"

@@ -1,4 +1,5 @@
-import { createContext,useState } from "react";
+// CONTEXT FOR MANAGING NUMBER CORRECT CHOICES AND THE TOTAL NUMBER QUESTION
+import { createContext, useState } from "react";
 
 interface resultDataTypes{
   numberOfQuetsions: number;
