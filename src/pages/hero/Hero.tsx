@@ -2,6 +2,8 @@ import styled from "styled-components"
 import data from "../../DATA/data.json"; 
 import MenuButton from "../../components/menuButton/MenuButton ";
 import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   /* Mobile */
@@ -9,6 +11,7 @@ const Wrapper = styled.div`
   gap: 2rem;
   width: 100%;
   display: flex;
+  outline: none;
   flex-direction: column;
   justify-content: space-between;
   font-family: ${({ theme }) => theme.fontFamily};
@@ -29,10 +32,34 @@ const Wrapper = styled.div`
 
 
 function Hero() {
+  const [focusedElement, setFocusedElement] = useState<number>(0)
+  const navigate = useNavigate();
+  const divref = useRef<(HTMLDivElement | null)>(null);;
+
+  function handleKeyDown(event: React.KeyboardEvent, focusableElements: number) {
+    console.log("lisetning to keydown");
+    
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+      setFocusedElement(
+        (prevIndex) => (prevIndex + 1) % focusableElements
+      );
+    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      setFocusedElement(
+        (prevIndex) =>
+          (prevIndex - 1 + focusableElements) % focusableElements
+      );
+    } else if (event.key === "Enter") {
+      navigate(`/${data.quizzes[focusedElement].title}`);
+    }
+  }
+
+  useEffect(() => {
+    divref.current?.focus();
+  },[])
 
   return (
-    <Wrapper>
-      <TitleWrapper>
+    <Wrapper onKeyDown={(event)=>handleKeyDown(event,data.quizzes.length)} ref={divref} tabIndex={0}>
+      <TitleWrapper onKeyDown={(event)=>handleKeyDown(event,data.quizzes.length)}>
         <div>
           <h1>
             Welcome to the
@@ -48,6 +75,7 @@ function Hero() {
           data.quizzes.map((item, index) => {
             return (
               <MenuButton
+                focused={focusedElement === index? "focused" : ""}
                 key={index}
                 icon={item.icon}
                 background={`${item.title}`}

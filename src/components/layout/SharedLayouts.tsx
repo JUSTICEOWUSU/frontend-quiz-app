@@ -97,6 +97,7 @@ export const ContentWrapper = styled.div`
   gap: 2rem;
   width: 100%;
   display: flex;
+  outline: none;
   flex-direction: column;
   justify-content: space-between;
 
