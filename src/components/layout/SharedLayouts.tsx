@@ -12,7 +12,8 @@ export const ButtonsWrapper = styled.div`
   position: relative;
   justify-content: space-between;
   flex-direction: column;
-
+  outline:none;
+  
   .hideSelectAnswer {
     visibility:hidden;
   }

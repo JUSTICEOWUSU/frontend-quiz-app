@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useContext, useEffect } from "react";
 import { currentSubjectData } from "../pageUtils";
-import { resultContext } from "../../context/contexts";
+import { appContext } from "../../context/contexts";
 import { useNavigate, useParams } from "react-router-dom";
 import SubmitButton from "../../components/submitButton/SubmitButton";
 
@@ -111,10 +111,13 @@ const ResultsCard = styled.div<{ subject: string }>`
 function Result() {
   const navigate = useNavigate();
   const { subject } = useParams();
-  const { resultData, setResultData } = useContext(resultContext);
+  const { contextData, setContextData } = useContext(appContext);
 
   function handleButtonClick() {
-    setResultData({ numberOfPasssedQuestions: 0, numberOfQuetsions: 0 });
+    setContextData((prev) => ({
+      ...prev,
+      resultPageStates: { numberOfPasssedQuestions: 0, numberOfQuetsions: 0 },
+    }));
     return navigate("/");
   }
 
@@ -145,9 +148,9 @@ function Result() {
           </div>
 
           {/* Result marks */}
-          <p className="score">{resultData.numberOfPasssedQuestions}</p>
+          <p className="score">{contextData.resultPageStates.numberOfPasssedQuestions}</p>
 
-          <span>out of {resultData.numberOfQuetsions}</span>
+          <span>out of {contextData.resultPageStates.numberOfQuetsions}</span>
         </ResultsCard>
         <SubmitButton onClick={handleButtonClick} content="play again" />
       </ButtonsWrapper>

@@ -5,12 +5,14 @@ const Button = styled.span`
     width: 100%;
     flex-grow: 0;
     border: none;
+    outline: none;
     display: flex;
     gap: 0.6875rem;
     padding: 0.7rem;
     align-items: center;
     border-radius: 1.25rem;
-    transition: background-color 0.5s linear;
+    transition: all 0.5s linear;
+    transition-property:background-color,border;
 
     color: ${({ theme }) =>
       theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
@@ -92,6 +94,18 @@ const Button = styled.span`
       }
     }
 
+    &:focus {
+      border: 0.1875rem solid ${({ theme }) => theme.primaryBlue};
+
+      span {
+        background: ${({ theme }) => theme.primaryBlue};
+
+        p {
+          color: ${({ theme }) => theme.darkMode.text};
+        }
+      }
+    }
+
     /* Tablets (640px->) */
     @media (min-width: 640px) {
       span {
@@ -149,15 +163,17 @@ interface OptionButtonPropsTypes {
   disabled: boolean;
   answerState: { answer: string; icon: string };
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  refItem?: React.LegacyRef<HTMLButtonElement>;
 }
 
-function OptionsButton( { option, content, onClick, answerState, disabled }: OptionButtonPropsTypes ) {
+function OptionsButton( { option, content, onClick, answerState, disabled, refItem }: OptionButtonPropsTypes ) {
 
   return (
     <Button>
       <button
         onClick={onClick}
         disabled={disabled}
+        ref={refItem}
         className={`${answerState.answer}`}
       >
         {/* Option character (A, B, C, D) */}
