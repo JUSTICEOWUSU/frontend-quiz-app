@@ -36,17 +36,22 @@ const Button = styled.button`
   @media (min-width: 1050px) {
     height: 4rem;
   }
+
+  
 `;
 
 interface SubmitButtonTypes {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick ?: React.MouseEventHandler<HTMLButtonElement>;
   content: string;
+  focused: string;
 }
 
-function SubmitButton({onClick,content}:SubmitButtonTypes) {
+function SubmitButton({onClick,content,focused}:SubmitButtonTypes) {
   return (
-    <Button onClick={onClick}>{content}</Button>
-  )
+    <Button onClick={onClick} style={{ background: `${focused}` }}>
+      {content}
+    </Button>
+  );
 }
 
 export default SubmitButton

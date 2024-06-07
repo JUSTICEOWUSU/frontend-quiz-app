@@ -1,4 +1,4 @@
-import { useContext, } from "react";
+import { useContext, useEffect, useRef, useState, } from "react";
 import styled from "styled-components";
 import { appContext } from "../../context/contexts";
 import { useParams, useNavigate } from "react-router-dom"
@@ -6,6 +6,8 @@ import correctAnswer, { currentSubjectData } from "../pageUtils";
 import SubmitButton from "../../components/submitButton/SubmitButton";
 import { ButtonsWrapper } from "../../components/layout/SharedLayouts"; 
 import OptionsButton from "../../components/optionsButton/OptionsButton";
+import { ModeContext } from "../../App";
+
 
 
 // This is an error message component that shows up when no answer is chosen
@@ -59,15 +61,21 @@ const SelectQuestionErrorMessage = styled.div`
 
 function OptionsSection() {
   const navigate = useNavigate();
-  // --> CUSTOM STATES/VARAIBLES FOR THE SUBJECT PAGE AND QUESTINING LOGIC <--//
+  // --> Using the appContext(The app stateManager) <--//
   const { contextData, setContextData } = useContext(appContext);
+  // --> Using the ModeContext(The theme stateManager) <--//
+  const { colorMode, setColorMode } = useContext(ModeContext);
 
   // Obtaining the subject/topic from the url parameter
   const { subject } = useParams();
 
+  // Extracting data for the selected subject/topic (using url params)
   const data = currentSubjectData(subject)[0]?.questions || [
     { question: "", options: [""], answer: "" },
   ];
+
+  const [focuseButton, setFocusedBuutton] = useState<boolean>(false);
+  const divRef = useRef<HTMLDivElement | null>(null);
 
   // Hide select an answefr error message
   function hideAnswerQuestion() {
@@ -109,8 +117,11 @@ function OptionsSection() {
 
   // Submit button onclick event listeenr
   function handleSubmit() {
-    console.log("enterrrrr");
+    if (!focuseButton) return setFocusedBuutton(true);
+
+    // Check and run if no answer is selected
     if (!contextData.subjectPageStates.questionState.chosenAnswer) {
+      if (focuseButton) setFocusedBuutton(false);
       return setContextData((prev) => ({
         ...prev,
         subjectPageStates: {
@@ -129,9 +140,10 @@ function OptionsSection() {
         ...prev,
         subjectPageStates: {
           ...prev.subjectPageStates,
+          // Setting move to Next to true and changing the submit button content from "SUBMIT ANSWER" tO "NEXT QUESTION"
           moveToNextQuestion: true,
           submitButtonMessage: `${
-            data.length ==
+            data.length ===
             contextData.subjectPageStates.questionState.currentQuestionTracker +
               1
               ? "see results"
@@ -139,6 +151,7 @@ function OptionsSection() {
           }`,
           questionState: {
             ...prev.subjectPageStates.questionState,
+            // Disabling the buttons after submiting answer
             disabled: true,
           },
         },
@@ -146,10 +159,10 @@ function OptionsSection() {
 
       // Checking if the selected answer is correct and goToNext(question) is false;
       if (
-        contextData.subjectPageStates.questionState.chosenAnswer ==
+        contextData.subjectPageStates.questionState.chosenAnswer ===
         contextData.subjectPageStates.questionState.answer
       ) {
-        // updating the number of passed questions
+        // Updating the number of passed questions
         setContextData((prev) => ({
           ...prev,
           resultPageStates: {
@@ -157,14 +170,19 @@ function OptionsSection() {
             numberOfPasssedQuestions:
               contextData.resultPageStates.numberOfPasssedQuestions + 1,
           },
+          subjectPageStates: {
+            ...prev.subjectPageStates,
+          },
         }));
 
+        // Updating the answer options in the answerOptions(CONTEXTDATA)
         return setContextData((prev) => ({
           ...prev,
           subjectPageStates: {
             ...prev.subjectPageStates,
             answerOptions: {
               ...prev.subjectPageStates.answerOptions,
+              // Selecting the chosen answer
               [contextData.subjectPageStates.questionState.chosenAnswer]: {
                 answer: "correct",
                 icon: "showIcon",
@@ -175,6 +193,7 @@ function OptionsSection() {
       }
 
       // Runs when the selected answer is incorrect
+      // if (focuseButton) setFocusedBuutton(false);
       return setContextData((prev) => ({
         ...prev,
         subjectPageStates: {
@@ -223,6 +242,7 @@ function OptionsSection() {
           },
         },
       }));
+      if (focuseButton) setFocusedBuutton(false);
       return setAllStateToDefault();
     }
 
@@ -233,7 +253,7 @@ function OptionsSection() {
       data.length ==
         contextData.subjectPageStates.questionState.currentQuestionTracker + 1
     ) {
-      // setResultData((prev) => ({ ...prev, numberOfQuetsions: data.length, }))
+      // Updating the contextData to default(Preparing to navigate to the result page);
       setContextData((prev) => ({
         ...prev,
         resultPageStates: {
@@ -245,7 +265,7 @@ function OptionsSection() {
           questionState: {
             ...prev.subjectPageStates.questionState,
             currentQuestionTracker: 0,
-            answer:""
+            answer: "",
           },
         },
       }));
@@ -256,28 +276,57 @@ function OptionsSection() {
     }
   }
 
-  function handleOptionClick(option: string) {
-    hideAnswerQuestion();
-    // return setQuestinonState((prev) => ({ ...prev, chosenAnswer: `${option}` }));
-    return setContextData((prev) => ({
-      ...prev,
-      subjectPageStates: {
-        ...prev.subjectPageStates,
-        questionState: {
-          ...prev.subjectPageStates.questionState,
-          chosenAnswer: `${option}`,
+  // A function that handle all keyDowns in the subject page
+  function handleKeyDown(event: React.KeyboardEvent) {
+    const key = event.key.toLowerCase();
+    if (key === "a" || key === "b" || key === "c" || key === "d") {
+      if (contextData.subjectPageStates.questionState.disabled) return;
+      hideAnswerQuestion();
+      return setContextData((prev) => ({
+        ...prev,
+        subjectPageStates: {
+          ...prev.subjectPageStates,
+          questionState: {
+            ...prev.subjectPageStates.questionState,
+            chosenAnswer: `${key}`,
+          },
         },
-      },
-    }));
+      }));
+    } else if (event.key === "Enter") {
+      return handleSubmit();
+    } else if (event.key.toLowerCase() === "l") {
+      window.localStorage.setItem(
+        "mode",
+        `${colorMode == "light" ? "dark" : "light"}`
+      );
+      return setColorMode(colorMode == "light" ? "dark" : "light");
+    }
+    return;
   }
+
+  // A function to focus the chosen answer
+  function focusedElement(chosenElement: string) {
+    if (
+      chosenElement === contextData.subjectPageStates.questionState.chosenAnswer
+    )
+      return true;
+    return false;
+  }
+
+  // An Effect to focus the buttons contianer on page render
+  useEffect(() => {
+    divRef.current?.focus();
+  }, []);
 
   return (
     <ButtonsWrapper
       tabIndex={0}
-      // ref={optionsRef}
+      ref={divRef}
       style={{ outline: "none" }}
+      onKeyDown={(event) => handleKeyDown(event)}
     >
       <OptionsButton
+        focused={focusedElement("a") ? "focused" : ""}
         option={"a"}
         content={
           data[
@@ -285,49 +334,48 @@ function OptionsSection() {
           ].options[0]
         }
         answerState={contextData.subjectPageStates.answerOptions.a}
-        onClick={() => handleOptionClick("a")}
         disabled={contextData.subjectPageStates.questionState.disabled}
-        // refItem={(ele) => (buttonRef.current[0] = ele)}
       />
       <OptionsButton
         option={"b"}
+        focused={focusedElement("b") ? "focused" : ""}
         content={
           data[
             contextData.subjectPageStates.questionState.currentQuestionTracker
           ].options[1]
         }
         answerState={contextData.subjectPageStates.answerOptions.b}
-        onClick={() => handleOptionClick("b")}
         disabled={contextData.subjectPageStates.questionState.disabled}
-        // refItem={(ele) => (buttonRef.current[1] = ele)}
       />
       <OptionsButton
         option={"c"}
+        focused={focusedElement("c") ? "focused" : ""}
         content={
           data[
             contextData.subjectPageStates.questionState.currentQuestionTracker
           ].options[2]
         }
-        // refItem={(ele) => (buttonRef.current[2] = ele)}
         answerState={contextData.subjectPageStates.answerOptions.c}
-        onClick={() => handleOptionClick("c")}
         disabled={contextData.subjectPageStates.questionState.disabled}
       />
       <OptionsButton
         option={"d"}
+        focused={focusedElement("d") ? "focused" : ""}
         content={
           data[
             contextData.subjectPageStates.questionState.currentQuestionTracker
           ].options[3]
         }
-        // refItem={(ele) => (buttonRef.current[3] = ele)}
         answerState={contextData.subjectPageStates.answerOptions.d}
-        onClick={() => handleOptionClick("d")}
         disabled={contextData.subjectPageStates.questionState.disabled}
       />
       <SubmitButton
-        onClick={handleSubmit}
         content={contextData.subjectPageStates.submitButtonMessage}
+        focused={
+          focuseButton
+            ? "linear-gradient(0deg,rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)),#a729f5"
+            : ""
+        }
       />
       <SelectQuestionErrorMessage
         className={`${contextData.subjectPageStates.selectAnswerErrorMessage}`}
@@ -341,4 +389,4 @@ function OptionsSection() {
   );
 }
 
-export default OptionsSection
+export default OptionsSection;

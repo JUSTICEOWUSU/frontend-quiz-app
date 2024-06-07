@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {  useContext, useEffect, useRef } from "react";
-// import appContext(context for managing scored questions and total number of attempted questions )
+import {  useContext, useEffect } from "react";
+// importing appContext(context for managing the app States )
 import { appContext } from "../../context/contexts";
 import { useParams, useNavigate } from "react-router-dom";
 import OptionsSection from "./optionsSection";
@@ -90,77 +90,92 @@ const ProgressBar = styled.span`
 
 
 function Subject() {
-  const navigate = useNavigate()
-  const { contextData, setContextData} = useContext(appContext);
-  
+  const navigate = useNavigate();
+  const { contextData, setContextData } = useContext(appContext);
+
   // Obtaining the subject/topic from the url parameter
   const { subject } = useParams();
- 
-  const data = currentSubjectData(subject)[0]?.questions || [{question: "",
-  options: [""],
-  answer: ""}];
 
+  const data = currentSubjectData(subject)[0]?.questions || [
+    { question: "", options: [""], answer: "" },
+  ];
 
-
-// useEffect for handling subject/topics that are not currently part of our topics/data
-  useEffect(() => {
-  
-     const subjectData = currentSubjectData(subject);
-     if (!subjectData || subjectData.length === 0) {
-       return navigate("/");
-    } 
+  // Function for setting subject first question answer
+  function setSubjectInitialAnswer() {
     if (!contextData.subjectPageStates.questionState.answer) {
-       setContextData((prev) => ({
-         ...prev,
-         subjectPageStates: {
-           ...prev.subjectPageStates,
-           questionState: {
-             ...prev.subjectPageStates.questionState,
-             answer: correctAnswer(
-               data[
-                 contextData.subjectPageStates.questionState
-                   .currentQuestionTracker
-               ].options,
-               data[
-                 contextData.subjectPageStates.questionState
-                   .currentQuestionTracker
-               ].answer
-             ),
-           },
-         },
-       }));
+      return setContextData((prev) => ({
+        ...prev,
+        subjectPageStates: {
+          ...prev.subjectPageStates,
+          questionState: {
+            ...prev.subjectPageStates.questionState,
+            answer: correctAnswer(
+              data[
+                contextData.subjectPageStates.questionState
+                  .currentQuestionTracker
+              ].options,
+              data[
+                contextData.subjectPageStates.questionState
+                  .currentQuestionTracker
+              ].answer
+            ),
+          },
+        },
+      }));
     }
-   
-   },[]);
-  
+    return;
+  }
+
+  // useEffect for handling subject/topics that are not currently part of our topics/data
+  useEffect(() => {
+    const subjectData = currentSubjectData(subject);
+    // Checking if selected subject/topic is present in our topics list
+    if (!subjectData || subjectData.length === 0) {
+      return navigate("/Error");
+    }
+
+    // Setting subject first question answer
+    setSubjectInitialAnswer();
+  }, []);
 
   return (
-      <ContentWrapper
-        tabIndex={0}
-        style={{ outline: "none" }}
-      >
-        <QuestionWrapper>
-          {/* current question number */}
-          <p className="questionNumber">
-            {contextData.subjectPageStates.questionState.currentQuestionTracker + 1} out of {data.length}
-          </p>
+    <ContentWrapper tabIndex={0} style={{ outline: "none" }}>
+      <QuestionWrapper>
+        {/* current question number */}
+        <p className="questionNumber">
+          {contextData.subjectPageStates.questionState.currentQuestionTracker +
+            1}{" "}
+          out of {data.length}
+        </p>
 
-          {/* Question */}
-          <span className="question">{data[contextData.subjectPageStates.questionState.currentQuestionTracker].question}</span>
+        {/* Question */}
+        <span className="question">
+          {
+            data[
+              contextData.subjectPageStates.questionState.currentQuestionTracker
+            ].question
+          }
+        </span>
 
-          {/* Progress Bar */}
-          <ProgressBar>
-            <span
-              style={{
-                width: `${((contextData.subjectPageStates.questionState.currentQuestionTracker + 1) / data.length) * 100}%`,
-              }}
-            ></span>
-          </ProgressBar>
-        </QuestionWrapper>
+        {/* Progress Bar */}
+        <ProgressBar>
+          <span
+            style={{
+              width: `${
+                ((contextData.subjectPageStates.questionState
+                  .currentQuestionTracker +
+                  1) /
+                  data.length) *
+                100
+              }%`,
+            }}
+          ></span>
+        </ProgressBar>
+      </QuestionWrapper>
 
-        {/* options  with the submit button*/}
-       <OptionsSection/>
-      </ContentWrapper>
+      {/* options  with the submit button*/}
+      <OptionsSection />
+    </ContentWrapper>
   );
 }
 

@@ -1,4 +1,3 @@
-
 // CONTEXT FOR MANAGING NUMBER CORRECT CHOICES AND THE TOTAL NUMBER QUESTION
 import { createContext, useState } from "react";
 
@@ -34,7 +33,7 @@ interface contextDataTypes {
     selectAnswerErrorMessage: string;
     submitButtonMessage: string;
     moveToNextQuestion: boolean;
-  }
+  };
 }
 
 interface MyContextType {
@@ -62,11 +61,11 @@ const defaultValue: MyContextType = {
         disabled: false,
       },
 
-      selectAnswerErrorMessage: "hideSelectAnswer",
+     selectAnswerErrorMessage: "hideSelectAnswer",
      submitButtonMessage: "submit answer",
      moveToNextQuestion: false
 
-    },
+    }
   },
 
   setContextData: () => {},

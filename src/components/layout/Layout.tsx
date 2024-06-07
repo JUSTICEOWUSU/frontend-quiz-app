@@ -25,9 +25,14 @@ const Wrapper = styled.div<{ subject?: string }>`
 
 function Layout() {
   const { subject } = useParams();
+  
+  function resetFocus(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+  event.stopPropagation();
+  return event.preventDefault();
+}
 
   return (
-    <Wrapper subject={subject}>
+    <Wrapper subject={subject} onMouseDown={resetFocus}>
       <Navigation />
 
       {/* child route elements(Hero, subject, result,etc) get renedered here */}

@@ -2,8 +2,9 @@ import styled from "styled-components"
 import data from "../../DATA/data.json"; 
 import MenuButton from "../../components/menuButton/MenuButton ";
 import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ModeContext } from "../../App";
 
 const Wrapper = styled.div`
   /* Mobile */
@@ -15,6 +16,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   font-family: ${({ theme }) => theme.fontFamily};
+
 
   /* Tablets (640px->) */
   @media (min-width: 640px) {
@@ -34,7 +36,8 @@ const Wrapper = styled.div`
 function Hero() {
   const [focusedElement, setFocusedElement] = useState<number>(0)
   const navigate = useNavigate();
-  const divref = useRef<(HTMLDivElement | null)>(null);;
+  const divRef = useRef<(HTMLDivElement | null)>(null);
+  const {colorMode,setColorMode} = useContext(ModeContext)
 
   function handleKeyDown(event: React.KeyboardEvent, focusableElements: number) {
     console.log("lisetning to keydown");
@@ -50,16 +53,30 @@ function Hero() {
       );
     } else if (event.key === "Enter") {
       navigate(`/${data.quizzes[focusedElement].title}`);
+    } else if (event.key.toLowerCase() === "l") {
+      window.localStorage.setItem(
+    "mode",
+    `${colorMode == "light" ? "dark" : "light"}`
+  );
+    setColorMode(colorMode == "light" ? "dark" : "light")
     }
+
   }
 
   useEffect(() => {
-    divref.current?.focus();
-  },[])
+    divRef.current?.focus();
+    console.log("hellooo focus");
+  });
 
   return (
-    <Wrapper onKeyDown={(event)=>handleKeyDown(event,data.quizzes.length)} ref={divref} tabIndex={0}>
-      <TitleWrapper onKeyDown={(event)=>handleKeyDown(event,data.quizzes.length)}>
+    <Wrapper
+      onKeyDown={(event) => handleKeyDown(event, data.quizzes.length)}
+      tabIndex={-1}
+      ref={divRef}
+    >
+      <TitleWrapper
+        onKeyDown={(event) => handleKeyDown(event, data.quizzes.length)}
+      >
         <div>
           <h1>
             Welcome to the
@@ -75,7 +92,7 @@ function Hero() {
           data.quizzes.map((item, index) => {
             return (
               <MenuButton
-                focused={focusedElement === index? "focused" : ""}
+                focused={focusedElement === index ? "focused" : ""}
                 key={index}
                 icon={item.icon}
                 background={`${item.title}`}

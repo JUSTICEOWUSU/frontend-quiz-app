@@ -68,20 +68,18 @@ const Span = styled.span`
 
 
 function ToggleSwitch() {
-  const { colorMode, setColorMode } = useContext(ModeContext);
-  
-  function listenToOnchange() {
-  window.localStorage.setItem(
-    "mode",
-    `${colorMode == "light" ? "dark" : "light"}`
-  );
-  setColorMode(colorMode == "light" ? "dark" : "light")
+  // Acontext for managing the state of the app colorMode (Dark/Light)
+  const { colorMode } = useContext(ModeContext);
+
+  function listenToMouseDown(event: React.MouseEvent<HTMLLabelElement, MouseEvent>) {
+    event.stopPropagation();
+    return event.preventDefault();
   }
 
   return (
-      <Label>
-          <input type="checkbox" onChange={listenToOnchange} checked={colorMode === "dark"}></input>
-          <Span/>
+      <Label  onClick={listenToMouseDown}>
+          <input type="checkbox"  checked={colorMode === "dark"}></input>
+          <Span />
       </Label>
   )
 }

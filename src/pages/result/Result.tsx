@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect,useState,useRef } from "react";
 import { currentSubjectData } from "../pageUtils";
 import { appContext } from "../../context/contexts";
 import { useNavigate, useParams } from "react-router-dom";
 import SubmitButton from "../../components/submitButton/SubmitButton";
+import { ModeContext } from "../../App";
+
 
 // Importing layouts from the SharedLayout compenent
 import {
@@ -110,15 +112,33 @@ const ResultsCard = styled.div<{ subject: string }>`
 
 function Result() {
   const navigate = useNavigate();
+  // Obtaining the subject/topic from the url parameter
   const { subject } = useParams();
+  const divRef = useRef<HTMLDivElement | null>(null);
+  const { colorMode, setColorMode } = useContext(ModeContext);
   const { contextData, setContextData } = useContext(appContext);
+  const [focuseButton, setFocusedButton] = useState<boolean>(false);
 
-  function handleButtonClick() {
-    setContextData((prev) => ({
-      ...prev,
-      resultPageStates: { numberOfPasssedQuestions: 0, numberOfQuetsions: 0 },
-    }));
-    return navigate("/");
+  // A function that handle all keyDowns in the result page
+  function handleKeyClick(event: React.KeyboardEvent) {
+    if (event.key === "Enter") {
+      if (!focuseButton) return setFocusedButton(true);
+      setContextData((prev) => ({
+        ...prev,
+        resultPageStates: {
+          numberOfPasssedQuestions: 0,
+          numberOfQuetsions: 0,
+        },
+      }));
+      setFocusedButton(false);
+      return navigate("/");
+    } else if (event.key.toLowerCase() === "l") {
+      window.localStorage.setItem(
+        "mode",
+        `${colorMode == "light" ? "dark" : "light"}`
+      );
+      setColorMode(colorMode == "light" ? "dark" : "light");
+    }
   }
 
   // useEffect for handling subject/topics that are not currently part of our topics/data
@@ -127,10 +147,12 @@ function Result() {
     if (!subjectData || subjectData.length === 0) {
       navigate("/Error");
     }
+    // Focusing the result page container on page load or render
+    divRef.current?.focus();
   });
 
   return (
-    <ContentWrapper>
+    <ContentWrapper tabIndex={0} ref={divRef} onKeyDown={handleKeyClick}>
       <TitleWrapper>
         <h1>
           Quiz completed <br></br>
@@ -148,11 +170,20 @@ function Result() {
           </div>
 
           {/* Result marks */}
-          <p className="score">{contextData.resultPageStates.numberOfPasssedQuestions}</p>
+          <p className="score">
+            {contextData.resultPageStates.numberOfPasssedQuestions}
+          </p>
 
           <span>out of {contextData.resultPageStates.numberOfQuetsions}</span>
         </ResultsCard>
-        <SubmitButton onClick={handleButtonClick} content="play again" />
+        <SubmitButton
+          focused={
+            focuseButton
+              ? "linear-gradient(0deg,rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)),#a729f5"
+              : ""
+          }
+          content="play again"
+        />
       </ButtonsWrapper>
     </ContentWrapper>
   );

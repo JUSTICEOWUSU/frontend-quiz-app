@@ -1,6 +1,18 @@
 import styled from 'styled-components';
 
 const Button = styled.span`
+  .focused {
+    border: 0.1875rem solid ${({ theme }) => theme.primaryBlue};
+
+    .optionCharacter {
+      background: ${({ theme }) => theme.primaryBlue};
+
+      p {
+        color: ${({ theme }) => theme.darkMode.text};
+      }
+    }
+  }
+
   button {
     width: 100%;
     flex-grow: 0;
@@ -12,7 +24,7 @@ const Button = styled.span`
     align-items: center;
     border-radius: 1.25rem;
     transition: all 0.5s linear;
-    transition-property:background-color,border;
+    transition-property: background-color;
 
     color: ${({ theme }) =>
       theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
@@ -82,30 +94,6 @@ const Button = styled.span`
       }
     }
 
-    &:active {
-      border: 0.1875rem solid ${({ theme }) => theme.primaryBlue};
-
-      span {
-        background: ${({ theme }) => theme.primaryBlue};
-
-        p {
-          color: ${({ theme }) => theme.darkMode.text};
-        }
-      }
-    }
-
-    &:focus {
-      border: 0.1875rem solid ${({ theme }) => theme.primaryBlue};
-
-      span {
-        background: ${({ theme }) => theme.primaryBlue};
-
-        p {
-          color: ${({ theme }) => theme.darkMode.text};
-        }
-      }
-    }
-
     /* Tablets (640px->) */
     @media (min-width: 640px) {
       span {
@@ -160,21 +148,20 @@ const Button = styled.span`
 interface OptionButtonPropsTypes {
   option: string;
   content: string;
+  focused: string;
   disabled: boolean;
   answerState: { answer: string; icon: string };
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   refItem?: React.LegacyRef<HTMLButtonElement>;
 }
 
-function OptionsButton( { option, content, onClick, answerState, disabled, refItem }: OptionButtonPropsTypes ) {
+function OptionsButton( { option, content, answerState, disabled, refItem, focused }: OptionButtonPropsTypes ) {
 
   return (
     <Button>
       <button
-        onClick={onClick}
         disabled={disabled}
         ref={refItem}
-        className={`${answerState.answer}`}
+        className={`${answerState.answer} ${focused}`}
       >
         {/* Option character (A, B, C, D) */}
         <span className="optionCharacter">
