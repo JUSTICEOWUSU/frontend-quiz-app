@@ -14,7 +14,7 @@ function correctAnswer(options: OptionsType, answer: AnswerTpe):string {
 
 // This function return the data of a provided subject / topic
 export function currentSubjectData(subject?:string) {
-    return data.quizzes.filter((quize)=>quize.title == subject)
+    return data.quizzes.filter((quize) => quize.title == subject);
 }
 
 export default correctAnswer;

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Navigation from "../navigation/Navigation";
 import { Outlet, useParams } from "react-router-dom";
+import QuizeContextProvider from "../../AppContext/quizeContext/quizeContext";
+import ToggleContextProvider from "../../AppContext/toggleContext/toggleContext";
 
 const Wrapper = styled.div<{ subject?: string }>`
   /* Mobile */
@@ -33,10 +35,13 @@ function Layout() {
 
   return (
     <Wrapper subject={subject} onMouseDown={resetFocus} tabIndex={-1}>
-      <Navigation />
-
-      {/* child route elements(Hero, subject, result,etc) get renedered here */}
-      <Outlet />
+      <ToggleContextProvider>
+        <Navigation />
+        <QuizeContextProvider>
+          {/* child route elements(Hero, subject, result,etc) get renedered here */}
+          <Outlet />
+        </QuizeContextProvider>
+      </ToggleContextProvider>
     </Wrapper>
   );
 }

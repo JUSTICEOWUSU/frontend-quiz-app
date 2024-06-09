@@ -2,7 +2,6 @@ import RouteConfig from "./route";
 import theme from "./styles/theme";
 import GlobalStyle from "./styles/global";
 import { ThemeProvider } from "styled-components";
-import ResultsContextProvider from "./context/contexts";
 import { useState, createContext, useEffect } from "react";
 
 interface MyContextType {
@@ -39,9 +38,7 @@ function App() {
     <ThemeProvider theme={updatedTheme}>
       <GlobalStyle />
       <ModeContext.Provider value={{ colorMode, setColorMode }}>
-        <ResultsContextProvider>
           <RouteConfig />
-        </ResultsContextProvider>
       </ModeContext.Provider>
     </ThemeProvider>
   );

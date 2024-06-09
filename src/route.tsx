@@ -1,6 +1,6 @@
-import Hero from "./pages/hero/Hero";
-import Result from "./pages/result/Result";
-import Subject from "./pages/subject/Subject";
+import Hero from "./pages/heroPage/Hero";
+import Result from "./pages/resultPage/Result";
+import Subject from "./pages/subjectPage/Subject";
 import Layout from "./components/layout/Layout";
 import FallBackUI from "./components/fallBackUI/FallBackUI";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";

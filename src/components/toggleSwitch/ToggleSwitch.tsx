@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useContext } from 'react';
 import { ModeContext } from '../../App';
-import { appContext } from "../../context/contexts";
+import { ToggleContext } from '../../AppContext/toggleContext/toggleContext';
 
 const Label = styled.label`
   width: 2rem;
@@ -78,7 +78,7 @@ const Span = styled.span`
 function ToggleSwitch() {
   // A context for managing the state of the app colorMode (Dark/Light)
   const { colorMode } = useContext(ModeContext);
-  const { contextData} = useContext(appContext);
+  const { toggleState} = useContext(ToggleContext);
 
   function listenToMouseDown(event: React.MouseEvent<HTMLLabelElement, MouseEvent>) {
     event.stopPropagation();
@@ -90,7 +90,7 @@ function ToggleSwitch() {
     <Label onClick={listenToMouseDown}>
       <input type="checkbox" checked={colorMode === "dark"}></input>
       <Span
-        className={`${contextData.toggleFocuse}`}
+        className={`${toggleState}`}
       />
     </Label>
   );
