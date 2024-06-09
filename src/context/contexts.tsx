@@ -34,6 +34,8 @@ interface contextDataTypes {
     submitButtonMessage: string;
     moveToNextQuestion: boolean;
   };
+
+  toggleFocuse: string;
 }
 
 interface MyContextType {
@@ -65,7 +67,9 @@ const defaultValue: MyContextType = {
      submitButtonMessage: "submit answer",
      moveToNextQuestion: false
 
-    }
+    },
+    toggleFocuse:""
+
   },
 
   setContextData: () => {},
