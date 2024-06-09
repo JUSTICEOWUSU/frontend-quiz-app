@@ -36,8 +36,6 @@ const Button = styled.button`
   @media (min-width: 1050px) {
     height: 4rem;
   }
-
-  
 `;
 
 interface SubmitButtonTypes {
@@ -48,7 +46,13 @@ interface SubmitButtonTypes {
 
 function SubmitButton({onClick,content,focused}:SubmitButtonTypes) {
   return (
-    <Button onClick={onClick} style={{ background: `${focused}` }}>
+    <Button
+      onClick={onClick}
+      style={{
+        background: `${focused}`,
+        border: focused ? "3px solid #A729F5" : "",
+      }}
+    >
       {content}
     </Button>
   );

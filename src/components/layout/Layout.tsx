@@ -32,7 +32,7 @@ function Layout() {
 }
 
   return (
-    <Wrapper subject={subject} onMouseDown={resetFocus}>
+    <Wrapper subject={subject} onMouseDown={resetFocus} tabIndex={-1}>
       <Navigation />
 
       {/* child route elements(Hero, subject, result,etc) get renedered here */}

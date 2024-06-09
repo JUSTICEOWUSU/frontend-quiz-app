@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useContext } from 'react';
 import { ModeContext } from '../../App';
+import { appContext } from "../../context/contexts";
 
 const Label = styled.label`
   width: 2rem;
@@ -14,10 +15,15 @@ const Label = styled.label`
     height: 0;
   }
 
+  .focuse{
+    background: linear-gradient(0deg,rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)),#a729f5;
+    border-color:#A729F5
+  }
+
   input:checked + span:before {
-    -webkit-transform: translateX(12px);
-    -ms-transform: translateX(12px);
-    transform: translateX(12px);
+    -webkit-transform: translateX(11px);
+    -ms-transform: translateX(11px);
+    transform: translateX(11px);
   }
 
   /* Tablet (640px) */
@@ -26,9 +32,9 @@ const Label = styled.label`
     height: 1.75rem;
 
     input:checked + span:before {
-      -webkit-transform: translateX(1.25rem);
-      -ms-transform: translateX(1.25rem);
-      transform: translateX(1.25rem);
+      -webkit-transform: translateX(1.15rem);
+      -ms-transform: translateX(1.15rem);
+      transform: translateX(1.15rem);
     }
   }
 `;
@@ -38,16 +44,18 @@ const Span = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
+  display:block;
   cursor: pointer;
   transition: 0.4s;
   position: absolute;
   border-radius: 34px;
+  border:3px solid transparent;
   -webkit-transition: 0.4s;
   background-color: ${({ theme }) => theme.primaryBlue};
 
   &:before {
-    left: 4px;
-    bottom: 4px;
+    left: 2px;
+    bottom: 1px;
     width: 12px;
     content: "";
     height: 12px;
@@ -68,20 +76,24 @@ const Span = styled.span`
 
 
 function ToggleSwitch() {
-  // Acontext for managing the state of the app colorMode (Dark/Light)
+  // A context for managing the state of the app colorMode (Dark/Light)
   const { colorMode } = useContext(ModeContext);
+  const { contextData} = useContext(appContext);
 
   function listenToMouseDown(event: React.MouseEvent<HTMLLabelElement, MouseEvent>) {
     event.stopPropagation();
     return event.preventDefault();
   }
+  
 
   return (
-      <Label  onClick={listenToMouseDown}>
-          <input type="checkbox"  checked={colorMode === "dark"}></input>
-          <Span />
-      </Label>
-  )
+    <Label onClick={listenToMouseDown}>
+      <input type="checkbox" checked={colorMode === "dark"}></input>
+      <Span
+        className={`${contextData.toggleFocuse}`}
+      />
+    </Label>
+  );
 }
 
 export default ToggleSwitch
