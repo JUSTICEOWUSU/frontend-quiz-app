@@ -75,7 +75,7 @@ function OptionsSection() {
   ];
 
   const [focuseButton, setFocusedBuutton] = useState<boolean>(false);
-  const divRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   // Hide select an answefr error message
   function hideAnswerQuestion() {
@@ -280,8 +280,15 @@ function OptionsSection() {
   function handleKeyDown(event: React.KeyboardEvent) {
     const key = event.key.toLowerCase();
     if (key === "a" || key === "b" || key === "c" || key === "d") {
+      if (contextData.toggleFocuse) setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+      if (focuseButton) setFocusedBuutton(false);
+      // return if an answer has already been submited
       if (contextData.subjectPageStates.questionState.disabled) return;
+
+      // Hide select an answer error message 
       hideAnswerQuestion();
+
+      // Reseting the chosen answer to the pressed key
       return setContextData((prev) => ({
         ...prev,
         subjectPageStates: {
@@ -293,38 +300,92 @@ function OptionsSection() {
         },
       }));
     } else if (event.key === "Enter") {
+      // Runs if toggle switch si already focused
+      if (contextData.toggleFocuse) {
+        window.localStorage.setItem(
+          "mode",
+          `${colorMode == "light" ? "dark" : "light"}`
+        );
+        return setColorMode(colorMode == "light" ? "dark" : "light");
+      }
+
       return handleSubmit();
     } else if (event.key.toLowerCase() === "l") {
-      window.localStorage.setItem(
-        "mode",
-        `${colorMode == "light" ? "dark" : "light"}`
-      );
-      return setColorMode(colorMode == "light" ? "dark" : "light");
+      // Disfocusing the submit button if it's already focused
+      if (focuseButton) setFocusedBuutton(false);
+      // hideAnswerQuestion();
+
+      //Disfocusing the chosen answer if an option is already focused
+      if (contextData.subjectPageStates.questionState.chosenAnswer) {
+        setContextData((prev) => ({
+          ...prev,
+          subjectPageStates: {
+            ...prev.subjectPageStates,
+            questionState: {
+              ...prev.subjectPageStates.questionState,
+              chosenAnswer: ``,
+            },
+          },
+        }));
+      }
+      
+
+      // Focussing the toggle switch if it's not focused
+      if(!contextData.toggleFocuse) return setContextData((prev) => ({ ...prev, toggleFocuse: "focuse" }));
+
+    } else if (event.key === "Tab") {
+      event.preventDefault();
+
+      // Disfocusing the toggle switch if it's already focused
+      if (contextData.toggleFocuse) setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+
+       // Focussing the submit Button if it's not focused
+      if (!focuseButton) return setFocusedBuutton(true);
+      return;
     }
-    return;
+      return;
   }
 
   // A function to focus the chosen answer
   function focusedElement(chosenElement: string) {
     if (
       chosenElement === contextData.subjectPageStates.questionState.chosenAnswer
-    )
+    ) {
       return true;
+    };
+    
     return false;
   }
 
-  // An Effect to focus the buttons contianer on page render
+  // An Effect to focus the invisible input element on page render
   useEffect(() => {
-    divRef.current?.focus();
-  }, []);
+    inputRef.current?.focus();
+
+  // De-Focusing toggle switch on page unmounting
+    return () => {
+    if (contextData.toggleFocuse) setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+    }
+
+  });
 
   return (
     <ButtonsWrapper
       tabIndex={0}
-      ref={divRef}
       style={{ outline: "none" }}
-      onKeyDown={(event) => handleKeyDown(event)}
     >
+      <input
+        type="text"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: "1px",
+          height: "1px",
+          opacity: 0,
+        }}
+        tabIndex={0}
+        onKeyDown={(event) => handleKeyDown(event)}
+        ref={inputRef}
+      />
       <OptionsButton
         focused={focusedElement("a") ? "focused" : ""}
         option={"a"}

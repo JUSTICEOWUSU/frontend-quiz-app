@@ -5,6 +5,7 @@ import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayo
 import { useEffect, useRef, useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ModeContext } from "../../App";
+import { appContext } from "../../context/contexts";
 
 const Wrapper = styled.div`
   /* Mobile */
@@ -34,49 +35,95 @@ const Wrapper = styled.div`
 
 
 function Hero() {
-  const [focusedElement, setFocusedElement] = useState<number>(0)
+  const [focusedElement, setFocusedElement] = useState<number>(-1);
   const navigate = useNavigate();
-  const divRef = useRef<(HTMLDivElement | null)>(null);
-  const {colorMode,setColorMode} = useContext(ModeContext)
+  const inputRef = useRef<(HTMLInputElement | null)>(null);
+  const { colorMode, setColorMode } = useContext(ModeContext);
+  const { contextData, setContextData } = useContext(appContext);
 
-  function handleKeyDown(event: React.KeyboardEvent, focusableElements: number) {
-    console.log("lisetning to keydown");
-    
-    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-      setFocusedElement(
-        (prevIndex) => (prevIndex + 1) % focusableElements
-      );
+  function handleKeyDown(event: React.KeyboardEvent, focusableElements: number) {    
+    if (
+      event.key === "ArrowDown" ||
+      event.key === "ArrowRight" ||
+      event.key === "Tab"
+    ) {
+      event.preventDefault();
+      // Disfocusing the toggle switch
+      if (contextData.toggleFocuse)
+        setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+
+      // Checking if no menu item is selected or focused
+      if (focusedElement > focusableElements || focusedElement < 0)
+        return setFocusedElement(0);
+      // Setting focus to the next item
+      setFocusedElement((prevIndex) => (prevIndex + 1) % focusableElements);
     } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      // Disfocusing the toggle switch
+      if (contextData.toggleFocuse) setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+      
+      // Setting focus to the previuos item
       setFocusedElement(
-        (prevIndex) =>
-          (prevIndex - 1 + focusableElements) % focusableElements
+        (prevIndex) => (prevIndex - 1 + focusableElements) % focusableElements
       );
+
     } else if (event.key === "Enter") {
-      navigate(`/${data.quizzes[focusedElement].title}`);
+      // Runs if a topic/subject is selected
+      if (focusedElement < focusableElements && focusedElement >= 0) {
+        // Navigating to the subject page
+        return navigate(`/${data.quizzes[focusedElement].title}`);
+      }
+
+      // Runs if toggle switch si already focused
+      if (contextData.toggleFocuse) {
+        window.localStorage.setItem(
+          "mode",
+          `${colorMode == "light" ? "dark" : "light"}`
+        );
+        return setColorMode(colorMode == "light" ? "dark" : "light");
+      }
+
+      return;
     } else if (event.key.toLowerCase() === "l") {
-      window.localStorage.setItem(
-    "mode",
-    `${colorMode == "light" ? "dark" : "light"}`
-  );
-    setColorMode(colorMode == "light" ? "dark" : "light")
+      // Disfocusing any selected topic/subject
+      setFocusedElement(focusableElements + 1);
+
+      // Focussing the  toggle switch if it's not focused
+      return setContextData((prev) => ({ ...prev, toggleFocuse: "focuse" }));
+
     }
 
+    return;
   }
 
+  // Effect run component first mount
   useEffect(() => {
-    divRef.current?.focus();
-    console.log("hellooo focus");
+    inputRef.current?.focus();
+
+  // // De-Focusing toggle switch on page unmounting
+  //   return () => {
+  //   if (contextData.toggleFocuse) setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+  //   }
+
   });
 
   return (
     <Wrapper
-      onKeyDown={(event) => handleKeyDown(event, data.quizzes.length)}
-      tabIndex={-1}
-      ref={divRef}
+      tabIndex={0}
     >
-      <TitleWrapper
+      <input
+        type="text"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: "1px",
+          height: "1px",
+          opacity: 0,
+        }}
+        tabIndex={0}
         onKeyDown={(event) => handleKeyDown(event, data.quizzes.length)}
-      >
+        ref={inputRef}
+      />
+      <TitleWrapper>
         <div>
           <h1>
             Welcome to the

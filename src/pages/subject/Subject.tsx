@@ -136,10 +136,10 @@ function Subject() {
 
     // Setting subject first question answer
     setSubjectInitialAnswer();
-  }, []);
+  },[]);
 
   return (
-    <ContentWrapper tabIndex={0} style={{ outline: "none" }}>
+    <ContentWrapper>
       <QuestionWrapper>
         {/* current question number */}
         <p className="questionNumber">

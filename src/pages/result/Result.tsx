@@ -114,30 +114,51 @@ function Result() {
   const navigate = useNavigate();
   // Obtaining the subject/topic from the url parameter
   const { subject } = useParams();
-  const divRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const { colorMode, setColorMode } = useContext(ModeContext);
   const { contextData, setContextData } = useContext(appContext);
   const [focuseButton, setFocusedButton] = useState<boolean>(false);
 
   // A function that handle all keyDowns in the result page
-  function handleKeyClick(event: React.KeyboardEvent) {
+  function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter") {
-      if (!focuseButton) return setFocusedButton(true);
-      setContextData((prev) => ({
-        ...prev,
-        resultPageStates: {
-          numberOfPasssedQuestions: 0,
-          numberOfQuetsions: 0,
-        },
-      }));
-      setFocusedButton(false);
-      return navigate("/");
+      // Runs if toggle switch si already focused
+      if (contextData.toggleFocuse) {
+        window.localStorage.setItem(
+          "mode",
+          `${colorMode == "light" ? "dark" : "light"}`
+        );
+        return setColorMode(colorMode == "light" ? "dark" : "light");
+      }
+
+      // Runs if button is already focused
+
+      if (focuseButton) {
+        setContextData((prev) => ({
+          ...prev,
+          resultPageStates: {
+            numberOfPasssedQuestions: 0,
+            numberOfQuetsions: 0,
+          },
+        }));
+        setFocusedButton(false);
+        return navigate("/");
+      }
     } else if (event.key.toLowerCase() === "l") {
-      window.localStorage.setItem(
-        "mode",
-        `${colorMode == "light" ? "dark" : "light"}`
-      );
-      setColorMode(colorMode == "light" ? "dark" : "light");
+      // Disfocusing the playAgain button
+      setFocusedButton(false);
+
+      // Focussing the toggle button if it's not focused
+             return setContextData((prev) => ({ ...prev, toggleFocuse: "focuse" }));
+
+    } else if (event.key === "Tab") {
+      event.preventDefault();
+      // Disfocussing all focused element
+      if (!focuseButton) return setFocusedButton(true);
+      if (contextData.toggleFocuse) setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+
+
+      return;
     }
   }
 
@@ -148,11 +169,29 @@ function Result() {
       navigate("/Error");
     }
     // Focusing the result page container on page load or render
-    divRef.current?.focus();
+    inputRef.current?.focus();
+
+    // // De-Focusing toggle switch on page unmounting
+    // return () => {
+    // if (contextData.toggleFocuse) setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+    // }
   });
 
   return (
-    <ContentWrapper tabIndex={0} ref={divRef} onKeyDown={handleKeyClick}>
+    <ContentWrapper>
+      <input
+        type="text"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: "1px",
+          height: "1px",
+          opacity: 0,
+        }}
+        tabIndex={0}
+        onKeyDown={(event) => handleKeyDown(event)}
+        ref={inputRef}
+      />
       <TitleWrapper>
         <h1>
           Quiz completed <br></br>
@@ -164,7 +203,14 @@ function Result() {
         <ResultsCard subject={subject || ""}>
           <div className="subject">
             <span>
-              <img src={`/images/icon-${subject?.toLowerCase()}.svg`} alt="" />
+              <img
+                src={
+                  subject?.toLowerCase() === "javascript"
+                    ? "/images/icon-js.svg"
+                    : `/images/icon-${subject?.toLowerCase()}.svg`
+                }
+                alt=""
+              />
             </span>
             <h4>{subject}</h4>
           </div>
