@@ -15,6 +15,7 @@ function RouteConfig() {
           <Route path="/:subject" element={<Subject />} />
           <Route path="/:subject/result" element={<Result />} />
           <Route path="/Error" element={<FallBackUI />} />
+          <Route path="*" element={<FallBackUI />} />
         </Route>
       </Routes>
     </Router>
