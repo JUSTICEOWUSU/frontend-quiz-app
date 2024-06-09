@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import { useState,useContext,useRef,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import SubmitButton from '../submitButton/SubmitButton'
-import { appContext } from "../../context/contexts";
+import { quizeContext } from '../../AppContext/quizeContext/quizeContext';
+import { ToggleContext } from '../../AppContext/toggleContext/toggleContext';
 import { ModeContext } from "../../App";
 
 
@@ -73,19 +74,25 @@ function FallBackUI() {
   const [focuseButton, setFocusedButton] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { colorMode, setColorMode } = useContext(ModeContext);
-  const { contextData, setContextData } = useContext(appContext);
+  const { setQuizeContextData } = useContext(quizeContext);
+    const { toggleState, setToggleState } = useContext(ToggleContext);
+
 
   // A function that handle all keyDowns in the result page
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter") {
-      // Disfocusing the toggle switch
-      if (contextData.toggleFocuse)
-        setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+      // Runs if toggle switch si already focused
+      if (toggleState) {
+        window.localStorage.setItem(
+          "mode",
+          `${colorMode == "light" ? "dark" : "light"}`
+        );
+        return setColorMode(colorMode == "light" ? "dark" : "light");
+      }
 
       // Runs if button is already focused
-
       if (focuseButton) {
-        setContextData((prev) => ({
+        setQuizeContextData((prev) => ({
           ...prev,
           resultPageStates: {
             numberOfPasssedQuestions: 0,
@@ -100,21 +107,12 @@ function FallBackUI() {
       setFocusedButton(false);
 
       // Focussing the toggle button if it's not focused
-      if (!contextData.toggleFocuse)
-        return setContextData((prev) => ({ ...prev, toggleFocuse: "focuse" }));
-
-      // Runs if toggle button is already focused
-      window.localStorage.setItem(
-        "mode",
-        `${colorMode == "light" ? "dark" : "light"}`
-      );
-      return setColorMode(colorMode == "light" ? "dark" : "light");
+      if (!toggleState) return setToggleState("focuse");
     } else if (event.key === "Tab") {
       event.preventDefault();
       // Disfocussing all focused element
       if (!focuseButton) return setFocusedButton(true);
-      if (contextData.toggleFocuse)
-        setContextData((prev) => ({ ...prev, toggleFocuse: "" }));
+      if (toggleState) setToggleState("");
 
       return;
     }
@@ -122,7 +120,7 @@ function FallBackUI() {
 
   // useEffect for handling subject/topics that are not currently part of our topics/data
   useEffect(() => {
-    // Focusing the result page container on page load or render
+    // Focusing the hidden Input element on page load or render
     inputRef.current?.focus();
   });
 
@@ -130,10 +128,10 @@ function FallBackUI() {
     <FallBackContainer>
       <p className="error">404</p>
       <h1 className="title">page not found</h1>
-      <span className='empty'></span>
-      <p className='message'>
-        But if you don't change your direction, <br /> and if you keep looking, you may
-        end <br /> up where you are heading.
+      <span className="empty"></span>
+      <p className="message">
+        But if you don't change your direction, <br /> and if you keep looking,
+        you may end <br /> up where you are heading.
       </p>
       <span className="btnContainer">
         <SubmitButton
