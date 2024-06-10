@@ -10,7 +10,7 @@ function RouteConfig() {
   return (
     <Router>
       <Routes>
-        <Route path="/"element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Hero />} />
           <Route path=":subject" element={<Subject />} />
           <Route path=":subject/result" element={<Result />} />

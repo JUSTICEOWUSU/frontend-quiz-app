@@ -130,6 +130,8 @@ function Subject() {
   // useEffect for handling subject/topics that are not currently part of our topics/data
   useEffect(() => {
     const subjectData = currentSubjectData(subject);
+    console.log(subjectData," ", subject);
+    
     // Checking if selected subject/topic is present in our topics list
     if (!subjectData || subjectData.length === 0) {
       return navigate("/Error");
