@@ -10,11 +10,11 @@ function RouteConfig() {
   return (
     <Router>
       <Routes>
-        <Route element={<Layout />}>
+        <Route path="/"element={<Layout />}>
           <Route index element={<Hero />} />
-          <Route path="/:subject" element={<Subject />} />
-          <Route path="/:subject/result" element={<Result />} />
-          <Route path="/Error" element={<FallBackUI />} />
+          <Route path=":subject" element={<Subject />} />
+          <Route path=":subject/result" element={<Result />} />
+          <Route path="Error" element={<FallBackUI />} />
           <Route path="*" element={<FallBackUI />} />
         </Route>
       </Routes>
