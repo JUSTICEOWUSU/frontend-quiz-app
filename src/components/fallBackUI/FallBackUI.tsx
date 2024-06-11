@@ -5,6 +5,8 @@ import SubmitButton from '../submitButton/SubmitButton'
 import { quizeContext } from '../../AppContext/quizeContext/quizeContext';
 import { ToggleContext } from '../../AppContext/toggleContext/toggleContext';
 import { ModeContext } from "../../App";
+import InvisibleInput from '../invisibleInput/InvisibleInput';
+import { handleInputs,handleMobileKeyDown } from '../../pages/pageUtils';
 
 
 const FallBackContainer = styled.div`
@@ -75,12 +77,14 @@ function FallBackUI() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { colorMode, setColorMode } = useContext(ModeContext);
   const { setQuizeContextData } = useContext(quizeContext);
-    const { toggleState, setToggleState } = useContext(ToggleContext);
+  const { toggleState, setToggleState } = useContext(ToggleContext);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 
 
   // A function that handle all keyDowns in the result page
   function handleKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" || event.key === ' ') {
       // Runs if toggle switch si already focused
       if (toggleState) {
         window.localStorage.setItem(
@@ -108,7 +112,7 @@ function FallBackUI() {
 
       // Focussing the toggle button if it's not focused
       if (!toggleState) return setToggleState("focuse");
-    } else if (event.key === "Tab") {
+    } else if (event.key === "Tab" || event.key.toLowerCase() === "u") {
       event.preventDefault();
       // Disfocussing all focused element
       if (!focuseButton) return setFocusedButton(true);
@@ -117,6 +121,11 @@ function FallBackUI() {
       return;
     }
   }
+
+  const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
+    return handleInputs(event, isMobile, handleKeyDown);
+  };
+
 
   // useEffect for handling subject/topics that are not currently part of our topics/data
   useEffect(() => {
@@ -143,18 +152,13 @@ function FallBackUI() {
           content="Take me home"
         />
       </span>
-      <input
-        type="text"
-        style={{
-          position: "absolute",
-          left: "-9999px",
-          width: "1px",
-          height: "1px",
-          opacity: 0,
+      {/* Invisible input element for the page navigation */}
+      <InvisibleInput
+        handleKeyDown={(e) => {
+          isMobile ? handleMobileKeyDown(e) : handleKeyDown(e);
         }}
-        tabIndex={0}
-        onKeyDown={(event) => handleKeyDown(event)}
-        ref={inputRef}
+        handleInput={handleInput}
+        inputRef={inputRef}
       />
     </FallBackContainer>
   );

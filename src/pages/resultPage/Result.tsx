@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { useContext, useEffect,useState,useRef } from "react";
-import { currentSubjectData } from "../pageUtils";
+import { currentSubjectData,handleInputs,handleMobileKeyDown } from "../pageUtils";
 import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
 import { useNavigate, useParams } from "react-router-dom";
 import SubmitButton from "../../components/submitButton/SubmitButton";
 import { ModeContext } from "../../App";
+import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 
 
 // Importing layouts from the SharedLayout compenent
@@ -119,12 +120,14 @@ function Result() {
   const { colorMode, setColorMode } = useContext(ModeContext);
   const { quizeContextData, setQuizeContextData } = useContext(quizeContext);
   const { toggleState, setToggleState } = useContext(ToggleContext);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 
   const [focuseButton, setFocusedButton] = useState<boolean>(false);
 
   // A function that handle all keyDowns in the result page
   function handleKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" || event.key === ' ') {
       // Runs if toggle switch si already focused
       if (toggleState) {
         window.localStorage.setItem(
@@ -155,16 +158,20 @@ function Result() {
       if (!toggleState) return setToggleState("focuse");
 
 
-    } else if (event.key === "Tab") {
+    } else if (event.key === "Tab" || event.key.toLowerCase() === "u") {
       event.preventDefault();
       // Disfocussing all focused element
+            if (toggleState) setToggleState("");
       if (!focuseButton) return setFocusedButton(true);
-      if (toggleState) setToggleState("");;
-
 
       return;
     }
   }
+
+  const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
+    return handleInputs(event, isMobile, handleKeyDown);
+  };
+
 
   // useEffect for handling subject/topics that are not currently part of our topics/data
   useEffect(() => {
@@ -183,18 +190,13 @@ function Result() {
 
   return (
     <ContentWrapper>
-      <input
-        type="text"
-        style={{
-          position: "absolute",
-          left: "-9999px",
-          width: "1px",
-          height: "1px",
-          opacity: 0,
+      {/* Invisible input element for the page navigation */}
+      <InvisibleInput
+        handleKeyDown={(e) => {
+          isMobile ? handleMobileKeyDown(e) : handleKeyDown(e);
         }}
-        tabIndex={0}
-        onKeyDown={(event) => handleKeyDown(event)}
-        ref={inputRef}
+        handleInput={handleInput}
+        inputRef={inputRef}
       />
       <TitleWrapper>
         <h1>
@@ -224,7 +226,9 @@ function Result() {
             {quizeContextData.resultPageStates.numberOfPasssedQuestions}
           </p>
 
-          <span>out of {quizeContextData.resultPageStates.numberOfQuetsions}</span>
+          <span>
+            out of {quizeContextData.resultPageStates.numberOfQuetsions}
+          </span>
         </ResultsCard>
         <SubmitButton
           focused={

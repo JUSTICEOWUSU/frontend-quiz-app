@@ -7,7 +7,9 @@ import SubmitButton from "../../components/submitButton/SubmitButton";
 import { ButtonsWrapper } from "../../components/layout/SharedLayouts"; 
 import OptionsButton from "../../components/optionsButton/OptionsButton";
 import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
+import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
+import { handleInputs, handleMobileKeyDown } from "../pageUtils";
 
 
 // This is an error message component that shows up when no answer is chosen
@@ -66,6 +68,7 @@ function OptionsSection() {
   // --> Using the ModeContext(The theme stateManager) <--//
   const { colorMode, setColorMode } = useContext(ModeContext);
   const {toggleState, setToggleState } = useContext(ToggleContext);
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 
   // Obtaining the subject/topic from the url parameter
@@ -280,6 +283,8 @@ function OptionsSection() {
 
   // A function that handle all keyDowns in the subject page
   function handleKeyDown(event: React.KeyboardEvent) {
+    console.log(event.key);
+    
     const key = event.key.toLowerCase();
     if (key === "a" || key === "b" || key === "c" || key === "d") {
       if (toggleState) setToggleState("");
@@ -301,7 +306,7 @@ function OptionsSection() {
           },
         },
       }));
-    } else if (event.key === "Enter") {
+    } else if (event.key === "Enter" || event.key === ' ') {
       // Runs if toggle switch is already focused
       if (toggleState) {
         window.localStorage.setItem(
@@ -334,7 +339,7 @@ function OptionsSection() {
       // Focussing the toggle switch if it's not focused
       if(!toggleState) return setToggleState("focuse");
 
-    } else if (event.key === "Tab") {
+    } else if (event.key === "Tab" || event.key.toLowerCase() === "u") {
       event.preventDefault();
 
       // Disfocusing the toggle switch if it's already focused
@@ -346,6 +351,10 @@ function OptionsSection() {
     }
       return;
   }
+
+  const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
+    return handleInputs(event, isMobile, handleKeyDown);
+  };
 
   // A function to focus the chosen answer
   function focusedElement(chosenElement: string) {
@@ -361,7 +370,6 @@ function OptionsSection() {
   // An Effect to focus the invisible input element on page render
   useEffect(() => {
     inputRef.current?.focus();
-
   });
 
   return (
@@ -369,18 +377,14 @@ function OptionsSection() {
       tabIndex={0}
       style={{ outline: "none" }}
     >
-      <input
-        type="text"
-        style={{
-          position: "absolute",
-          left: "-9999px",
-          width: "1px",
-          height: "1px",
-          opacity: 0,
-        }}
-        tabIndex={0}
-        onKeyDown={(event) => handleKeyDown(event)}
-        ref={inputRef}
+      {/* Invisible input element for the page navigation */}
+      <InvisibleInput
+        handleKeyDown={(e) => {
+          isMobile ? handleMobileKeyDown(e) : handleKeyDown(e);
+          }
+        }
+        handleInput={handleInput}
+        inputRef={inputRef}
       />
       <OptionsButton
         focused={focusedElement("a") ? "focused" : ""}
