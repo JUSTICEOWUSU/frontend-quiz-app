@@ -38,7 +38,7 @@ export const TitleWrapper = styled.div`
     margin: 0;
     padding-top: 0;
     font-size: 2.5rem;
-    font-weight:100;
+    font-weight:300;
     
     font-family: ${({ theme }) => theme.fontFamily};
     color: ${({ theme }) =>
@@ -49,7 +49,7 @@ export const TitleWrapper = styled.div`
     span {
       display: block;
       font-family: ${({ theme }) => theme.fontFamily};
-      font-weight: bold;
+      font-weight: 500;
     }
   }
 

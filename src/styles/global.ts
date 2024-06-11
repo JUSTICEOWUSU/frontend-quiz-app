@@ -1,33 +1,62 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-* {
-  box-sizing: border-box;
-}
+
+/* Variable fonts if supported(browser) */
+  @supports (font-variation-settings: normal) {
+    @font-face {
+      font-family: 'Rubik Variable';
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+      src: url('/fonts/Rubik-VariableFont_wght.ttf') format('truetype-variations');
+      
+    }
+
+    @font-face {
+      font-family: 'Rubik Variable Italic';
+      font-weight: 100 900;
+      font-style: italic;
+      font-display:swap;
+      src: url('/fonts/Rubik-Italic-VariableFont_wght.ttf') format('truetype-variations');
+      
+    }
+  }
+
+/* Fallback font family */
 
   /* Static font definitions */
   @font-face {
     font-family: 'Rubik';
-    src: url('/fonts/static/Rubik-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    src: url('/fonts/static/Rubik-Regular.ttf') format('truetype');
+
   }
 
   @font-face {
     font-family: 'Rubik';
-    src: url('/fonts/static/Rubik-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
+   src: url('/fonts/static/Rubik-Bold.ttf') format('truetype');
+
+    
   }
 
   @font-face {
     font-family: 'Rubik Italic';
-    src: url('/fonts/static/Rubik-Italic.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
+    src: url('/fonts/static/Rubik-Italic.ttf') format('truetype');
+
   }
 
-  /* Fallback font family */
+  * {
+  box-sizing: border-box;
+  font-family: 'Rubik','Rubik Variable', sans-serif;
+
+}
+
   body {
     margin:0;
     padding:0;
@@ -35,7 +64,7 @@ const GlobalStyle = createGlobalStyle`
     background-position: center;
     transition: all 0.50s linear;
     background-repeat: no-repeat;
-    font-family: 'Rubik', sans-serif;
+    font-family:'Rubik', 'Rubik Variable', sans-serif;
     transition-property:color,background-image,background-color;
     
     color: ${({ theme }) => theme.mode === "dark"  ? theme.darkMode.text : theme.lightMode.text};
@@ -44,27 +73,6 @@ const GlobalStyle = createGlobalStyle`
       background-image: url(${({ theme }) =>(`"/images/pattern-background-mobile-${theme.mode}.svg"`)});
   }
 
-
-  /* Variable fonts if supported(browser) */
-  @supports (font-variation-settings: normal) {
-    @font-face {
-      font-family: 'Rubik Variable';
-      src: url('/fonts/Rubik-VariableFont_wght.ttf') format('truetype-variations');
-      font-weight: 100 900;
-      font-style: normal;
-    }
-
-    @font-face {
-      font-family: 'Rubik Variable Italic';
-      src: url('/fonts/Rubik-Italic-VariableFont_wght.ttf') format('truetype-variations');
-      font-weight: 100 900;
-      font-style: italic;
-    }
-
-    body {
-      font-family: 'Rubik Variable', sans-serif;
-    }
-  }
 
       /* Tablets (640px->) */
   @media (min-width: 640px) {
