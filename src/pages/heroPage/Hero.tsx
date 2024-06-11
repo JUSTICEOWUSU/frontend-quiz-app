@@ -7,7 +7,7 @@ import MenuButton from "../../components/menuButton/MenuButton ";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
 import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts";
 import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
-import { handleMobileKeyDown,handleInputs } from "../pageUtils";
+import { handleMobileKeyDown} from "../pageUtils";
 
 const Wrapper = styled.div`
   /* Mobile */
