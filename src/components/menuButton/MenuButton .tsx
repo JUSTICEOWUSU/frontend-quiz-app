@@ -73,7 +73,11 @@ const Button = styled.span<{ $background: string }>`
   }
 
   .focused {
-    border: 0.1875rem solid ${({ theme }) => theme.primaryBlue};
+    border: 0.125rem solid ${({ theme }) => theme.primaryBlue};
+
+    @media (min-width: 640px) {
+      border-width:0.1875rem;
+    }
   }
   outline: none;
 `;
@@ -93,7 +97,7 @@ function MenuButton({ icon, background, subject, focused }: MenuButtonTypes) {
     <Button $background={background} >
       <button className = {`${focused}`}>
         <span>
-          <img src={icon} alt={`${subject} icon`} />
+          <img srcSet={icon} src={icon} loading="lazy" alt={`${subject}`} />
         </span>
 
         {/* subject/content(HTML, CSS,etc.) */}

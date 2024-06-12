@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { useContext, useEffect,useState,useRef } from "react";
-import { currentSubjectData,handleInputs,handleMobileKeyDown } from "../pageUtils";
-import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
-import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
-import { useNavigate, useParams } from "react-router-dom";
-import SubmitButton from "../../components/submitButton/SubmitButton";
 import { ModeContext } from "../../App";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState, useRef } from "react";
+import SubmitButton from "../../components/submitButton/SubmitButton";
+import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
 import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
+import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
+import { currentSubjectData,handleInputs,handleMobileKeyDown } from "../pageUtils";
 
 
 // Importing layouts from the SharedLayout compenent
@@ -64,7 +64,8 @@ const ResultsCard = styled.div<{ subject: string }>`
     h4 {
       font-weight: 500;
       font-size: 1.125rem;
-      font-family: "Rubik Variable", "Rubik", sans-serif;
+      font-family: ${({ theme }) => theme.fontFamily};
+      margin:0;
     }
   }
 
@@ -73,13 +74,13 @@ const ResultsCard = styled.div<{ subject: string }>`
     padding: 0;
     font-weight: 500;
     font-size: 5.5rem;
-    font-family: "Rubik Variable", "Rubik", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily};
   }
 
   span {
     font-weight: 400;
     font-size: 1.125rem;
-    font-family: "Rubik Variable", "Rubik", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily};
     color: ${({ theme }) =>
       theme.mode == "dark"
         ? theme.darkMode.miniText
@@ -112,23 +113,23 @@ const ResultsCard = styled.div<{ subject: string }>`
   }
 `;
 
+
 function Result() {
   const navigate = useNavigate();
   // Obtaining the subject/topic from the url parameter
   const { subject } = useParams();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { colorMode, setColorMode } = useContext(ModeContext);
-  const { quizeContextData, setQuizeContextData } = useContext(quizeContext);
-  const { toggleState, setToggleState } = useContext(ToggleContext);
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-
   const [focuseButton, setFocusedButton] = useState<boolean>(false);
+  const { toggleState, setToggleState } = useContext(ToggleContext);
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const { quizeContextData, setQuizeContextData } = useContext(quizeContext);
+
 
   // A function that handle all keyDowns in the result page
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter" || event.key === ' ') {
-      // Runs if toggle switch si already focused
+      // Runs if toggle switch is already focused
       if (toggleState) {
         window.localStorage.setItem(
           "mode",
@@ -138,7 +139,6 @@ function Result() {
       }
 
       // Runs if button is already focused
-
       if (focuseButton) {
         setQuizeContextData((prev) => ({
           ...prev,
@@ -150,20 +150,20 @@ function Result() {
         setFocusedButton(false);
         return navigate("/");
       }
+
+      if (!focuseButton && isMobile) return setFocusedButton(true);
+      
     } else if (event.key.toLowerCase() === "l") {
-      // Disfocusing the playAgain button
+      // Defocusing the playAgain button
       setFocusedButton(false);
 
       // Focussing the toggle button if it's not focused
       if (!toggleState) return setToggleState("focuse");
-
-
     } else if (event.key === "Tab" || event.key.toLowerCase() === "u") {
       event.preventDefault();
-      // Disfocussing all focused element
+      // Defocusing all focused element
             if (toggleState) setToggleState("");
       if (!focuseButton) return setFocusedButton(true);
-
       return;
     }
   }
@@ -172,8 +172,7 @@ function Result() {
     return handleInputs(event, isMobile, handleKeyDown);
   };
 
-
-  // useEffect for handling subject/topics that are not currently part of our topics/data
+  // useEffect for handling subject/topics that are not currently part of our data
   useEffect(() => {
     const subjectData = currentSubjectData(subject);
     if (!subjectData || subjectData.length === 0) {
@@ -181,11 +180,6 @@ function Result() {
     }
     // Focusing the result page container on page load or render
     inputRef.current?.focus();
-
-    // // De-Focusing toggle switch on page unmounting
-    // return () => {
-    // if (toggleState) setQuizeContextData((prev) => ({ ...prev, toggleFocuse: "" }));
-    // }
   });
 
   return (
@@ -210,12 +204,19 @@ function Result() {
           <div className="subject">
             <span>
               <img
+                srcSet={
+                  subject?.toLowerCase() === "javascript"
+                    ? "/images/icon-js.svg"
+                    : `/images/icon-${subject?.toLowerCase()}.svg`
+                }
                 src={
                   subject?.toLowerCase() === "javascript"
                     ? "/images/icon-js.svg"
                     : `/images/icon-${subject?.toLowerCase()}.svg`
                 }
-                alt=""
+
+                loading="lazy"
+                alt={subject}
               />
             </span>
             <h4>{subject}</h4>
@@ -226,7 +227,7 @@ function Result() {
             {quizeContextData.resultPageStates.numberOfPasssedQuestions}
           </p>
 
-          <span>
+          <span style={{fontWeight:400}}>
             out of {quizeContextData.resultPageStates.numberOfQuetsions}
           </span>
         </ResultsCard>

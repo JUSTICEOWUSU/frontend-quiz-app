@@ -1,23 +1,28 @@
-import Hero from "./pages/heroPage/Hero";
-import Result from "./pages/resultPage/Result";
-import Subject from "./pages/subjectPage/Subject";
-import Layout from "./components/layout/Layout";
-import FallBackUI from "./components/fallBackUI/FallBackUI";
+import { lazy, Suspense } from 'react'
+const HeroPage = lazy(() => import("./pages/heroPage/Hero"));
+const Layout = lazy(() => import("./components/layout/Layout"));
+const ResultPage = lazy(() => import("./pages/resultPage/Result"));
+const SubjectPage = lazy(() => import("./pages/subjectPage/Subject"));
+const FallBackUI = lazy(() => import("./pages/fallBackUI/FallBackUI"));
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 
 function RouteConfig() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Hero />} />
-          <Route path=":subject" element={<Subject />} />
-          <Route path=":subject/result" element={<Result />} />
-          <Route path="Error" element={<FallBackUI />} />
-          <Route path="*" element={<FallBackUI />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<LoadingSpinner/>}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HeroPage />} />
+            <Route path=":subject" element={<SubjectPage />} />
+            <Route path=":subject/result" element={<ResultPage />} />
+            <Route path="Error" element={<FallBackUI />} />
+            <Route path="*" element={<FallBackUI />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </Router>
   );
 }
