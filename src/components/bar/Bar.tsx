@@ -1,8 +1,9 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import { ModeContext } from "../../App";
+import { useContext, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import ToggleSwitch from "../toggleSwitch/ToggleSwitch";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 
 const ModeBar = styled.div`
@@ -128,26 +129,40 @@ function Bar() {
   return (
     <ModeBar>
       <div className="subject">
-        {subject ? (
-          <>
-            <span style={constumSubjectIconstyle}>
-              <img srcSet={icon} src={icon} loading="lazy" alt={subject} />
-            </span>
-            <p>{subject}</p>
-          </>
-        ) : (
-          ""
-        )}
+        <Suspense fallback={<LoadingSpinner />}>
+          {subject ? (
+            <>
+              <span style={constumSubjectIconstyle}>
+                <img
+                  loading="lazy"
+                  srcSet={icon}
+                  src={icon}
+                  alt={subject}
+                />
+              </span>
+              <p>{subject}</p>
+            </>
+          ) : (
+            ""
+          )}
+        </Suspense>
       </div>
 
       <ToggleWrapper>
         <span className="imageContainer">
           <img
+            loading="lazy"
+            srcSet={`${
+              colorMode == "dark"
+                ? "/images/icon-sun-light.svg"
+                : "/images/icon-sun-dark.svg"
+            }`}
             src={`${
               colorMode == "dark"
                 ? "/images/icon-sun-light.svg"
                 : "/images/icon-sun-dark.svg"
             }`}
+            alt="sun"
           />
         </span>
 
@@ -155,11 +170,18 @@ function Bar() {
 
         <span className="imageContainer">
           <img
+            loading="lazy"
+            srcSet={`${
+              colorMode == "dark"
+                ? "/images/icon-moon-light.svg"
+                : "/images/icon-moon-dark.svg"
+            }`}
             src={`${
               colorMode == "dark"
                 ? "/images/icon-moon-light.svg"
                 : "/images/icon-moon-dark.svg"
             }`}
+            alt="moon"
           />
         </span>
       </ToggleWrapper>

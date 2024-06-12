@@ -94,10 +94,10 @@ function MenuButton({ icon, background, subject, focused }: MenuButtonTypes) {
   // Menu button onclick event listerner(navigate to the subject page)
   
   return (
-    <Button $background={background} >
-      <button className = {`${focused}`}>
+    <Button $background={background}>
+      <button className={`${focused}`}>
         <span>
-          <img srcSet={icon} src={icon} loading="lazy" alt={`${subject}`} />
+          <img loading="lazy" srcSet={icon} src={icon} alt={`${subject}`} />
         </span>
 
         {/* subject/content(HTML, CSS,etc.) */}

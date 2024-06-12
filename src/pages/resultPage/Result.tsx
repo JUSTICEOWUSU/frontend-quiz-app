@@ -151,7 +151,7 @@ function Result() {
         return navigate("/");
       }
 
-      if (!focuseButton && isMobile) return setFocusedButton(true);
+      if (!focuseButton) return setFocusedButton(true);
       
     } else if (event.key.toLowerCase() === "l") {
       // Defocusing the playAgain button
@@ -204,6 +204,7 @@ function Result() {
           <div className="subject">
             <span>
               <img
+                loading="lazy"
                 srcSet={
                   subject?.toLowerCase() === "javascript"
                     ? "/images/icon-js.svg"
@@ -214,8 +215,6 @@ function Result() {
                     ? "/images/icon-js.svg"
                     : `/images/icon-${subject?.toLowerCase()}.svg`
                 }
-
-                loading="lazy"
                 alt={subject}
               />
             </span>
@@ -227,7 +226,7 @@ function Result() {
             {quizeContextData.resultPageStates.numberOfPasssedQuestions}
           </p>
 
-          <span style={{fontWeight:400}}>
+          <span style={{ fontWeight: 400 }}>
             out of {quizeContextData.resultPageStates.numberOfQuetsions}
           </span>
         </ResultsCard>

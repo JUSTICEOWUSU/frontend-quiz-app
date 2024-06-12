@@ -107,7 +107,7 @@ function FallBackUI() {
         return navigate("/");
       }
 
-       if (!focuseButton && isMobile) return setFocusedButton(true);
+       if (!focuseButton) return setFocusedButton(true);
 
     } else if (event.key.toLowerCase() === "l") {
       // Defocusing the playAgain button

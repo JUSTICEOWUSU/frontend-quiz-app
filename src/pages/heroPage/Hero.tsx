@@ -3,11 +3,13 @@ import { ModeContext } from "../../App";
 import data from "../../DATA/data.json"; 
 import { useNavigate } from "react-router-dom";
 import { handleMobileKeyDown } from "../pageUtils";
-import { useEffect, useRef, useState, useContext } from "react";
-import MenuButton from "../../components/menuButton/MenuButton ";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
+import { useEffect, useRef, useState, useContext, lazy, Suspense } from "react";
+const MenuButton = lazy(() => import("../../components/menuButton/MenuButton "));
 import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts";
+
 
 const Wrapper = styled.div`
   /* Mobile */
@@ -146,6 +148,8 @@ function Hero() {
       </TitleWrapper>
 
       <ButtonsWrapper>
+              <Suspense fallback={<LoadingSpinner/>}>
+
         {
           // displayed topics/subjects from data
           data.quizzes.map((item, index) => {
@@ -159,7 +163,8 @@ function Hero() {
               />
             );
           })
-        }
+          }
+          </Suspense>
       </ButtonsWrapper>
     </Wrapper>
   );

@@ -1,10 +1,10 @@
-import { lazy, Suspense } from 'react'
-const HeroPage = lazy(() => import("./pages/heroPage/Hero"));
-const Layout = lazy(() => import("./components/layout/Layout"));
-const ResultPage = lazy(() => import("./pages/resultPage/Result"));
-const SubjectPage = lazy(() => import("./pages/subjectPage/Subject"));
-const FallBackUI = lazy(() => import("./pages/fallBackUI/FallBackUI"));
+import { Suspense } from 'react'
+import Layout from './components/layout/Layout';
+import ResultPage from './pages/resultPage/Result';
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import SubjectPage from './pages/subjectPage/Subject';
+import FallBackUI from './pages/fallBackUI/FallBackUI';
+import HeroPage from './pages/heroPage/Hero';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
