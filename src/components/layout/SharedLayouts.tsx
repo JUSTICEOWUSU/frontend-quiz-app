@@ -56,6 +56,8 @@ export const TitleWrapper = styled.div`
   p {
     margin-top: 1rem;
     font-size: 0.875rem;
+    font-style:italic;
+    font-weight:400;
     font-family: ${({ theme }) => theme.fontFamily};
     color: ${({ theme }) =>
       theme.mode == "dark"

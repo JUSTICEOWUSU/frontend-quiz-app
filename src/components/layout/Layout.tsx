@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Navigation from "../navigation/Navigation";
+import Bar from "../bar/Bar";
 import { Outlet, useParams } from "react-router-dom";
 import QuizeContextProvider from "../../AppContext/quizeContext/quizeContext";
 import ToggleContextProvider from "../../AppContext/toggleContext/toggleContext";
@@ -36,7 +36,7 @@ function Layout() {
   return (
     <Wrapper subject={subject} onMouseDown={resetFocus} tabIndex={-1}>
       <ToggleContextProvider>
-        <Navigation />
+        <Bar />
         <QuizeContextProvider>
           {/* child route elements(Hero, subject, result,etc) get renedered here */}
           <Outlet />

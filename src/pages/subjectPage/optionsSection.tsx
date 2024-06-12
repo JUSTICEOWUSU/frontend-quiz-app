@@ -9,6 +9,7 @@ import OptionsButton from "../../components/optionsButton/OptionsButton";
 import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
 import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
+// importing utility functions that handles inputChange and keyDown events on mobile
 import { handleInputs, handleMobileKeyDown } from "../pageUtils";
 
 
@@ -67,9 +68,10 @@ function OptionsSection() {
   const { quizeContextData, setQuizeContextData } = useContext(quizeContext);
   // --> Using the ModeContext(The theme stateManager) <--//
   const { colorMode, setColorMode } = useContext(ModeContext);
-  const {toggleState, setToggleState } = useContext(ToggleContext);
+  // -->ToggleContext(The toggle stateManager) <--//
+  const { toggleState, setToggleState } = useContext(ToggleContext);
+  // Determining if user is on mobile device or not
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
 
   // Obtaining the subject/topic from the url parameter
   const { subject } = useParams();
@@ -149,7 +151,8 @@ function OptionsSection() {
           moveToNextQuestion: true,
           submitButtonMessage: `${
             data.length ===
-            quizeContextData.subjectPageStates.questionState.currentQuestionTracker +
+            quizeContextData.subjectPageStates.questionState
+              .currentQuestionTracker +
               1
               ? "see results"
               : "next question"
@@ -223,7 +226,9 @@ function OptionsSection() {
       quizeContextData.subjectPageStates.moveToNextQuestion &&
       quizeContextData.subjectPageStates.questionState.chosenAnswer &&
       data.length !==
-        quizeContextData.subjectPageStates.questionState.currentQuestionTracker + 1
+        quizeContextData.subjectPageStates.questionState
+          .currentQuestionTracker +
+          1
     ) {
       setQuizeContextData((prev) => ({
         ...prev,
@@ -256,7 +261,9 @@ function OptionsSection() {
       quizeContextData.subjectPageStates.moveToNextQuestion &&
       quizeContextData.subjectPageStates.questionState.chosenAnswer &&
       data.length ==
-        quizeContextData.subjectPageStates.questionState.currentQuestionTracker + 1
+        quizeContextData.subjectPageStates.questionState
+          .currentQuestionTracker +
+          1
     ) {
       // Updating the quizeContextData to default(Preparing to navigate to the result page);
       setQuizeContextData((prev) => ({
@@ -284,7 +291,7 @@ function OptionsSection() {
   // A function that handle all keyDowns in the subject page
   function handleKeyDown(event: React.KeyboardEvent) {
     console.log(event.key);
-    
+
     const key = event.key.toLowerCase();
     if (key === "a" || key === "b" || key === "c" || key === "d") {
       if (toggleState) setToggleState("");
@@ -292,7 +299,7 @@ function OptionsSection() {
       // return if an answer has already been submited
       if (quizeContextData.subjectPageStates.questionState.disabled) return;
 
-      // Hide select an answer error message 
+      // Hide select an answer error message
       hideAnswerQuestion();
 
       // Reseting the chosen answer to the pressed key
@@ -306,7 +313,7 @@ function OptionsSection() {
           },
         },
       }));
-    } else if (event.key === "Enter" || event.key === ' ') {
+    } else if (event.key === "Enter" || event.key === " ") {
       // Runs if toggle switch is already focused
       if (toggleState) {
         window.localStorage.setItem(
@@ -318,11 +325,11 @@ function OptionsSection() {
 
       return handleSubmit();
     } else if (event.key.toLowerCase() === "l") {
-      // Disfocusing the submit button if it's already focused
+      // Defocusing the submit button if it's already focused
       if (focuseButton) setFocusedBuutton(false);
       // hideAnswerQuestion();
 
-      //Disfocusing the chosen answer if an option is already focused
+      //Defocusing the chosen answer if an option is already focused
       if (quizeContextData.subjectPageStates.questionState.chosenAnswer) {
         setQuizeContextData((prev) => ({
           ...prev,
@@ -335,23 +342,23 @@ function OptionsSection() {
           },
         }));
       }
-      
-      // Focussing the toggle switch if it's not focused
-      if(!toggleState) return setToggleState("focuse");
 
+      // Focussing the toggle switch if it's not focused
+      if (!toggleState) return setToggleState("focuse");
     } else if (event.key === "Tab" || event.key.toLowerCase() === "u") {
       event.preventDefault();
 
-      // Disfocusing the toggle switch if it's already focused
+      // Defocusing the toggle switch if it's already focused
       if (toggleState) setToggleState("");
 
-       // Focussing the submit Button if it's not focused
+      // Focussing the submit Button if it's not focused
       if (!focuseButton) return setFocusedBuutton(true);
       return;
     }
-      return;
+    return;
   }
 
+// A function that handle onInput event
   const handleInput = (event: React.FormEvent<HTMLInputElement>) => {
     return handleInputs(event, isMobile, handleKeyDown);
   };
@@ -359,11 +366,12 @@ function OptionsSection() {
   // A function to focus the chosen answer
   function focusedElement(chosenElement: string) {
     if (
-      chosenElement === quizeContextData.subjectPageStates.questionState.chosenAnswer
+      chosenElement ===
+      quizeContextData.subjectPageStates.questionState.chosenAnswer
     ) {
       return true;
-    };
-    
+    }
+
     return false;
   }
 
@@ -373,16 +381,12 @@ function OptionsSection() {
   });
 
   return (
-    <ButtonsWrapper
-      tabIndex={0}
-      style={{ outline: "none" }}
-    >
+    <ButtonsWrapper tabIndex={0} style={{ outline: "none" }}>
       {/* Invisible input element for the page navigation */}
       <InvisibleInput
         handleKeyDown={(e) => {
           isMobile ? handleMobileKeyDown(e) : handleKeyDown(e);
-          }
-        }
+        }}
         handleInput={handleInput}
         inputRef={inputRef}
       />
@@ -391,7 +395,8 @@ function OptionsSection() {
         option={"a"}
         content={
           data[
-            quizeContextData.subjectPageStates.questionState.currentQuestionTracker
+            quizeContextData.subjectPageStates.questionState
+              .currentQuestionTracker
           ].options[0]
         }
         answerState={quizeContextData.subjectPageStates.answerOptions.a}
@@ -402,7 +407,8 @@ function OptionsSection() {
         focused={focusedElement("b") ? "focused" : ""}
         content={
           data[
-            quizeContextData.subjectPageStates.questionState.currentQuestionTracker
+            quizeContextData.subjectPageStates.questionState
+              .currentQuestionTracker
           ].options[1]
         }
         answerState={quizeContextData.subjectPageStates.answerOptions.b}
@@ -413,7 +419,8 @@ function OptionsSection() {
         focused={focusedElement("c") ? "focused" : ""}
         content={
           data[
-            quizeContextData.subjectPageStates.questionState.currentQuestionTracker
+            quizeContextData.subjectPageStates.questionState
+              .currentQuestionTracker
           ].options[2]
         }
         answerState={quizeContextData.subjectPageStates.answerOptions.c}
@@ -424,7 +431,8 @@ function OptionsSection() {
         focused={focusedElement("d") ? "focused" : ""}
         content={
           data[
-            quizeContextData.subjectPageStates.questionState.currentQuestionTracker
+            quizeContextData.subjectPageStates.questionState
+              .currentQuestionTracker
           ].options[3]
         }
         answerState={quizeContextData.subjectPageStates.answerOptions.d}
@@ -442,7 +450,12 @@ function OptionsSection() {
         className={`${quizeContextData.subjectPageStates.selectAnswerErrorMessage}`}
       >
         <span>
-          <img src="/images/icon-incorrect.svg" alt="" />
+          <img
+            srcSet="/images/icon-error.svg"
+            src="/images/icon-error.svg"
+            loading="lazy"
+            alt="error"
+          />
         </span>{" "}
         <p>Please select an answer</p>{" "}
       </SelectQuestionErrorMessage>

@@ -49,13 +49,13 @@ const Span = styled.span`
   transition: 0.4s;
   position: absolute;
   border-radius: 34px;
-  border:3px solid transparent;
+  border:2px solid transparent;
   -webkit-transition: 0.4s;
   background-color: ${({ theme }) => theme.primaryBlue};
 
   &:before {
     left: 2px;
-    bottom: 1px;
+    bottom: 2px;
     width: 12px;
     content: "";
     height: 12px;
@@ -88,7 +88,7 @@ function ToggleSwitch() {
 
   return (
     <Label onClick={listenToMouseDown}>
-      <input type="checkbox" checked={colorMode === "dark"}></input>
+      <input type="checkbox" checked={colorMode === "dark"} onChange={()=>{return}}></input>
       <Span
         className={`${toggleState}`}
       />

@@ -2,12 +2,12 @@ import styled from "styled-components"
 import { ModeContext } from "../../App";
 import data from "../../DATA/data.json"; 
 import { useNavigate } from "react-router-dom";
+import { handleMobileKeyDown } from "../pageUtils";
 import { useEffect, useRef, useState, useContext } from "react";
 import MenuButton from "../../components/menuButton/MenuButton ";
+import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
 import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts";
-import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
-import { handleMobileKeyDown} from "../pageUtils";
 
 const Wrapper = styled.div`
   /* Mobile */
@@ -35,18 +35,21 @@ const Wrapper = styled.div`
   }
 `;
 
-
 function Hero() {
   const navigate = useNavigate();
-  const inputRef = useRef<(HTMLInputElement | null)>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const { colorMode, setColorMode } = useContext(ModeContext);
   const { toggleState, setToggleState } = useContext(ToggleContext);
   const [focusedElement, setFocusedElement] = useState<number>(-1);
+
+  // Determining if user is on mobile device or not
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-
-
-  function handleKeyDown(event: React.KeyboardEvent, focusableElements: number) {    
+  // Function that handle keyboard events on the hero page
+  function handleKeyDown(
+    event: React.KeyboardEvent,
+    focusableElements: number
+  ) {
     if (
       event.key === "ArrowDown" ||
       event.key === "ArrowRight" ||
@@ -54,7 +57,7 @@ function Hero() {
       event.key.toLowerCase() === "u"
     ) {
       event.preventDefault();
-      // Disfocusing the toggle switch
+      // Defocusing the toggle switch
       if (toggleState) setToggleState("");
 
       // Checking if no menu item is selected or focused
@@ -63,7 +66,7 @@ function Hero() {
       // Setting focus to the next item
       setFocusedElement((prevIndex) => (prevIndex + 1) % focusableElements);
     } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-      // Disfocusing the toggle switch
+      // Defocusing the toggle switch
       if (toggleState) setToggleState("");
 
       // Setting focus to the previuos item
@@ -77,7 +80,7 @@ function Hero() {
         return navigate(`/${data.quizzes[focusedElement].title}`);
       }
 
-      // Runs if toggle switch si already focused
+      // Runs if toggle switch is already focused
       if (toggleState) {
         window.localStorage.setItem(
           "mode",
@@ -88,9 +91,8 @@ function Hero() {
 
       return;
     } else if (event.key.toLowerCase() === "l") {
-      console.log(event.key);
 
-      // Disfocusing any selected topic/subject
+      // Defocusing any selected topic/subject
       setFocusedElement(focusableElements + 1);
 
       // Focussing the toggle button if it's not focused
@@ -104,9 +106,10 @@ function Hero() {
     const input = event.currentTarget;
     const value = input.value;
     const key = value.slice(-1); // Get the last character entered
-    if (!isMobile) return (input.value = "");
+    if (!isMobile) return (input.value = ""); // return if on desktop device
 
     if (key) {
+      // Simulating the keyDown event on mobile device
       const simulatedEvent = new KeyboardEvent("keydown", { key });
       handleKeyDown(simulatedEvent as any, data.quizzes.length);
     }
@@ -114,16 +117,9 @@ function Hero() {
     input.value = ""; // Clear the input value to capture each keystroke separately
   };
 
-
   // Effect run component first mount
   useEffect(() => {
     inputRef.current?.focus();
-
-  // // De-Focusing toggle switch on page unmounting
-  //   return () => {
-  //   if (toggleState) setToggleState("")
-  //   }
-
   });
 
   return (
@@ -138,6 +134,7 @@ function Hero() {
         handleInput={handleInput}
         inputRef={inputRef}
       />
+
       <TitleWrapper>
         <div>
           <h1>
@@ -150,7 +147,7 @@ function Hero() {
 
       <ButtonsWrapper>
         {
-          // displayed topics/subject from data
+          // displayed topics/subjects from data
           data.quizzes.map((item, index) => {
             return (
               <MenuButton

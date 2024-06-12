@@ -17,7 +17,7 @@ export function currentSubjectData(subject?:string) {
     return data.quizzes.filter((quize) => quize.title.toLowerCase() == subject?.toLowerCase());
 }
 
-
+// This function handles input events in the various pages
 export function handleInputs (event: React.FormEvent<HTMLInputElement>,isMobile:boolean,handleKeyDown:(event: React.KeyboardEvent,focusableElements?: number)=>any){
     const input = event.currentTarget;
     const value = input.value;
@@ -32,6 +32,8 @@ export function handleInputs (event: React.FormEvent<HTMLInputElement>,isMobile:
     input.value = ""; // Clear the input value to capture each keystroke separately
 };
   
+
+// Function that prevent the Tab key default action on mobile devices
 export function handleMobileKeyDown(event: React.KeyboardEvent) {
       if (event.key === "Tab") {
         return event.preventDefault();

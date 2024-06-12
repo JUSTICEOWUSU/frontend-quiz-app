@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import {  useContext, useEffect } from "react";
-// importing quizeContext(context for managing the app States )
-import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
-
-import { useParams, useNavigate } from "react-router-dom";
 import OptionsSection from "./optionsSection";
+import {  useContext, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 // importing custom utils function that manages the app data
 import correctAnswer, { currentSubjectData } from "../pageUtils";
 import { ContentWrapper } from "../../components/layout/SharedLayouts"; 
-
+// importing quizeContext(context for managing the app States)
+import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
 
 // Page tages with styles
 const QuestionWrapper = styled.div`
@@ -16,8 +14,10 @@ const QuestionWrapper = styled.div`
 
   .questionNumber {
     margin-top: 0;
+    font-weight: 400;
+    font-style: italic;
     font-size: 0.875rem;
-    font-family: "Rubik Variable Italic", "Rubik Italic", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily};
 
     color: ${({ theme }) =>
       theme.mode == "dark"
@@ -30,7 +30,6 @@ const QuestionWrapper = styled.div`
     font-weight: 500;
     font-size: 1.25rem;
     margin: 0.75rem 0 1.5rem;
-
     font-family: ${({ theme }) => theme.fontFamily};
     color: ${({ theme }) =>
       theme.mode == "dark" ? theme.darkMode.text : theme.lightMode.text};
@@ -39,7 +38,6 @@ const QuestionWrapper = styled.div`
   /* Tablets (640px->) */
   @media (min-width: 640px) {
     .questionNumber {
-      font-weight: 400;
       font-size: 1.25rem;
     }
 
@@ -49,7 +47,7 @@ const QuestionWrapper = styled.div`
     }
   }
 
-  /* Tablets (1050px->) */
+  /* Desktop (1050px->) */
   @media (min-width: 1050px) {
     flex-basis: 0;
     flex-grow: 1;
@@ -84,6 +82,7 @@ const ProgressBar = styled.span`
     height: 1rem;
   }
 
+  /* Desktop (1050px->) */
   @media (min-width: 1050px) {
     margin-top: 0rem;
   }
@@ -130,9 +129,8 @@ function Subject() {
   // useEffect for handling subject/topics that are not currently part of our topics/data
   useEffect(() => {
     const subjectData = currentSubjectData(subject);
-    console.log(subjectData," ", subject);
     
-    // Checking if selected subject/topic is present in our topics list
+    // Checking if selected subject/topic is not present in our topics list
     if (!subjectData || subjectData.length === 0) {
       return navigate("/Error");
     }

@@ -51,6 +51,7 @@ const Button = styled.span`
       flex-grow: 0;
       display: flex;
       width: 2.5rem;
+      flex-shrink: 0;
       height: 2.5rem;
       padding: 0.3125rem;
       align-items: center;
@@ -91,6 +92,10 @@ const Button = styled.span`
         p {
           color: ${({ theme }) => theme.primaryBlue};
         }
+      }
+
+      .icon{
+        background:transparent;
       }
     }
 
@@ -175,11 +180,24 @@ function OptionsButton( { option, content, answerState, disabled, refItem, focus
         <span className={`icon ${answerState.icon}`}>
           <img
             src={`${
-              answerState.answer == "correction" || answerState.answer == "correct"
+              answerState.answer == "correction" ||
+              answerState.answer == "correct"
                 ? "images/icon-correct.svg"
                 : "images/icon-incorrect.svg"
             }`}
-            alt=""
+            srcSet={`${
+              answerState.answer == "correction" ||
+              answerState.answer == "correct"
+                ? "images/icon-correct.svg"
+                : "images/icon-incorrect.svg"
+              }`}
+            loading='lazy'
+            alt={`${
+              answerState.answer == "correction" ||
+              answerState.answer == "correct"
+                ? "correct"
+                : "incorrect"
+            }`}
           />
         </span>
       </button>
