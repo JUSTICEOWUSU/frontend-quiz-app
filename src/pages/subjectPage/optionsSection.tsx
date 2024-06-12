@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
 import correctAnswer, { currentSubjectData } from "../pageUtils";
 import SubmitButton from "../../components/submitButton/SubmitButton";
-import { ButtonsWrapper } from "../../components/layout/SharedLayouts"; 
+import { ButtonsWrapper } from "../layouts/SharedLayouts"; 
 import OptionsButton from "../../components/optionsButton/OptionsButton";
 import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
 import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
@@ -290,8 +290,6 @@ function OptionsSection() {
 
   // A function that handle all keyDowns in the subject page
   function handleKeyDown(event: React.KeyboardEvent) {
-    console.log(event.key);
-
     const key = event.key.toLowerCase();
     if (key === "a" || key === "b" || key === "c" || key === "d") {
       if (toggleState) setToggleState("");
@@ -327,7 +325,6 @@ function OptionsSection() {
     } else if (event.key.toLowerCase() === "l") {
       // Defocusing the submit button if it's already focused
       if (focuseButton) setFocusedBuutton(false);
-      // hideAnswerQuestion();
 
       //Defocusing the chosen answer if an option is already focused
       if (quizeContextData.subjectPageStates.questionState.chosenAnswer) {

@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import Layout from './components/layout/Layout';
+import Layout from './pages/layouts/AppLayout';
 import ResultPage from './pages/resultPage/Result';
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import SubjectPage from './pages/subjectPage/Subject';

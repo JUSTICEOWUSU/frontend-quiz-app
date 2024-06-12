@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Bar from "../bar/Bar";
+import Bar from "../../components/bar/Bar";
 import { Outlet, useParams } from "react-router-dom";
 import QuizeContextProvider from "../../AppContext/quizeContext/quizeContext";
 import ToggleContextProvider from "../../AppContext/toggleContext/toggleContext";

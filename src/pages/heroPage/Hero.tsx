@@ -8,7 +8,7 @@ import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
 import { useEffect, useRef, useState, useContext, lazy, Suspense } from "react";
 const MenuButton = lazy(() => import("../../components/menuButton/MenuButton "));
-import { ButtonsWrapper, TitleWrapper } from "../../components/layout/SharedLayouts";
+import { ButtonsWrapper, TitleWrapper } from "../layouts/SharedLayouts";
 
 
 const Wrapper = styled.div`

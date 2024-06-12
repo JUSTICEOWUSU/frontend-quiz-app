@@ -14,7 +14,7 @@ import {
   ButtonsWrapper,
   TitleWrapper,
   ContentWrapper,
-} from "../../components/layout/SharedLayouts";
+} from "../layouts/SharedLayouts";
 
 const ResultsCard = styled.div<{ subject: string }>`
   width: 100%;

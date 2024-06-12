@@ -4,7 +4,7 @@ import {  useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // importing custom utils function that manages the app data
 import correctAnswer, { currentSubjectData } from "../pageUtils";
-import { ContentWrapper } from "../../components/layout/SharedLayouts"; 
+import { ContentWrapper } from "../layouts/SharedLayouts"; 
 // importing quizeContext(context for managing the app States)
 import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
 
