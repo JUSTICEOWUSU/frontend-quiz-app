@@ -162,7 +162,7 @@ function Bar() {
                 ? "/images/icon-sun-light.svg"
                 : "/images/icon-sun-dark.svg"
             }`}
-            alt="sun"
+            alt="light mode"
           />
         </span>
 
@@ -181,7 +181,7 @@ function Bar() {
                 ? "/images/icon-moon-light.svg"
                 : "/images/icon-moon-dark.svg"
             }`}
-            alt="moon"
+            alt="dark mode"
           />
         </span>
       </ToggleWrapper>
