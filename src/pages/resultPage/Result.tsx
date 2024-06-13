@@ -16,7 +16,7 @@ import {
   ContentWrapper,
 } from "../layouts/SharedLayouts";
 
-const ResultsCard = styled.div<{ subject: string }>`
+const ResultsCard = styled.div<{ $subject: string }>`
   width: 100%;
   display: flex;
   padding: 2rem;
@@ -46,12 +46,12 @@ const ResultsCard = styled.div<{ subject: string }>`
       height: 2.5rem;
       display: block;
       border-radius: 0.5rem;
-      background: ${({ subject }) =>
-        subject == "HTML"
+      background: ${({ $subject }) =>
+        $subject == "HTML"
           ? "#FFF1E9"
-          : subject == "CSS"
+          : $subject == "CSS"
           ? "#E0FDEF"
-          : subject == "JavaScript"
+          : $subject == "JavaScript"
           ? "#EBF0FF"
           : "#F6E7FF"};
 
@@ -200,7 +200,7 @@ function Result() {
       </TitleWrapper>
 
       <ButtonsWrapper>
-        <ResultsCard subject={subject || ""}>
+        <ResultsCard $subject={subject || ""}>
           <div className="subject">
             <span>
               <img

@@ -4,7 +4,7 @@ import { Outlet, useParams } from "react-router-dom";
 import QuizeContextProvider from "../../AppContext/quizeContext/quizeContext";
 import ToggleContextProvider from "../../AppContext/toggleContext/toggleContext";
 
-const Wrapper = styled.div<{ subject?: string }>`
+const Wrapper = styled.div<{ $subject?: string }>`
   /* Mobile */
   margin: 0;
   width: 100vw;
@@ -20,8 +20,8 @@ const Wrapper = styled.div<{ subject?: string }>`
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
-    padding: ${({ subject }) =>
-      subject ? "3.5rem 8.75rem 0 8.75rem" : "3.5rem 7.1875rem 0 10.3125rem"};
+    padding: ${({ $subject }) =>
+      $subject ? "3.5rem 8.75rem 0 8.75rem" : "3.5rem 7.1875rem 0 10.3125rem"};
   }
 `;
 
@@ -34,7 +34,7 @@ function Layout() {
 }
 
   return (
-    <Wrapper subject={subject} onMouseDown={resetFocus} tabIndex={-1}>
+    <Wrapper $subject={subject} onMouseDown={resetFocus} tabIndex={-1}>
       <ToggleContextProvider>
         <Bar />
         <QuizeContextProvider>
