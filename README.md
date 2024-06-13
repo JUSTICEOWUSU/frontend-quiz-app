@@ -14,10 +14,7 @@ A simple quiz application built with React, TypeScript, and Vite. The app is des
 
 
 ## Demo
-<video width="720" controls>
-  <source src="./demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+![Quiz App Demo](./demo.gif)
 
 ## Features
 - Keyboard-only navigation.
