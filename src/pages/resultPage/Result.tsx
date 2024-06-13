@@ -207,13 +207,13 @@ function Result() {
                 loading="lazy"
                 srcSet={
                   subject?.toLowerCase() === "javascript"
-                    ? "/images/icon-js.svg"
-                    : `/images/icon-${subject?.toLowerCase()}.svg`
+                    ? "/assets/images/icon-js.svg"
+                    : `/assets/images/icon-${subject?.toLowerCase()}.svg`
                 }
                 src={
                   subject?.toLowerCase() === "javascript"
-                    ? "/images/icon-js.svg"
-                    : `/images/icon-${subject?.toLowerCase()}.svg`
+                    ? "/assets/images/icon-js.svg"
+                    : `/assets/images/icon-${subject?.toLowerCase()}.svg`
                 }
                 alt={subject}
               />

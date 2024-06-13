@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
       font-weight: 100 900;
       font-style: normal;
       font-display: swap;
-      src: url('/fonts/Rubik-VariableFont_wght.ttf') format('truetype-variations');
+      src: url('/assets/fonts/Rubik-VariableFont_wght.ttf') format('truetype-variations');
       
     }
 
@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
       font-weight: 100 900;
       font-style: italic;
       font-display:swap;
-      src: url('/fonts/Rubik-Italic-VariableFont_wght.ttf') format('truetype-variations');
+      src: url('/assets/fonts/Rubik-Italic-VariableFont_wght.ttf') format('truetype-variations');
       
     }
   }
@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Rubik';
     font-weight: normal;
     font-style: normal;
-    src: url('/fonts/static/Rubik-Regular.ttf') format('truetype');
+    src: url('/assets/fonts/static/Rubik-Regular.ttf') format('truetype');
 
   }
 
@@ -38,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Rubik';
     font-weight: bold;
     font-style: normal;
-   src: url('/fonts/static/Rubik-Bold.ttf') format('truetype');
+   src: url('/assets/fonts/static/Rubik-Bold.ttf') format('truetype');
 
     
   }
@@ -47,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Rubik Italic';
     font-weight: normal;
     font-style: italic;
-    src: url('/fonts/static/Rubik-Italic.ttf') format('truetype');
+    src: url('/assets/fonts/static/Rubik-Italic.ttf') format('truetype');
 
   }
 

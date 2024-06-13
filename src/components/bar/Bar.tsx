@@ -118,12 +118,12 @@ function Bar() {
 
   const icon = `${
     subject == "HTML"
-      ? "/images/icon-html.svg"
+      ? "/assets/images/icon-html.svg"
       : subject == "CSS"
-      ? "/images/icon-css.svg"
+      ? "/assets/images/icon-css.svg"
       : subject == "JavaScript"
-      ? "/images/icon-js.svg"
-      : "/images/icon-accessibility.svg"
+      ? "/assets/images/icon-js.svg"
+      : "/assets/images/icon-accessibility.svg"
   }`;
 
   return (
@@ -154,13 +154,13 @@ function Bar() {
             loading="lazy"
             srcSet={`${
               colorMode == "dark"
-                ? "/images/icon-sun-light.svg"
-                : "/images/icon-sun-dark.svg"
+                ? "/assets/images/icon-sun-light.svg"
+                : "/assets/images/icon-sun-dark.svg"
             }`}
             src={`${
               colorMode == "dark"
-                ? "/images/icon-sun-light.svg"
-                : "/images/icon-sun-dark.svg"
+                ? "/assets/images/icon-sun-light.svg"
+                : "/assets/images/icon-sun-dark.svg"
             }`}
             alt="light mode"
           />
@@ -173,13 +173,13 @@ function Bar() {
             loading="lazy"
             srcSet={`${
               colorMode == "dark"
-                ? "/images/icon-moon-light.svg"
-                : "/images/icon-moon-dark.svg"
+                ? "/assets/images/icon-moon-light.svg"
+                : "/assets/images/icon-moon-dark.svg"
             }`}
             src={`${
               colorMode == "dark"
-                ? "/images/icon-moon-light.svg"
-                : "/images/icon-moon-dark.svg"
+                ? "/assets/images/icon-moon-light.svg"
+                : "/assets/images/icon-moon-dark.svg"
             }`}
             alt="dark mode"
           />
