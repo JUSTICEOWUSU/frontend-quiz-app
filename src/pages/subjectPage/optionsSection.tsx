@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ModeContext } from "../../App";
 import { useParams, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
-import correctAnswer, { currentSubjectData } from "../pageUtils";
+import correctAnswer, { currentSubjectData } from "../../appUtils/pagesUtils/pageUtils";
 import SubmitButton from "../../components/submitButton/SubmitButton";
 import { ButtonsWrapper } from "../layouts/SharedLayouts"; 
 import OptionsButton from "../../components/optionsButton/OptionsButton";
@@ -10,7 +10,7 @@ import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
 import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
 // importing utility functions that handles inputChange and keyDown events on mobile
-import { handleInputs, handleMobileKeyDown } from "../pageUtils";
+import { handleInputs, handleMobileKeyDown } from "../../appUtils/pagesUtils/pageUtils";
 
 
 // This is an error message component that shows up when no answer is chosen

@@ -6,7 +6,7 @@ import SubmitButton from "../../components/submitButton/SubmitButton";
 import { quizeContext } from "../../AppContext/quizeContext/quizeContext";
 import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";
-import { currentSubjectData,handleInputs,handleMobileKeyDown } from "../pageUtils";
+import { currentSubjectData,handleInputs,handleMobileKeyDown } from "../../appUtils/pagesUtils/pageUtils";
 
 
 // Importing layouts from the SharedLayout compenent

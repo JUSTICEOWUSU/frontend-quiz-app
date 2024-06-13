@@ -6,7 +6,7 @@ import { quizeContext } from '../../AppContext/quizeContext/quizeContext';
 import { ToggleContext } from '../../AppContext/toggleContext/toggleContext';
 import { ModeContext } from "../../App";
 import InvisibleInput from '../../components/invisibleInput/InvisibleInput';
-import { handleInputs,handleMobileKeyDown } from '../pageUtils';
+import { handleInputs,handleMobileKeyDown } from '../../appUtils/pagesUtils/pageUtils';
 
 
 const FallBackContainer = styled.div`

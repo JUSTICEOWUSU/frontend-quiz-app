@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { ModeContext } from "../../App";
 import data from "../../DATA/data.json"; 
 import { useNavigate } from "react-router-dom";
-import { handleMobileKeyDown } from "../pageUtils";
+import { handleMobileKeyDown } from "../../appUtils/pagesUtils/pageUtils";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import InvisibleInput from "../../components/invisibleInput/InvisibleInput";
 import { ToggleContext } from "../../AppContext/toggleContext/toggleContext";

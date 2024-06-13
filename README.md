@@ -9,7 +9,6 @@ A simple quiz application built with React, TypeScript, and Vite. The app is des
 - [Installation](#installation)
 - [Usage](#usage)
 - [Keyboard Navigation](#keyboard-navigation)
-- [Contributing](#contributing)
 - [License](#license)
 
 
