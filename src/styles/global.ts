@@ -70,21 +70,21 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.mode === "dark"  ? theme.darkMode.text : theme.lightMode.text};
     background-color: ${({ theme }) =>
     ( theme.mode === "dark"  ? theme.darkMode.background : theme.lightMode.background)};
-      background-image: url(${({ theme }) =>(`"/images/pattern-background-mobile-${theme.mode}.svg"`)});
+      background-image: url(${({ theme }) =>(`"/assets/images/pattern-background-mobile-${theme.mode}.svg"`)});
   }
 
 
       /* Tablets (640px->) */
   @media (min-width: 640px) {
     body{
-    background-image: url(${({ theme }) =>(`"/images/pattern-background-tablet-${theme.mode}.svg"`)});
+    background-image: url(${({ theme }) =>(`"/assets/images/pattern-background-tablet-${theme.mode}.svg"`)});
     }
   }
 
   /* Desktop (1025px ->) */
   @media (min-width: 1025px) {
     body{
-    background-image: url(${({ theme }) =>(`"/images/pattern-background-desktop-${theme.mode}.svg"`)});
+    background-image: url(${({ theme }) =>(`"/assets/images/pattern-background-desktop-${theme.mode}.svg"`)});
 
     }
   }
