@@ -1,5 +1,8 @@
 // importing the appData
-import data from  "../../DATA/data.json" 
+import data from "../../DATA/data.json" 
+
+// USE MOCK DATA WHEN TESTING
+// import { data } from "../../__mocks__/data";
 
 type AnswerTpe = string;
 type OptionsType = string[];

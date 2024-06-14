@@ -30,6 +30,7 @@ A simple quiz application built with React, TypeScript, and Vite. The app is des
 - **Styled Components**: For scoped and modular CSS styles.
 - **ESLint**: Linter for identifying and fixing code quality issues.
 - **Prettier**: Code formatter for maintaining consistent code style.
+- **Jest**: Testing framework for writing unit and integration tests."
 
 ## Installation
 1. Clone the repository:
