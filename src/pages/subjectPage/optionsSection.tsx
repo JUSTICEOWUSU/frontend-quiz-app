@@ -448,8 +448,8 @@ function OptionsSection() {
       >
         <span>
           <img
-            srcSet="/images/icon-error.svg"
-            src="/images/icon-error.svg"
+            srcSet="/assets/images/icon-error.svg"
+            src="/assets/images/icon-error.svg"
             loading="lazy"
             alt="error"
           />

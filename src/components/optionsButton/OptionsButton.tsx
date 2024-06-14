@@ -182,14 +182,14 @@ function OptionsButton( { option, content, answerState, disabled, refItem, focus
             src={`${
               answerState.answer == "correction" ||
               answerState.answer == "correct"
-                ? "images/icon-correct.svg"
-                : "images/icon-incorrect.svg"
+                ? "/assets/images/icon-correct.svg"
+                : "/assets/images/icon-incorrect.svg"
             }`}
             srcSet={`${
               answerState.answer == "correction" ||
               answerState.answer == "correct"
-                ? "images/icon-correct.svg"
-                : "images/icon-incorrect.svg"
+                ? "/assets/images/icon-correct.svg"
+                : "/assets/images/icon-incorrect.svg"
               }`}
             loading='lazy'
             alt={`${
