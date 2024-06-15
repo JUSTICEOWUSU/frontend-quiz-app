@@ -87,15 +87,16 @@ interface MenuButtonTypes {
   subject: string;
   background: string;
   focused: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 
-function MenuButton({ icon, background, subject, focused }: MenuButtonTypes) {
+function MenuButton({ icon, background, subject, focused, onClick }: MenuButtonTypes) {
   // Menu button onclick event listerner(navigate to the subject page)
   
   return (
     <Button $background={background}>
-      <button className={`${focused}`}>
+      <button className={`${focused}`} onClick={onClick}>
         <span>
           <img loading="lazy" srcSet={icon} src={icon} alt={`${subject}`} />
         </span>

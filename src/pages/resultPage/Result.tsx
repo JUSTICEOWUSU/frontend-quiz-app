@@ -162,7 +162,7 @@ function Result() {
     } else if (event.key === "Tab" || event.key.toLowerCase() === "u") {
       event.preventDefault();
       // Defocusing all focused element
-            if (toggleState) setToggleState("");
+      if (toggleState) setToggleState("");
       if (!focuseButton) return setFocusedButton(true);
       return;
     }
@@ -172,6 +172,18 @@ function Result() {
     return handleInputs(event, isMobile, handleKeyDown);
   };
 
+  function handleButtonClick() {
+    setQuizeContextData((prev) => ({
+      ...prev,
+      resultPageStates: {
+        numberOfPasssedQuestions: 0,
+        numberOfQuetsions: 0,
+      },
+    }));
+    setFocusedButton(false);
+    return navigate("/");
+  }
+
   // useEffect for handling subject/topics that are not currently part of our data
   useEffect(() => {
     const subjectData = currentSubjectData(subject);
@@ -179,7 +191,7 @@ function Result() {
       navigate("/Error");
     }
     // Focusing the result page container on page load or render
-    inputRef.current?.focus();
+    if (!isMobile) inputRef.current?.focus();
   });
 
   return (
@@ -231,6 +243,7 @@ function Result() {
           </span>
         </ResultsCard>
         <SubmitButton
+          onClick={handleButtonClick}
           focused={
             focuseButton
               ? "linear-gradient(0deg,rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)),#a729f5"

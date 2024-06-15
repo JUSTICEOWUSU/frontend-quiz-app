@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { ModeContext } from '../../App';
 import { ToggleContext } from '../../AppContext/toggleContext/toggleContext';
 
+
 const Label = styled.label`
   width: 2rem;
   display: block;
@@ -75,20 +76,33 @@ const Span = styled.span`
 `;
 
 
+
+
 function ToggleSwitch() {
   // A context for managing the state of the app colorMode (Dark/Light)
-  const { colorMode } = useContext(ModeContext);
-  const { toggleState} = useContext(ToggleContext);
+  const { colorMode,setColorMode } = useContext(ModeContext);
+  const { toggleState } = useContext(ToggleContext);
+  
 
   function listenToMouseDown(event: React.MouseEvent<HTMLLabelElement, MouseEvent>) {
     event.stopPropagation();
+    handleToggleChange()
     return event.preventDefault();
   }
+
+  function handleToggleChange() {
+    window.localStorage.setItem(
+      "mode",
+      `${colorMode == "light" ? "dark" : "light"}`
+    );
+    return setColorMode(colorMode == "light" ? "dark" : "light");
+  }
+
   
 
   return (
     <Label onClick={listenToMouseDown}>
-      <input type="checkbox" checked={colorMode === "dark"} onChange={()=>{return}}></input>
+      <input type="checkbox" checked={colorMode === "dark"} onChange={() => { }}></input>
       <Span
         className={`${toggleState}`}
       />

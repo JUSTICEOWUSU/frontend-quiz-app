@@ -133,7 +133,7 @@ function FallBackUI() {
   // useEffect for handling subject/topics that are not currently part of our topics/data
   useEffect(() => {
     // Focusing the hidden Input element on page load or render
-    inputRef.current?.focus();
+    if (!isMobile) inputRef.current?.focus();
   });
 
   return (
@@ -147,6 +147,7 @@ function FallBackUI() {
       </p>
       <span className="btnContainer">
         <SubmitButton
+          onClick={()=> navigate("/")}
           focused={
             focuseButton
               ? "linear-gradient(0deg,rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)),#a729f5"

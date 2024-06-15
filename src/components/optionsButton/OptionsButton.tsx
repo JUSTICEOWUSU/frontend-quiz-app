@@ -157,15 +157,17 @@ interface OptionButtonPropsTypes {
   disabled: boolean;
   answerState: { answer: string; icon: string };
   refItem?: React.LegacyRef<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function OptionsButton( { option, content, answerState, disabled, refItem, focused }: OptionButtonPropsTypes ) {
+function OptionsButton( { option, content, answerState, disabled, refItem, focused,onClick }: OptionButtonPropsTypes ) {
 
   return (
     <Button>
       <button
         disabled={disabled}
         ref={refItem}
+        onClick={onClick}
         className={`${answerState.answer} ${focused}`}
       >
         {/* Option character (A, B, C, D) */}

@@ -124,11 +124,11 @@ function OptionsSection() {
 
   // Submit button onclick event listeenr
   function handleSubmit() {
-    if (!focuseButton) return setFocusedBuutton(true);
+    // if (!focuseButton) return setFocusedBuutton(true);
 
     // Check and run if no answer is selected
     if (!quizeContextData.subjectPageStates.questionState.chosenAnswer) {
-      if (focuseButton) setFocusedBuutton(false);
+      // if (focuseButton) setFocusedBuutton(false);
       return setQuizeContextData((prev) => ({
         ...prev,
         subjectPageStates: {
@@ -372,9 +372,25 @@ function OptionsSection() {
     return false;
   }
 
+  function handleOptionClick(option: string) {
+    // Hide select an answer error message
+    hideAnswerQuestion();
+
+    return setQuizeContextData((prev) => ({
+      ...prev,
+      subjectPageStates: {
+        ...prev.subjectPageStates,
+        questionState: {
+          ...prev.subjectPageStates.questionState,
+          chosenAnswer: `${option}`,
+        },
+      },
+    }));
+  }
+
   // An Effect to focus the invisible input element on page render
   useEffect(() => {
-    inputRef.current?.focus();
+      if (!isMobile) inputRef.current?.focus();
   });
 
   return (
@@ -390,6 +406,7 @@ function OptionsSection() {
       <OptionsButton
         focused={focusedElement("a") ? "focused" : ""}
         option={"a"}
+        onClick={()=>{return handleOptionClick("a")}}
         content={
           data[
             quizeContextData.subjectPageStates.questionState
@@ -401,6 +418,7 @@ function OptionsSection() {
       />
       <OptionsButton
         option={"b"}
+        onClick={()=>{return handleOptionClick("b")}}
         focused={focusedElement("b") ? "focused" : ""}
         content={
           data[
@@ -414,6 +432,8 @@ function OptionsSection() {
       <OptionsButton
         option={"c"}
         focused={focusedElement("c") ? "focused" : ""}
+        onClick={()=>{return handleOptionClick("c")}}
+
         content={
           data[
             quizeContextData.subjectPageStates.questionState
@@ -426,6 +446,8 @@ function OptionsSection() {
       <OptionsButton
         option={"d"}
         focused={focusedElement("d") ? "focused" : ""}
+        onClick={()=>{return handleOptionClick("d")}}
+
         content={
           data[
             quizeContextData.subjectPageStates.questionState
@@ -437,6 +459,7 @@ function OptionsSection() {
       />
       <SubmitButton
         content={quizeContextData.subjectPageStates.submitButtonMessage}
+        onClick={()=>{handleSubmit()}}
         focused={
           focuseButton
             ? "linear-gradient(0deg,rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)),#a729f5"

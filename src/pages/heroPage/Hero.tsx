@@ -121,7 +121,7 @@ function Hero() {
 
   // Effect run component first mount
   useEffect(() => {
-    inputRef.current?.focus();
+    if(!isMobile)inputRef.current?.focus();
   });
 
   return (
@@ -160,6 +160,7 @@ function Hero() {
                 icon={item.icon}
                 background={`${item.title}`}
                 subject={item.title}
+                onClick={()=>{return navigate(`/${item.title}`);}}
               />
             );
           })
