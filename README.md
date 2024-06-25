@@ -1,6 +1,6 @@
 # Frontend Quiz APP
 
-A simple quiz application built with React, TypeScript, and Vite. The app is designed to be navigable using the keyboard, allowing users to select topics and answer options using character keys and submit their answers using the Enter or Spacebar keys.
+A quiz application built with React, TypeScript, and Vite. The app is designed to be navigable using the keyboard, allowing users to select topics and answer options using character keys and submit their answers using the Enter or Spacebar keys.
 
 ## Table of Contents
 - [Demo](#demo)
